@@ -102,11 +102,17 @@ object ElytraFlightManager {
             return
         }
 
-        // 3. Scout Role Glider Aerodynamics (Rewarding launch towers & altitude conversion)
+        // 3. Scout Role & Masterwork Aerodynamics (Rewarding launch towers & altitude conversion)
         val scoutAgility = player.getAttribute(ModEntityAttributes.ROLE_SCOUT_AGILITY)?.value ?: 1.0
-        if (scoutAgility > 1.0) {
-            // Scouts experience reduced atmospheric drag, preserving horizontal momentum
-            val efficiencyBonus = ((scoutAgility - 1.0) * 0.035).coerceIn(0.005, 0.05)
+        val chestItem = player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST)
+        val hasAerodynamicAffix = dev.rmoseley.smpmod.recovery.MasterworkAffix.getAffix(chestItem) == dev.rmoseley.smpmod.recovery.MasterworkAffix.AERODYNAMIC
+
+        if (scoutAgility > 1.0 || hasAerodynamicAffix) {
+            // Reduced atmospheric drag, preserving horizontal momentum
+            var efficiencyBonus = if (scoutAgility > 1.0) ((scoutAgility - 1.0) * 0.035).coerceIn(0.005, 0.05) else 0.0
+            if (hasAerodynamicAffix) {
+                efficiencyBonus += 0.035
+            }
             val horizontalScale = 1.0 + efficiencyBonus
 
             player.deltaMovement = Vec3(

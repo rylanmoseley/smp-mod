@@ -119,6 +119,11 @@ object GameForgeEvents {
                         event.state,
                         isPlayerPlaced = false
                     )
+                    dev.rmoseley.smpmod.economy.BountyContractManager.recordProgress(
+                        serverPlayer,
+                        dev.rmoseley.smpmod.economy.BountyType.GATHERER_HARVEST,
+                        1
+                    )
                 }
             }
         }
@@ -174,6 +179,8 @@ object GameForgeEvents {
     @SubscribeEvent
     fun onRegisterCommands(event: RegisterCommandsEvent) {
         RecoveryCommands.register(event.dispatcher)
+        dev.rmoseley.smpmod.claims.TownCommands.register(event.dispatcher)
+        dev.rmoseley.smpmod.economy.BountyCommands.register(event.dispatcher)
     }
 
     @SubscribeEvent
@@ -220,6 +227,9 @@ object GameForgeEvents {
 
         // 9. Progression Faucets & Non-AFK Active Playtime tracking
         ProgressionFaucetManager.onPlayerTick(player)
+
+        // 10. Caravan & Highway Transit
+        dev.rmoseley.smpmod.world.CaravanTransitManager.onPlayerTick(player)
     }
 
     @SubscribeEvent
@@ -240,9 +250,10 @@ object GameForgeEvents {
         val pos = event.pos
         val state = player.level().getBlockState(pos)
 
-        // 1. Regional Village Objective Hub interaction via Village Bell
+        // 1. Regional Village Objective Hub interaction via Village Bell & Acoustic Town Alarm
         if (state.`is`(Blocks.BELL)) {
             RepurposedVillageManager.registerVillageCenter(player.level(), pos)
+            dev.rmoseley.smpmod.world.VoiceAcousticHooks.triggerTownAlarm(player.serverLevel(), pos, player)
             if (RepurposedVillageManager.handleObjectiveInteraction(player, pos)) {
                 event.isCanceled = true
                 return

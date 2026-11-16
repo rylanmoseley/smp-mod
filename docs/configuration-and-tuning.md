@@ -153,6 +153,16 @@ Tuning parameters for Combat XP formulas and emergent role ratios.
 | :--- | :--- | :--- |
 | `/economy balance` | All | Displays your current digital non-material balance. |
 | `/economy pay <player> <amount>` | All | Transfers digital funds to another online player (subject to server tax). |
+| `/bounty list` | All | Displays available community contracts on the Bounty Board. |
+| `/bounty accept <id>` | All | Accepts an active contract (max 2 concurrent contracts). |
+| `/bounty status` | All | Displays current objective progress for your active contracts. |
+| `/bounty claim <id>` | All | Collects coins and Playstyle XP for a completed contract. |
+| `/bounty abandon <id>` | All | Abandons an active contract to free up a slot. |
+| `/town balance` | All | Displays town treasury balance and lifetime collected taxes. |
+| `/town deposit <amount>` | All | Donates personal currency into the communal town treasury. |
+| `/town withdraw <amount>` | Claim Owner | Withdraws municipal funds into owner balance. |
+| `/town upgrades` | All | Lists active and available civic upgrades for the settlement. |
+| `/town upgrade buy <id>` | Claim Owner | Unlocks a civic upgrade using communal treasury funds. |
 | `/buyback` | All | Opens your private UUID Buyback Ledger interface to reclaim lost equipment. |
 | `/buyback public` | All | Opens the public marketplace showing unclaimed items past the 24h exclusive window. |
 | `/claims claim` | All | Claims the current chunk via Open Parties and Claims (OPAC). |

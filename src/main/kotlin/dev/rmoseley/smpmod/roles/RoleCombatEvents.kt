@@ -7,6 +7,7 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.damagesource.DamageTypes
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Mob
+import net.minecraft.world.entity.monster.Monster
 import net.minecraft.world.entity.boss.enderdragon.EndCrystal
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon
 import net.minecraft.world.entity.player.Player
@@ -75,6 +76,15 @@ object RoleCombatEvents {
                 mitigated = ScoutRoleHandler.processElytraCrashDamage(target, mitigated)
             }
 
+            // Masterwork Affix: Titanic (+5% Armor / mitigation) & Warded (+8% dark-zone mob resistance)
+            val armorAffixes = target.armorSlots.mapNotNull { dev.rmoseley.smpmod.recovery.MasterworkAffix.getAffix(it) }
+            if (armorAffixes.contains(dev.rmoseley.smpmod.recovery.MasterworkAffix.TITANIC)) {
+                mitigated *= 0.95f
+            }
+            if (armorAffixes.contains(dev.rmoseley.smpmod.recovery.MasterworkAffix.WARDED) && source is Mob) {
+                mitigated *= 0.92f
+            }
+
             event.newDamage = mitigated
         }
 
@@ -86,12 +96,20 @@ object RoleCombatEvents {
                     !source.isInWater &&
                     !source.hasEffect(net.minecraft.world.effect.MobEffects.BLINDNESS)
 
+            // Masterwork Affix: Keen (+10% Critical Strike Damage)
+            val heldAffix = dev.rmoseley.smpmod.recovery.MasterworkAffix.getAffix(source.mainHandItem)
+            var baseAttackDmg = event.newDamage
+            if (wasCritical && heldAffix == dev.rmoseley.smpmod.recovery.MasterworkAffix.KEEN) {
+                baseAttackDmg *= 1.10f
+            }
+
             // Process DPS burst scaling, armor pen, and execute punish windows
-            val updatedDamage = DpsRoleHandler.processAttack(source, target, event.newDamage)
+            val updatedDamage = DpsRoleHandler.processAttack(source, target, baseAttackDmg)
             event.newDamage = updatedDamage
 
-            // Record Combat XP hit and accuracy stats
-            CombatXpTracker.recordHit(source, target, updatedDamage.toDouble(), wasCritical)
+            // Record Combat XP hit and accuracy stats (bonus tempo XP if Precise affix)
+            val effectiveDmg = if (heldAffix == dev.rmoseley.smpmod.recovery.MasterworkAffix.PRECISE) updatedDamage.toDouble() * 1.15 else updatedDamage.toDouble()
+            CombatXpTracker.recordHit(source, target, effectiveDmg, wasCritical)
 
             // Tank Threat Aggro on attack
             if (source is ServerPlayer && target is Mob) {
@@ -123,6 +141,22 @@ object RoleCombatEvents {
         // 2. Award Combat XP evaluated by speed, accuracy, and anti-grinder decay
         if (killer != null) {
             CombatXpTracker.onEntityDeath(killer, victim)
+
+            if (killer is ServerPlayer && victim is Monster) {
+                dev.rmoseley.smpmod.economy.BountyContractManager.recordProgress(
+                    killer,
+                    dev.rmoseley.smpmod.economy.BountyType.COMBAT_ELITE_SLAY,
+                    1
+                )
+                if (victim is Mob && dev.rmoseley.smpmod.world.LightMobAIHandler.hasDestroysLightTrait(victim)) {
+                    dev.rmoseley.smpmod.economy.BountyContractManager.recordProgress(
+                        killer,
+                        dev.rmoseley.smpmod.economy.BountyType.COMBAT_ELITE_SLAY,
+                        1,
+                        "destroys_light"
+                    )
+                }
+            }
         }
     }
 

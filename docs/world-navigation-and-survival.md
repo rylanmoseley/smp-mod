@@ -105,3 +105,54 @@ With automated villager breeding and trading halls disabled, vanilla villages se
 * **Pre-Lit Sanctuaries:** Immune to dark-zone mob escalation, providing safe rest stops for traveling caravans.
 * **Objective Hubs:** Host regional Server-Wide Objectives where players gather to initiate community quests.
 * **Item Lore Landmarks:** Serve as cartographic landmarks and trading posts for formal P2P commerce.
+
+---
+
+## 7. Permanent Warded Lanterns
+
+While standard torches and lanterns can be snuffed or broken by dark-zone hostiles, players can craft permanent **Warded Lanterns** (`smpmod:warded_lantern`):
+
+```
+ Crafting Recipe:
+      [ Amethyst Shard ]
+ [ Amethyst Shard ] [ Lantern ] [ Amethyst Shard ]  ➔  [ Warded Lantern ]
+      [ Amethyst Shard ]
+```
+
+* **Max Illumination:** Emits constant light level **15**.
+* **Total Snuff & Destruction Immunity:** Hostile mobs possessing the `destroys_light_on_aggro` trait cannot target, break, or snuff Warded Lanterns in the wilderness or inside claims.
+* **Infrastructure Security:** Essential for fortifying frontier outposts, underground transit tunnels, and deep cavern mining hubs.
+
+---
+
+## 8. Caravan & Highway Transit
+
+Active land travel remains the bedrock of server presence. The Caravan system incentivizes organized group expeditions, pack animals, and regional road networks.
+
+### Forming an Active Caravan
+A player is recognized as part of a caravan when:
+1. **Multi-Player Group:** Traveling within **24 blocks** of another player, **OR**
+2. **Pack Animal Convoy:** Riding or leading leashed pack animals (Llamas, Donkeys, Mules, Horses, Camels), **OR**
+3. **Railway Transit:** Riding a minecart along tracks.
+
+### Caravan Traversal Benefits
+* **Highway Speed Boost:** Traveling along recognized roads (dirt paths, cobblestone, stone bricks, packed mud) or rails grants **Speed I** (+20% movement speed).
+* **Town Paved Highway Synergy:** Passing through a settlement with the `PAVED_HIGHWAY_NETWORK` civic upgrade upgrades this buff to **Speed II** (+40% movement speed).
+* **Endurance & Hunger Conservation:** Caravan members suffer **50% less hunger exhaustion** while on roads.
+* **Nether Convoy Immunity:** Caravans completely negate the Nether solo-sprint thermal exhaustion penalty, allowing safe group commuting.
+
+---
+
+## 9. Proximity Voice Chat Acoustic Hooks
+
+The mod suite includes dedicated acoustic simulation hooks designed to seamlessly integrate with proximity voice chat mods (such as Simple Voice Chat and Plasmo Voice) and enhance survival immersion:
+
+### Town Alarm Bell Acoustic Broadcast
+* When a village or settlement Bell (`Blocks.BELL`) is struck or rung, it triggers a high-priority **Acoustic Broadcast** echoing up to **96 blocks** away.
+* All players in range hear resonant directional chimes and receive an urgent defender alert in chat: `[Town Alarm] Bell rung at [X, Y, Z]! Assemble defenders.`
+* Hostile mobs within 32 blocks of the alarm bell are tagged with the **Glowing** effect for 10 seconds, exposing sneaky nocturnal raiders.
+
+### Acoustic Dampening & Cavern Reverb
+* **Wool & Curtain Occlusion:** Calculates environmental dampening (up to **85% sound muffling**) in rooms insulated with wool blocks, carpets, or curtains, suppressing footstep noise and speech propagation.
+* **Cavernous Reverb:** Dynamically calculates acoustic echo in deep underground caverns ($Y < 0$).
+* **Nether Thermal Distortion:** Models thick, reverberant atmospheric distortion across the Nether's scorching wastes.

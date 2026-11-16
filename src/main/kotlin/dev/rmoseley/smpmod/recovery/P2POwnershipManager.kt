@@ -115,6 +115,16 @@ object P2POwnershipManager {
             return P2PTradeResult.Failure("Currency transaction failed.")
         }
 
+        // Route portion of sales tax into the local town treasury if inside a settlement claim
+        val taxRate = dev.rmoseley.smpmod.config.SmpConfig.COMMON.p2pTradeTaxPercent.get().coerceIn(0.0, 1.0)
+        val taxAmount = (offer.price * taxRate).toLong()
+        if (taxAmount > 0) {
+            val cluster = dev.rmoseley.smpmod.claims.ClaimManager.getContiguousCluster(seller.level(), net.minecraft.world.level.ChunkPos(seller.blockPosition()))
+            if (cluster != null) {
+                dev.rmoseley.smpmod.claims.TownTreasuryManager.depositTax(cluster.ownerUuid, taxAmount)
+            }
+        }
+
         // Remove item from seller
         val soldStack = sellerInventory.removeItem(matchingSlot, 1)
 
@@ -151,6 +161,16 @@ object P2POwnershipManager {
         // Transfer funds
         val paid = EconomyManager.transfer(buyer, seller, price)
         if (!paid) return P2PTradeResult.Failure("Payment transfer failed.")
+
+        // Route portion of sales tax into the local town treasury if inside a settlement claim
+        val taxRate = dev.rmoseley.smpmod.config.SmpConfig.COMMON.p2pTradeTaxPercent.get().coerceIn(0.0, 1.0)
+        val taxAmount = (price * taxRate).toLong()
+        if (taxAmount > 0) {
+            val cluster = dev.rmoseley.smpmod.claims.ClaimManager.getContiguousCluster(seller.level(), net.minecraft.world.level.ChunkPos(seller.blockPosition()))
+            if (cluster != null) {
+                dev.rmoseley.smpmod.claims.TownTreasuryManager.depositTax(cluster.ownerUuid, taxAmount)
+            }
+        }
 
         // Formal ownership transfer
         ItemProvenance.transferOwnership(stack, buyer, "P2P Trade")

@@ -129,10 +129,10 @@ object NetherHazardHandler {
         val convoyRadius = SmpConfig.COMMON.netherConvoyRadius.get()
         val convoyRadiusSq = convoyRadius * convoyRadius
 
-        // Search for nearby players in the Nether to form a cooperative transit convoy
+        // Search for nearby players in the Nether or pack animal caravans to form a cooperative transit convoy
         val nearbyConvoy = serverLevel.players().any { other ->
             other != player && !other.isSpectator && other.distanceToSqr(player) <= convoyRadiusSq
-        }
+        } || CaravanTransitManager.isInCaravan(player)
 
         if (nearbyConvoy) {
             // Convoy active: shared thermal resistance
