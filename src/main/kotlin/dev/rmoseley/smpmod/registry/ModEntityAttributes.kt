@@ -72,4 +72,24 @@ object ModEntityAttributes {
                 2.5
             ).setSyncable(true)
         })
+
+    val ROLE_ARMOR_PENETRATION: DeferredHolder<Attribute, Attribute> =
+        REGISTRY.register("role_armor_penetration", Supplier {
+            RangedAttribute(
+                "attribute.name.smpmod.role_armor_penetration",
+                0.0,
+                0.0,
+                1.0
+            ).setSyncable(true)
+        })
+
+    val ROLE_THREAT_GENERATION: DeferredHolder<Attribute, Attribute> =
+        REGISTRY.register("role_threat_generation", Supplier {
+            RangedAttribute(
+                "attribute.name.smpmod.role_threat_generation",
+                1.0,
+                1.0,
+                5.0
+            ).setSyncable(true)
+        })
 }

@@ -10,6 +10,8 @@ import java.util.stream.Collectors
 
 /**
  * Claim provider implementation delegating to Open Parties and Claims (OPAC).
+ * Enforces noncontiguous claim placement while integrating OPAC protection,
+ * party networks, and builder playstyle limits.
  */
 class OpacClaimProvider : IClaimProvider {
 
@@ -33,6 +35,40 @@ class OpacClaimProvider : IClaimProvider {
             .collect(Collectors.toSet())
     }
 
+    override fun getAllPartyClaimedChunks(level: Level, player: Player): Set<ChunkPos> {
+        val serverLevel = level as? ServerLevel ?: return emptySet()
+        val server = serverLevel.server
+        val pacApi = OpenPACServerAPI.get(server) ?: return emptySet()
+
+        val party = pacApi.partyManager.getPartyByMember(player.uuid)
+        if (party != null) {
+            val memberIds = party.memberInfoStream
+                .map { it.uuid }
+                .toList()
+                .toSet()
+
+            val combinedChunks = mutableSetOf<ChunkPos>()
+            for (memberId in memberIds) {
+                combinedChunks.addAll(getAllClaimedChunks(level, memberId))
+            }
+            return combinedChunks
+        }
+
+        return getAllClaimedChunks(level, player.uuid)
+    }
+
+    override fun getPartyMembers(level: Level, ownerUuid: UUID): Set<UUID> {
+        val serverLevel = level as? ServerLevel ?: return setOf(ownerUuid)
+        val server = serverLevel.server
+        val pacApi = OpenPACServerAPI.get(server) ?: return setOf(ownerUuid)
+        val party = pacApi.partyManager.getPartyByMember(ownerUuid) ?: return setOf(ownerUuid)
+
+        return party.memberInfoStream
+            .map { it.uuid }
+            .toList()
+            .toSet()
+    }
+
     override fun isClaimedBy(level: Level, pos: ChunkPos, player: Player): Boolean {
         val owner = getClaimOwner(level, pos) ?: return false
         if (owner == player.uuid) return true
@@ -41,32 +77,64 @@ class OpacClaimProvider : IClaimProvider {
         val server = serverLevel.server
         val pacApi = OpenPACServerAPI.get(server) ?: return false
 
-        // Check party membership
+        // Check OPAC party membership
         val partyManager = pacApi.partyManager
         val playerParty = partyManager.getPartyByMember(player.uuid)
         val ownerParty = partyManager.getPartyByMember(owner)
+        if (playerParty != null && playerParty == ownerParty) {
+            return true
+        }
 
-        return playerParty != null && playerParty == ownerParty
+        // Delegate to OPAC's native chunk protection access check
+        return pacApi.chunkProtection.hasChunkAccess(player, level.dimension().location(), pos.x, pos.z)
     }
 
     override fun canClaim(level: Level, pos: ChunkPos, player: Player): Boolean {
+        // Enforce Builder playstyle chunk limit
+        if (!ClaimManager.canPlayerClaimMoreChunks(level, player)) {
+            return false
+        }
+
         val serverLevel = level as? ServerLevel ?: return false
         val server = serverLevel.server
         val pacApi = OpenPACServerAPI.get(server) ?: return false
+
         return pacApi.serverClaimsManager.isClaimable(level.dimension().location()) &&
                 pacApi.serverClaimsManager.get(level.dimension().location(), pos) == null
     }
 
     override fun claim(level: Level, pos: ChunkPos, player: Player): Boolean {
+        if (!canClaim(level, pos, player)) return false
+
         val serverLevel = level as? ServerLevel ?: return false
         val server = serverLevel.server
         val pacApi = OpenPACServerAPI.get(server) ?: return false
+
         val result = pacApi.serverClaimsManager.tryToClaim(
             level.dimension().location(),
             player.uuid,
             pos.x,
             pos.z,
             0,
+            0,
+            0,
+            false
+        )
+        return result.resultType.success
+    }
+
+    override fun unclaim(level: Level, pos: ChunkPos, player: Player): Boolean {
+        if (!isClaimedBy(level, pos, player)) return false
+
+        val serverLevel = level as? ServerLevel ?: return false
+        val server = serverLevel.server
+        val pacApi = OpenPACServerAPI.get(server) ?: return false
+
+        val result = pacApi.serverClaimsManager.tryToUnclaim(
+            level.dimension().location(),
+            player.uuid,
+            pos.x,
+            pos.z,
             0,
             0,
             false
