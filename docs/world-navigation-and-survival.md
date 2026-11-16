@@ -231,7 +231,11 @@ Each advancement represents a meaningful milestone in expanding server frontiers
        [exploration/momentum_glider]                            │  [Server Broadcast]
             Master of the Winds                                 │
                  (Master)                                       │
-                                                                ▼
+                    │                                           │
+                    ▼                                           │
+       [exploration/alpine_summit]                              │
+            Peak of the World                                   │
+              (Journeyman)                                      ▼
                                                 [exploration/abyssal_sovereign]
                                                         Horizon Pioneer
                                                           (Legendary)
@@ -252,6 +256,7 @@ Each advancement represents a meaningful milestone in expanding server frontiers
 | `exploration/highway_caravan` | **Highway Caravan Master** | Journeyman | Goal | Lead pack animals or active caravan on recognized roads or rail corridors | **+150 Coins** | **+60 Explorer XP** | — | No |
 | `exploration/master_cartographer` | **Realm Cartographer** | Master | Challenge | Map **250+ unique chunks** across at least **10 distinct biomes** | **+350 Coins** | **+150 Explorer XP** | **1x Recovery Catalyst** | No |
 | `exploration/momentum_glider` | **Master of the Winds** | Master | Challenge | Unlock and deploy aerodynamic Elytra glider flight via exploration milestones | **+400 Coins** | **+180 Explorer XP** | **1x Recovery Catalyst** | **Yes (Server-Wide)** |
+| `exploration/alpine_summit` | **Peak of the World** | Journeyman | Goal | Scale an alpine summit above $Y \ge 220$ in Tectonic mountain terrain and launch an unboosted momentum glide | **+250 Coins** | **+100 Explorer XP** | **1x Recovery Catalyst** | No |
 | `exploration/abyssal_sovereign` | **Horizon Pioneer** | Legendary | Challenge | Map **1,000+ unique chunks** across the frontier and conquer deep structures | **+1,000 Coins** | **+300 Explorer XP** | **3x Recovery Catalysts** | **Yes (Server-Wide)** |
 
 ### System Integration & Reward Mechanics
@@ -266,4 +271,50 @@ Each advancement represents a meaningful milestone in expanding server frontiers
    - High-tier achievements award physical **Recovery Catalysts** (`smpmod:recovery_catalyst`). These rare artifacts are essential for crafting and securing item buybacks at Town Buyback Terminals, subsidizing equipment recovery after death in hostile zones.
 5. **Server-Wide Prestige Announcements:**
    - Master and Legendary accomplishments (`Master of the Winds` and `Horizon Pioneer`) broadcast gold-accented server-wide announcements to celebrate pioneer achievements across the community.
+
+---
+
+## 12. Tectonic World Generation & Alpine Transits
+
+To provide a vast, dramatic, and exploration-worthy canvas for the SMP Mod Suite, the server integrates **Tectonic** (v3 Everest Update) via **Lithostitched**. Tectonic completely transforms terrain generation while remaining fully compatible with vanilla structures, biome tags, and modded dungeon revamps.
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                      Tectonic Worldgen Integration                     │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │
+     ┌──────────────────────────────┼──────────────────────────────┐
+     ▼                              ▼                              ▼
+┌──────────────────────┐ ┌──────────────────────┐ ┌──────────────────────┐
+│  Monumental Peaks    │ │  Alpine Pass Transit │ │  Underground Rivers  │
+│      (Y: 200-300)    │ │      (Y >= 140)      │ │   & Deep Continents  │
+│                      │ │                      │ │                      │
+│ • Natural Glider     │ │ • Caravan Freezing   │ │ • Subterranean Boat  │
+│   Launch Ramps       │ │   Immunity on Roads  │ │   Navigation         │
+│ • +4% Alpine Thermal │ │ • Mount Frostbite    │ │ • Oceanic Trade      │
+│   Updraft & Speed    │ │   Protection         │ │   Corridors          │
+│ • "Peak of the       │ │ • Powder Snow Hazard │ │ • Vast Coastal       │
+│   World" Milestone   │ │   Mitigation         │ │   Settlements        │
+└──────────────────────┘ └──────────────────────┘ └──────────────────────┘
+```
+
+### Monumental Mountain Ranges & Launch Ramps
+* **Elevation Scaling:** Mountain peaks naturally ascend into the skybox at elevations from $Y: 220$ up to $Y: 300+$.
+* **Natural Glider Launchpads:** Because mid-air firework rocket boosting is disabled, these monumental summits function as natural launch towers. Scaling a mountain peak rewards players with unobstructed glide trajectories spanning multiple kilometers across the continent.
+* **Alpine Thermal Updrafts ($Y \ge 200$):** When deploying Elytra glide at high alpine altitudes:
+  * Players receive a passive **+4% horizontal momentum preservation** and slight vertical updraft boost.
+  * Aerodynamic snowflake and cloud vapor particles trail the glider's wings.
+  * Awards the **"Peak of the World"** (`exploration/alpine_summit`) milestone (+250 coins, +100 Explorer XP, 1x Recovery Catalyst).
+
+### Alpine Mountain Pass Caravans ($Y \ge 140$)
+* **Pass Hazards:** Tectonic mountain passes feature intense blizzard hazards, freezing powder snow drifts, and cold attrition that threaten pack animals and solo travelers.
+* **Caravan Road Endurance:** When leading an organized caravan (multi-player convoy, leashed pack horses/donkeys/llamas, or camels) along recognized paved highway blocks (`BiomeMobilityManager.isStandingOnRoad`) or rail corridors through mountain passes:
+  * Travelers and mounts receive **complete freezing immunity** (`ticksFrozen = 0`).
+  * Pack animals and mounts are protected against freezing damage in powder snow drifts along the paved corridor.
+  * Players maintain their caravan Speed and reduced hunger exhaustion benefits, ensuring crucial overland trade routes through alpine passes remain viable year-round.
+
+### Underground Rivers & Continental Ocean Corridors
+* **Subterranean River Networks:** Tectonic generates seamless underground watercourses flowing through massive cave systems, enabling boat navigation beneath continental landmasses.
+* **Vast Continents & Deep Oceans:** Continents are separated by expansive oceans thousands of blocks wide, making boat travel, harbor settlements, and coastal highway infrastructure vital components of global trade.
+
 

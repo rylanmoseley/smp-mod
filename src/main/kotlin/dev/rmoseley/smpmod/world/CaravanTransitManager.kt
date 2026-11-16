@@ -112,6 +112,18 @@ object CaravanTransitManager {
                 player.causeFoodExhaustion(-0.1f)
             }
 
+            // Alpine mountain pass endurance: protects caravan travelers and mounts from freezing in high-altitude passes (Y >= 140)
+            if (player.blockY >= 140) {
+                if (player.ticksFrozen > 0) {
+                    player.ticksFrozen = 0
+                }
+                player.vehicle?.let { mount ->
+                    if (mount.ticksFrozen > 0) {
+                        mount.ticksFrozen = 0
+                    }
+                }
+            }
+
             // Occasional caravan trail particles
             if (player.tickCount % 20 == 0) {
                 val serverLevel = player.serverLevel()
