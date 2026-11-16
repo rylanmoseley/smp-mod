@@ -38,3 +38,11 @@ description='''${mod_description}'''
     versionRange="${kff_version_range}"
     ordering="BEFORE"
     side="BOTH"
+
+# Open Parties and Claims (OPAC) Optional Integration
+[[dependencies.${mod_id}]]
+    modId="openpartiesandclaims"
+    type="optional"
+    versionRange="[0.33.0,)"
+    ordering="AFTER"
+    side="BOTH"

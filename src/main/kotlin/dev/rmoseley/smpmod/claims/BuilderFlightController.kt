@@ -8,8 +8,8 @@ import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Controls temporary builder flight.
- * Flight lasts for ~5 seconds of grace, refreshed by continuous block placement inside claims,
- * and is immediately revoked upon taking damage or entering combat.
+ * Sustained strictly by continuous block placement inside an owned/shared contiguous claim cluster.
+ * Automatically revoked upon leaving the cluster or entering combat.
  */
 object BuilderFlightController {
 
@@ -17,7 +17,14 @@ object BuilderFlightController {
 
     fun recordBlockPlacement(player: ServerPlayer) {
         val chunkPos = ChunkPos(player.blockPosition())
-        if (!ClaimManager.isChunkClaimedBy(chunkPos, player)) {
+        if (!ClaimManager.isChunkClaimedBy(player.level(), chunkPos, player)) {
+            revokeFlight(player)
+            return
+        }
+
+        // Verify that the contiguous cluster exists
+        val cluster = ClaimManager.getContiguousCluster(player.level(), chunkPos)
+        if (cluster == null) {
             revokeFlight(player)
             return
         }
@@ -33,8 +40,8 @@ object BuilderFlightController {
         val expiresAt = activeFlightTimers[player.uuid] ?: return
         val chunkPos = ChunkPos(player.blockPosition())
 
-        // Expired or left claim boundaries
-        if (System.currentTimeMillis() > expiresAt || !ClaimManager.isChunkClaimedBy(chunkPos, player)) {
+        // Expired or left contiguous claim boundaries
+        if (System.currentTimeMillis() > expiresAt || !ClaimManager.isChunkClaimedBy(player.level(), chunkPos, player)) {
             revokeFlight(player)
         }
     }

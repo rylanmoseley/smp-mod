@@ -55,6 +55,15 @@ repositories {
         setUrl("https://thedarkcolour.github.io/KotlinForForge/")
         content { includeGroup("thedarkcolour") }
     }
+    maven {
+        name = "Xaero's Maven"
+        setUrl("https://chocolateminecraft.com/maven")
+        content { includeGroup("xaero.pac") }
+    }
+    maven {
+        name = "Fuzs Mod Resources"
+        setUrl("https://raw.githubusercontent.com/Fuzss/modresources/main/maven/")
+    }
 }
 
 neoForge {
@@ -116,6 +125,9 @@ configurations.named("runtimeClasspath") {
 
 dependencies {
     implementation("thedarkcolour:kotlinforforge-neoforge:$kff_version")
+
+    // Open Parties and Claims (OPAC) dependency
+    compileOnly("xaero.pac:open-parties-and-claims-neoforge-1.21.1:0.33.0")
 }
 
 tasks.withType<ProcessResources>().configureEach {

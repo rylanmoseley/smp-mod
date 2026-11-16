@@ -30,8 +30,9 @@ object GameForgeEvents {
         val player = event.entity as? ServerPlayer ?: return
         val chunkPos = ChunkPos(event.pos)
 
-        // Sustain builder flight inside claims
-        if (ClaimManager.isChunkClaimedBy(chunkPos, player)) {
+        // Sustain builder flight inside claims and track cluster leveling
+        if (ClaimManager.isChunkClaimedBy(player.level(), chunkPos, player)) {
+            ClaimManager.recordBlockPlacement(player.level(), chunkPos, event.placedBlock.block)
             BuilderFlightController.recordBlockPlacement(player)
             PlaystyleXpTracker.awardBuilderXp(player, event.placedBlock.block, 1, 5)
         }
@@ -48,6 +49,8 @@ object GameForgeEvents {
             ShopUnlockManager.recordNaturalHarvest(player, block)
             val isDeep = event.pos.y < 0
             PlaystyleXpTracker.awardGathererXp(player, 1.0, isDeep)
+        } else {
+            ClaimManager.recordBlockBreak(player.level(), ChunkPos(event.pos))
         }
     }
 
