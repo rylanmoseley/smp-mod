@@ -153,10 +153,7 @@ object RoleCombatEvents {
                     1
                 )
                 if (victim is Mob && dev.rmoseley.smpmod.world.LightMobAIHandler.hasDestroysLightTrait(victim)) {
-                    dev.rmoseley.smpmod.advancements.CombatRaidAdvancements.grant(
-                        killer,
-                        dev.rmoseley.smpmod.advancements.CombatRaidAdvancements.SNUFFER_SLAYER
-                    )
+                    dev.rmoseley.smpmod.advancements.CombatRaidAdvancements.onSnufferMobKilled(killer)
                     dev.rmoseley.smpmod.economy.BountyContractManager.recordProgress(
                         killer,
                         dev.rmoseley.smpmod.economy.BountyType.COMBAT_ELITE_SLAY,
@@ -164,6 +161,13 @@ object RoleCombatEvents {
                         "destroys_light"
                     )
                 }
+
+                if (victim is net.minecraft.world.entity.raid.Raider) {
+                    dev.rmoseley.smpmod.advancements.CombatRaidAdvancements.onRaidDefended(killer)
+                }
+
+                val combatXp = PlaystyleXpTracker.getCombatXp(killer)
+                dev.rmoseley.smpmod.advancements.CombatRaidAdvancements.checkCombatXpMilestone(killer, combatXp)
             }
         }
     }

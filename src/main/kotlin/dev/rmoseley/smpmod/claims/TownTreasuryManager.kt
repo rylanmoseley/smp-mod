@@ -105,6 +105,8 @@ object TownTreasuryManager {
 
             treasury.balance -= upgrade.cost
             treasury.activeUpgrades.add(upgrade)
+            dev.rmoseley.smpmod.advancements.SettlementAdvancements.checkCivicUpgrades(player, treasury.activeUpgrades.size)
+            dev.rmoseley.smpmod.advancements.SettlementAdvancements.checkWardedBastion(player, treasury.activeUpgrades)
         }
 
         return Pair(true, "Successfully unlocked civic upgrade: ${upgrade.displayName}!")

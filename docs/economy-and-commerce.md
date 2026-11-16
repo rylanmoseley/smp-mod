@@ -147,12 +147,16 @@ Unlike conventional achievements, completing tiered economic milestones dispatch
 ```
 root (Frontier Commerce)
  ├── first_harvest (Pioneer Prospector) [Novice]
- │    └── bulk_store_supplier (Municipal Supplier) [Journeyman]
+ │    ├── bulk_store_supplier (Municipal Supplier) [Journeyman]
+ │    └── deep_prospector (Mineral Vein Monopolist) [Master]
  └── first_p2p_trade (Mercantile Handshake) [Novice]
+      ├── public_consignor (Liquidity Provider) [Journeyman]
       ├── contract_complete (Mercenary Surveyor) [Journeyman]
+      │    ├── bounty_veteran (Contract Syndicate) [Journeyman]
       │    └── contract_master (Guild Commissioner) [Master] ── broadcast!
       │         └── wealth_tycoon (Sovereign Merchant) [Legendary] ── broadcast!
       └── town_patron (Civic Benefactor) [Master]
+           └── civic_philanthropist (Grand Civic Benefactor) [Master] ── broadcast!
 ```
 
 ### Tiered Milestones & Rewards Table
@@ -164,8 +168,12 @@ root (Frontier Commerce)
 | `economy/first_p2p_trade` | **Mercantile Handshake** | **Novice** (Task) | Execute your first peer-to-peer trade or direct digital transfer (`/economy pay`) with another player. | **+75 coins** | **+30 Gatherer XP** | — | No |
 | `economy/bulk_store_supplier` | **Municipal Supplier** | **Journeyman** (Task) | Liquidate naturally gathered resources into the server bulk store liquidation system. | **+150 coins** | **+60 Gatherer XP** | — | No |
 | `economy/contract_complete` | **Mercenary Surveyor** | **Journeyman** (Task) | Complete and claim your first objective from the Community Bounty Board (`/bounty claim`). | **+200 coins** | **+75 Gatherer XP** | — | No |
-| `economy/contract_master` | **Guild Commissioner** | **Master** (Challenge) | Prove seasoned reliability by completing and claiming 10 Community Bounty Board contracts. | **+500 coins** | **+150 Gatherer XP** | — | **Yes** |
+| `economy/bounty_veteran` | **Contract Syndicate** | **Journeyman** (Goal) | Prove seasoned reliability by fulfilling 5 community bounty board contracts. | **+200 coins** | **+80 Gatherer XP** | **1x Recovery Catalyst** | No |
+| `economy/public_consignor` | **Liquidity Provider** | **Journeyman** (Task) | Consign or purchase an unclaimed salvage item on the public 24-hour buyback market (`/buyback public`). | **+150 coins** | **+60 Gatherer XP** | — | No |
+| `economy/contract_master` | **Guild Commissioner** | **Master** (Challenge) | Prove supreme reliability by completing and claiming 10 Community Bounty Board contracts. | **+500 coins** | **+150 Gatherer XP** | — | **Yes** |
+| `economy/deep_prospector` | **Mineral Vein Monopolist** | **Master** (Challenge) | Naturally prospect and harvest 20+ non-player-placed deepslate ore veins below $Y < 0$. | **+400 coins** | **+150 Gatherer XP** | **1x Recovery Catalyst** | No |
 | `economy/town_patron` | **Civic Benefactor** | **Master** (Goal) | Invest in communal municipal development by donating 500+ coins to a town treasury (`/town deposit`). | **+250 coins** | **+100 Builder XP** | **1x Recovery Catalyst** | No |
+| `economy/civic_philanthropist` | **Grand Civic Benefactor** | **Master** (Challenge) | Endow communal infrastructure by investing 1,500+ cumulative coins into town treasuries. | **+450 coins** | **+180 Builder XP** | **2x Recovery Catalysts** | **Yes** |
 | `economy/wealth_tycoon` | **Sovereign Merchant** | **Legendary** (Challenge) | Amass an off-inventory fortune of 5,000+ digital currency coins in your personal wallet. | **+1,000 coins** | **+250 Gatherer XP** | **3x Recovery Catalysts** | **Yes** |
 
 ### Anti-Exploit & One-Time Claim Guarantees

@@ -171,7 +171,7 @@ object BiomeMobilityManager {
         return isRoadBlock(stateFeet) || isRoadBlock(stateBelow)
     }
 
-    private fun isRoadBlock(state: BlockState): Boolean {
+    fun isRoadBlock(state: BlockState): Boolean {
         return state.`is`(Blocks.DIRT_PATH) ||
                 state.`is`(Blocks.STONE_BRICKS) ||
                 state.`is`(Blocks.MOSSY_STONE_BRICKS) ||

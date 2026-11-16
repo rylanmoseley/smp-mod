@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:artificing/catalytic_refinement",
+  "display": {
+    "icon": {
+      "id": "smpmod:recovery_catalyst"
+    },
+    "title": {
+      "text": "Alchemical Transmutation"
+    },
+    "description": {
+      "text": "Synthesize or acquire 3 or more rare Recovery Catalysts for buyback security."
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "catalyst_synthesizer": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "catalyst_synthesizer"
+    ]
+  ]
+}

@@ -143,11 +143,15 @@ The **Towns & Architecture** advancement tree tracks a player's journey from an 
 ```mermaid
 graph TD
     Root["Towns & Architecture<br/><code>settlement/root</code>"] --> FirstHomestead["Claiming the Frontier<br/>(Novice)<br/><code>settlement/first_homestead</code>"]
+    FirstHomestead --> HighwayEngineer["Artery of Civilization<br/>(Journeyman)<br/><code>settlement/highway_engineer</code>"]
     FirstHomestead --> ContiguousHamlet["Hamlet Emergence<br/>(Novice)<br/><code>settlement/contiguous_hamlet</code>"]
+    ContiguousHamlet --> CoopCluster["Commonwealth Assembly<br/>(Journeyman)<br/><code>settlement/cooperative_cluster</code>"]
     ContiguousHamlet --> BuilderFlight["Aerial Architect<br/>(Journeyman)<br/><code>settlement/builder_flight_cadence</code>"]
     ContiguousHamlet --> PaletteDiversity["Master Mason<br/>(Journeyman)<br/><code>settlement/palette_diversity</code>"]
+    PaletteDiversity --> PaletteVirtuoso["Architectural Polymath<br/>(Master)<br/><code>settlement/palette_virtuoso</code>"]
     PaletteDiversity --> TownStatus["Fortified Town<br/>(Master)<br/><code>settlement/town_status</code>"]
     TownStatus --> CivicRenaissance["Municipal Renaissance<br/>(Master)<br/><code>settlement/civic_renaissance</code>"]
+    TownStatus --> WardedBastion["Fortress of Sanctuary<br/>(Master)<br/><code>settlement/warded_bastion</code>"]
     CivicRenaissance --> GrandMetropolis["Regional Metropolis<br/>(Legendary)<br/><code>settlement/grand_metropolis</code>"]
 ```
 
@@ -157,11 +161,15 @@ graph TD
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | `settlement/root` | **Towns & Architecture** | Novice | Task | Root tab (auto-unlock on join/tick) | — | — | — | No |
 | `settlement/first_homestead` | **Claiming the Frontier** | Novice | Task | Stake claim on first chunk via `/claims claim` | +100 coins | +40 XP | — | No |
+| `settlement/highway_engineer` | **Artery of Civilization** | Journeyman | Goal | Lay down 64+ paved road or rail blocks connecting claimed territory | +200 coins | +80 XP | — | No |
 | `settlement/contiguous_hamlet` | **Hamlet Emergence** | Novice | Task | Establish contiguous cluster of 2–3 chunks | +100 coins | +50 XP | — | No |
+| `settlement/cooperative_cluster` | **Commonwealth Assembly** | Journeyman | Goal | Establish contiguous cluster shared/co-developed by 3+ town residents | +200 coins | +90 XP | — | No |
 | `settlement/palette_diversity` | **Master Mason** | Journeyman | Task | Construct using 5+ distinct block palettes | +150 coins | +80 XP | — | No |
+| `settlement/palette_virtuoso` | **Architectural Polymath** | Master | Challenge | Construct a cluster utilizing 12+ unique structural block palettes | +350 coins | +150 XP | +1 | No |
 | `settlement/builder_flight_cadence` | **Aerial Architect** | Journeyman | Goal | Maintain cadence flight for >60 continuous seconds | +200 coins | +100 XP | — | No |
 | `settlement/town_status` | **Fortified Town** | Master | Goal | Expand contiguous settlement to 9+ chunks (Town tier) | +400 coins | +150 XP | +1 | **Yes** |
 | `settlement/civic_renaissance` | **Municipal Renaissance** | Master | Goal | Unlock 2+ municipal civic upgrades | +500 coins | +200 XP | +2 | No |
+| `settlement/warded_bastion` | **Fortress of Sanctuary** | Master | Challenge | Fortify town with both Warded Streetlights and Municipal Quarantine | +400 coins | +160 XP | +1 | **Yes** |
 | `settlement/grand_metropolis` | **Regional Metropolis** | Legendary | Challenge | Expand to 16+ contiguous chunks with high palette diversity | +1,000 coins | +350 XP | +3 | **Yes** |
 
 ### Mechanical Milestones in Detail

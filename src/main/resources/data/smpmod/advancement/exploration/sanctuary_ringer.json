@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:exploration/into_the_wilds",
+  "display": {
+    "icon": {
+      "id": "minecraft:bell"
+    },
+    "title": {
+      "text": "Sanctuary Watchman"
+    },
+    "description": {
+      "text": "Ring a landmark sanctuary bell at night to scan darkness, alerting the settlement to lurking stalkers."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sanctuary_ringer": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "sanctuary_ringer"
+    ]
+  ]
+}

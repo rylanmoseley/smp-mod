@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:artificing/masterwork_forge",
+  "display": {
+    "icon": {
+      "id": "minecraft:anvil"
+    },
+    "title": {
+      "text": "Relic Conservator"
+    },
+    "description": {
+      "text": "Repair or polish a masterwork relic at an anvil while preserving its historic maker mark lore."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "relic_restorer": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "relic_restorer"
+    ]
+  ]
+}

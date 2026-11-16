@@ -215,33 +215,33 @@ Each advancement represents a meaningful milestone in expanding server frontiers
               Frontier Scout                             Abyss Descender
                  (Novice)                                    (Novice)
                     │                                           │
-         ┌──────────┴──────────┐                                ▼
-         ▼                     ▼                   [exploration/dungeon_delver]
-[exploration/nether_convoy] [exploration/highway_caravan] Deep Dungeon Delver
-     Thermal Convoy             Highway Caravan Master       (Journeyman)
-      (Journeyman)                   (Journeyman)               │
-                                           │                    │
-                                           ▼                    │
-                            [exploration/master_cartographer]   │
-                                   Realm Cartographer           │
-                                        (Master)                │
-                                           │                    │
-                    ┌──────────────────────┴────────────────────┼────────┐
-                    ▼                                           │        ▼
-       [exploration/momentum_glider]                            │  [Server Broadcast]
-            Master of the Winds                                 │
-                 (Master)                                       │
-                    │                                           │
-                    ▼                                           │
-       [exploration/alpine_summit]                              │
-            Peak of the World                                   │
-              (Journeyman)                                      ▼
-                                                [exploration/abyssal_sovereign]
-                                                        Horizon Pioneer
-                                                          (Legendary)
-                                                                │
-                                                                ▼
-                                                        [Server Broadcast]
+         ┌──────────┼──────────┐                     ┌──────────┴──────────┐
+         ▼          ▼          ▼                     ▼                     ▼
+[sanctuary_ringer] [nether] [highway_caravan] [dungeon_delver] [subterranean_voyager]
+Sanctuary Watchman  Convoy    Caravan Master   Dungeon Delver   Subterranean Mariner
+   (Journeyman)  (Journeyman)  (Journeyman)     (Journeyman)       (Journeyman)
+                                    │                │
+                                    ▼                ▼
+                     [master_cartographer]   [ancient_archeologist]
+                      Realm Cartographer       Relics of the Deep
+                           (Master)                 (Master)
+                              │
+     ┌────────────────────────┼────────────────────────┐
+     ▼                        ▼                        ▼
+[momentum_glider] [transcontinental_pioneer]   [Server Broadcast]
+Master of the Winds Vanguard of the Frontier
+    (Master)                 (Master)
+       │                        │
+       ▼                        ▼
+[alpine_summit]        [Server Broadcast]
+Peak of the World               │
+ (Journeyman)                   ▼
+                [exploration/abyssal_sovereign]
+                        Horizon Pioneer
+                          (Legendary)
+                                │
+                                ▼
+                        [Server Broadcast]
 ```
 
 ### Detailed Advancement Progression & Reward Tiers
@@ -251,12 +251,16 @@ Each advancement represents a meaningful milestone in expanding server frontiers
 | `exploration/root` | **Wilds & Expeditions** | Novice | Task | Join or step beyond initial spawn settlement borders | — | — | — | No |
 | `exploration/into_the_wilds` | **Frontier Scout** | Novice | Task | Venture into uncharted lands and discover your 1st unique biome | **+50 Coins** | **+30 Explorer XP** | — | No |
 | `exploration/deep_caverns` | **Abyss Descender** | Novice | Task | Descend below elevation $Y \le 0$ into deepslate caverns | **+75 Coins** | **+40 Explorer XP** | — | No |
+| `exploration/subterranean_voyager` | **Subterranean Mariner** | Journeyman | Goal | Navigate a boat along a subterranean river below elevation $Y < 0$ in Tectonic cavern systems | **+200 Coins** | **+75 Explorer XP** | — | No |
+| `exploration/sanctuary_ringer` | **Sanctuary Watchman** | Journeyman | Task | Ring a landmark sanctuary bell at night to scan darkness and alert the settlement | **+150 Coins** | **+60 Explorer XP** | — | No |
 | `exploration/dungeon_delver` | **Deep Dungeon Delver** | Journeyman | Goal | Infiltrate a tagged complex dungeon (`#smpmod:complex_dungeons`) or trial chamber | **+200 Coins** | **+80 Explorer XP** | **1x Recovery Catalyst** | No |
 | `exploration/nether_convoy` | **Thermal Convoy** | Journeyman | Goal | Traverse the Nether in an active caravan ($Y < 128$) without roof glitching | **+150 Coins** | **+75 Explorer XP** | — | No |
 | `exploration/highway_caravan` | **Highway Caravan Master** | Journeyman | Goal | Lead pack animals or active caravan on recognized roads or rail corridors | **+150 Coins** | **+60 Explorer XP** | — | No |
+| `exploration/ancient_archeologist` | **Relics of the Deep** | Master | Challenge | Excavate ancient suspicious gravel/sand or unlock an ominous trial vault in ruins | **+350 Coins** | **+140 Explorer XP** | **1x Recovery Catalyst** | No |
 | `exploration/master_cartographer` | **Realm Cartographer** | Master | Challenge | Map **250+ unique chunks** across at least **10 distinct biomes** | **+350 Coins** | **+150 Explorer XP** | **1x Recovery Catalyst** | No |
 | `exploration/momentum_glider` | **Master of the Winds** | Master | Challenge | Unlock and deploy aerodynamic Elytra glider flight via exploration milestones | **+400 Coins** | **+180 Explorer XP** | **1x Recovery Catalyst** | **Yes (Server-Wide)** |
 | `exploration/alpine_summit` | **Peak of the World** | Journeyman | Goal | Scale an alpine summit above $Y \ge 220$ in Tectonic mountain terrain and launch an unboosted momentum glide | **+250 Coins** | **+100 Explorer XP** | **1x Recovery Catalyst** | No |
+| `exploration/transcontinental_pioneer` | **Vanguard of the Frontier** | Master | Challenge | Venture over 5,000 blocks away from world spawn across diverse continental biomes | **+450 Coins** | **+180 Explorer XP** | **1x Recovery Catalyst** | **Yes (Server-Wide)** |
 | `exploration/abyssal_sovereign` | **Horizon Pioneer** | Legendary | Challenge | Map **1,000+ unique chunks** across the frontier and conquer deep structures | **+1,000 Coins** | **+300 Explorer XP** | **3x Recovery Catalysts** | **Yes (Server-Wide)** |
 
 ### System Integration & Reward Mechanics

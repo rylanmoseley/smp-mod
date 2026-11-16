@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:exploration/master_cartographer",
+  "display": {
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "title": {
+      "text": "Vanguard of the Frontier"
+    },
+    "description": {
+      "text": "Venture over 5,000 blocks away from world spawn across diverse continental biomes."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "transcontinental_pioneer": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "transcontinental_pioneer"
+    ]
+  ]
+}

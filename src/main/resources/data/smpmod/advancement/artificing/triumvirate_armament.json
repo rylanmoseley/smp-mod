@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:artificing/masterwork_forge",
+  "display": {
+    "icon": {
+      "id": "minecraft:diamond_chestplate"
+    },
+    "title": {
+      "text": "Armament of the Aegis"
+    },
+    "description": {
+      "text": "Simultaneously equip a Masterwork weapon, offhand item, and chestplate."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "triumvirate_armament": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "triumvirate_armament"
+    ]
+  ]
+}

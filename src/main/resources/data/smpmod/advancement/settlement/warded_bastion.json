@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:settlement/town_status",
+  "display": {
+    "icon": {
+      "id": "minecraft:shield"
+    },
+    "title": {
+      "text": "Fortress of Sanctuary"
+    },
+    "description": {
+      "text": "Fortify a town settlement cluster with both Warded Streetlights and Municipal Quarantine civic upgrades."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "warded_bastion": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "warded_bastion"
+    ]
+  ]
+}

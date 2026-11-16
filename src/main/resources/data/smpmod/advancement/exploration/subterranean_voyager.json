@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:exploration/deep_caverns",
+  "display": {
+    "icon": {
+      "id": "minecraft:oak_boat"
+    },
+    "title": {
+      "text": "Subterranean Mariner"
+    },
+    "description": {
+      "text": "Navigate a boat along a subterranean river below elevation Y: 0 in deep Tectonic cavern systems."
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "subterranean_voyage": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "subterranean_voyage"
+    ]
+  ]
+}

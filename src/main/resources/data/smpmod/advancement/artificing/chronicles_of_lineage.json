@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:artificing/provenance_heirloom",
+  "display": {
+    "icon": {
+      "id": "minecraft:book"
+    },
+    "title": {
+      "text": "Chronicles of the Ancients"
+    },
+    "description": {
+      "text": "Wield an heirloom tool or weapon possessing 5 or more distinct historical ownership transfers in its lore."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "chronicles_of_lineage": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "chronicles_of_lineage"
+    ]
+  ]
+}

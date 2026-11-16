@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:economy/first_harvest",
+  "display": {
+    "icon": {
+      "id": "minecraft:deepslate_diamond_ore"
+    },
+    "title": {
+      "text": "Mineral Vein Monopolist"
+    },
+    "description": {
+      "text": "Naturally prospect and extract 20+ unplaced deepslate ore veins below Y: 0 in deep caverns."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "deep_prospector": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "deep_prospector"
+    ]
+  ]
+}

@@ -22,6 +22,10 @@ object ArtificingRecoveryAdvancements {
     val CATALYTIC_REFINEMENT: ResourceLocation = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "artificing/catalytic_refinement")
     val PROVENANCE_HEIRLOOM: ResourceLocation = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "artificing/provenance_heirloom")
     val PUBLIC_AUCTIONEER: ResourceLocation = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "artificing/public_auctioneer")
+    val CATALYST_SYNTHESIZER: ResourceLocation = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "artificing/catalyst_synthesizer")
+    val RELIC_RESTORER: ResourceLocation = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "artificing/relic_restorer")
+    val CHRONICLES_OF_LINEAGE: ResourceLocation = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "artificing/chronicles_of_lineage")
+    val TRIUMVIRATE_ARMAMENT: ResourceLocation = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "artificing/triumvirate_armament")
     val PARAGON_ARTIFICER: ResourceLocation = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "artificing/paragon_artificer")
 
     val REWARDS: List<AdvancementReward> = listOf(
@@ -143,7 +147,71 @@ object ArtificingRecoveryAdvancements {
             broadcastServer = false
         ),
 
-        // 8. Paragon of the Forge (Legendary)
+        // 8. Catalyst Synthesizer (Journeyman)
+        AdvancementReward(
+            advancementId = CATALYST_SYNTHESIZER,
+            category = AdvancementCategory.ARTIFICING,
+            title = "Alchemical Transmutation",
+            description = "Synthesize or acquire 3 or more rare Recovery Catalysts for buyback security.",
+            tier = AdvancementTier.JOURNEYMAN,
+            currencyPayout = 200L,
+            combatXp = 0.0,
+            builderXp = 0.0,
+            gathererXp = 75.0,
+            explorerXp = 0.0,
+            recoveryCatalystCount = 0,
+            broadcastServer = false
+        ),
+
+        // 9. Relic Conservator (Journeyman)
+        AdvancementReward(
+            advancementId = RELIC_RESTORER,
+            category = AdvancementCategory.ARTIFICING,
+            title = "Relic Conservator",
+            description = "Repair or polish a masterwork relic at an anvil while preserving its historic maker mark lore.",
+            tier = AdvancementTier.JOURNEYMAN,
+            currencyPayout = 175L,
+            combatXp = 0.0,
+            builderXp = 60.0,
+            gathererXp = 0.0,
+            explorerXp = 0.0,
+            recoveryCatalystCount = 0,
+            broadcastServer = false
+        ),
+
+        // 10. Chronicles of the Ancients (Master)
+        AdvancementReward(
+            advancementId = CHRONICLES_OF_LINEAGE,
+            category = AdvancementCategory.ARTIFICING,
+            title = "Chronicles of the Ancients",
+            description = "Wield an heirloom tool or weapon possessing 5 or more distinct historical ownership transfers in its lore.",
+            tier = AdvancementTier.MASTER,
+            currencyPayout = 400L,
+            combatXp = 0.0,
+            builderXp = 0.0,
+            gathererXp = 150.0,
+            explorerXp = 0.0,
+            recoveryCatalystCount = 1,
+            broadcastServer = true
+        ),
+
+        // 11. Armament of the Aegis (Master)
+        AdvancementReward(
+            advancementId = TRIUMVIRATE_ARMAMENT,
+            category = AdvancementCategory.ARTIFICING,
+            title = "Armament of the Aegis",
+            description = "Simultaneously equip a Masterwork weapon, offhand item, and chestplate.",
+            tier = AdvancementTier.MASTER,
+            currencyPayout = 450L,
+            combatXp = 0.0,
+            builderXp = 180.0,
+            gathererXp = 0.0,
+            explorerXp = 0.0,
+            recoveryCatalystCount = 1,
+            broadcastServer = true
+        ),
+
+        // 12. Paragon of the Forge (Legendary)
         // Reward: +1000 coins, +300 Builder XP, +3 Recovery Catalysts, broadcastServer = true
         AdvancementReward(
             advancementId = PARAGON_ARTIFICER,
@@ -245,7 +313,11 @@ object ArtificingRecoveryAdvancements {
         if (stack.get(ModDataComponents.MASTERWORK_AFFIX.get()) != null) {
             awardMasterworkForge(player)
         }
+        if (stack.`is`(dev.rmoseley.smpmod.registry.ModItems.RECOVERY_CATALYST.get())) {
+            awardCatalystSynthesizer(player)
+        }
         checkParagonArtificer(player)
+        checkTriumvirateArmament(player)
     }
 
     /**
@@ -255,7 +327,11 @@ object ArtificingRecoveryAdvancements {
         if (stack.get(ModDataComponents.MASTERWORK_AFFIX.get()) != null) {
             awardMasterworkForge(player)
         }
+        if (stack.`is`(dev.rmoseley.smpmod.registry.ModItems.RECOVERY_CATALYST.get())) {
+            awardCatalystSynthesizer(player)
+        }
         checkParagonArtificer(player)
+        checkTriumvirateArmament(player)
     }
 
     /**
@@ -264,6 +340,7 @@ object ArtificingRecoveryAdvancements {
     fun onBuybackReclaimed(player: ServerPlayer, wasPublic: Boolean, claimSubsidySaved: Long) {
         if (wasPublic) {
             awardPublicAuctioneer(player)
+            dev.rmoseley.smpmod.advancements.EconomyAdvancements.awardPublicMarketTrade(player)
         } else {
             val safety = SafeRecoveryManager.evaluateSafety(player)
             if (safety.isSafeZone || claimSubsidySaved > 0) {
@@ -280,7 +357,7 @@ object ArtificingRecoveryAdvancements {
     }
 
     /**
-     * Handles ownership transfers for Living Provenance.
+     * Handles ownership transfers for Living Provenance and Chronicles of the Ancients.
      */
     fun onOwnershipTransferred(player: ServerPlayer, stack: ItemStack) {
         val history = stack.get(ModDataComponents.PROVENANCE_LORE.get()) ?: emptyList()
@@ -288,5 +365,30 @@ object ArtificingRecoveryAdvancements {
         if (transferCount >= 3) {
             awardProvenanceHeirloom(player)
         }
+        if (transferCount >= 5) {
+            grant(player, "artificing/chronicles_of_lineage")
+        }
+    }
+
+    fun checkTriumvirateArmament(player: ServerPlayer) {
+        val mainHand = player.mainHandItem
+        val offHand = player.offhandItem
+        val chest = player.getItemBySlot(EquipmentSlot.CHEST)
+
+        val hasMain = !mainHand.isEmpty && mainHand.get(ModDataComponents.MASTERWORK_AFFIX.get()) != null
+        val hasOff = !offHand.isEmpty && offHand.get(ModDataComponents.MASTERWORK_AFFIX.get()) != null
+        val hasChest = !chest.isEmpty && chest.get(ModDataComponents.MASTERWORK_AFFIX.get()) != null
+
+        if (hasMain && hasOff && hasChest) {
+            grant(player, "artificing/triumvirate_armament")
+        }
+    }
+
+    fun awardCatalystSynthesizer(player: ServerPlayer) {
+        grant(player, "artificing/catalyst_synthesizer")
+    }
+
+    fun awardRelicRestorer(player: ServerPlayer) {
+        grant(player, "artificing/relic_restorer")
     }
 }
