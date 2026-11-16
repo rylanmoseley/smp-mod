@@ -37,6 +37,18 @@ object ModDataComponents {
                 .networkSynchronized(ByteBufCodecs.fromCodecWithRegistries(Codec.STRING))
         }
 
+    val REGISTERED_OWNER_UUID: DeferredHolder<DataComponentType<*>, DataComponentType<UUID>> =
+        REGISTRY.registerComponentType("registered_owner_uuid") { builder ->
+            builder.persistent(UUID_CODEC)
+                .networkSynchronized(ByteBufCodecs.fromCodecWithRegistries(UUID_CODEC))
+        }
+
+    val CATALYST_REDUCTIONS: DeferredHolder<DataComponentType<*>, DataComponentType<Int>> =
+        REGISTRY.registerComponentType("catalyst_reductions") { builder ->
+            builder.persistent(Codec.INT)
+                .networkSynchronized(ByteBufCodecs.fromCodecWithRegistries(Codec.INT))
+        }
+
     val DEATH_COUNT: DeferredHolder<DataComponentType<*>, DataComponentType<Int>> =
         REGISTRY.registerComponentType("death_count") { builder ->
             builder.persistent(Codec.INT)

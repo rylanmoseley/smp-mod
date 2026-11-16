@@ -17,6 +17,8 @@ object CommonModEvents {
         event.add(EntityType.PLAYER, ModEntityAttributes.ROLE_TANK_MITIGATION)
         event.add(EntityType.PLAYER, ModEntityAttributes.ROLE_SUPPORT_EFFICIENCY)
         event.add(EntityType.PLAYER, ModEntityAttributes.ROLE_SCOUT_AGILITY)
+        event.add(EntityType.PLAYER, ModEntityAttributes.ROLE_ARMOR_PENETRATION)
+        event.add(EntityType.PLAYER, ModEntityAttributes.ROLE_THREAT_GENERATION)
 
         // Attach light destroy attribute to hostile mobs
         val hostiles = listOf(
@@ -24,7 +26,14 @@ object CommonModEvents {
             EntityType.SKELETON,
             EntityType.SPIDER,
             EntityType.CREEPER,
-            EntityType.ENDERMAN
+            EntityType.ENDERMAN,
+            EntityType.PIGLIN,
+            EntityType.PIGLIN_BRUTE,
+            EntityType.WITHER_SKELETON,
+            EntityType.DROWNED,
+            EntityType.HUSK,
+            EntityType.STRAY,
+            EntityType.CAVE_SPIDER
         )
         for (type in hostiles) {
             event.add(type, ModEntityAttributes.DESTROYS_LIGHT_ON_AGGRO)
