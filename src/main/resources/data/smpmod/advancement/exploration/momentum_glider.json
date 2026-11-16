@@ -1,0 +1,29 @@
+{
+  "parent": "smpmod:exploration/master_cartographer",
+  "display": {
+    "icon": {
+      "id": "minecraft:elytra"
+    },
+    "title": {
+      "text": "Master of the Winds"
+    },
+    "description": {
+      "text": "Unlock and deploy aerodynamic Elytra glider flight via exploration milestones."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "deploy_glider": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "deploy_glider"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:economy/contract_complete",
+  "display": {
+    "icon": {
+      "id": "minecraft:spyglass"
+    },
+    "title": {
+      "text": "Guild Commissioner"
+    },
+    "description": {
+      "text": "Establish supreme reliability by completing 10 community bounty contracts."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "contract_master": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "contract_master"
+    ]
+  ]
+}

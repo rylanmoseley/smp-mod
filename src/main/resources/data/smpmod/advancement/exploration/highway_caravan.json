@@ -1,0 +1,29 @@
+{
+  "parent": "smpmod:exploration/into_the_wilds",
+  "display": {
+    "icon": {
+      "id": "minecraft:lead"
+    },
+    "title": {
+      "text": "Highway Caravan Master"
+    },
+    "description": {
+      "text": "Lead pack animals or an organized convoy along a recognized paved highway."
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "caravan_highway": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "caravan_highway"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

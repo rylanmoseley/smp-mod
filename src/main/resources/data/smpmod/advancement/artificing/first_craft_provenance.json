@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:artificing/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:iron_sword"
+    },
+    "title": {
+      "text": "Maker's Mark"
+    },
+    "description": {
+      "text": "Craft your first unique gear with permanent maker lore."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "craft_provenance": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "craft_provenance"
+    ]
+  ]
+}

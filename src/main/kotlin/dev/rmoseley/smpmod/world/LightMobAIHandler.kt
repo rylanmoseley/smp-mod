@@ -58,15 +58,13 @@ object LightMobAIHandler {
         val level = mob.level()
         val pos = mob.blockPosition()
 
+        val serverLevel = level as? ServerLevel
         val isUnderground = pos.y < 50
-        val isDeep = pos.y < 0
         val blockLight = level.getBrightness(LightLayer.BLOCK, pos)
 
         // Dungeons / deep cave structures have higher probability
-        val isDungeon = isDeep && blockLight == 0
-
-        val chance = if (isDungeon) {
-            SmpConfig.COMMON.dungeonLightDestroyChance.get()
+        val chance = if (serverLevel != null) {
+            StructureDelveManager.getLightDestroyerSpawnChance(serverLevel, pos)
         } else if (isUnderground && blockLight <= 4) {
             SmpConfig.COMMON.wildernessLightDestroyChance.get()
         } else {

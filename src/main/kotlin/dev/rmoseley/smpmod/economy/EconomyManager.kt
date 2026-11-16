@@ -64,6 +64,9 @@ object EconomyManager {
                 note = note
             )
             EconomyAuditLedger.record(record)
+            (player as? net.minecraft.server.level.ServerPlayer)?.let {
+                dev.rmoseley.smpmod.advancements.EconomyAdvancements.checkWealthTycoon(it, updated)
+            }
             return TransactionResult.Success(record)
         }
     }
@@ -190,6 +193,13 @@ object EconomyManager {
                             note = "Server Tax (${(taxRate * 100).toInt()}%) on P2P transfer"
                         )
                     )
+                }
+
+                (from as? net.minecraft.server.level.ServerPlayer)?.let {
+                    dev.rmoseley.smpmod.advancements.EconomyAdvancements.awardFirstP2PTrade(it)
+                }
+                (to as? net.minecraft.server.level.ServerPlayer)?.let {
+                    dev.rmoseley.smpmod.advancements.EconomyAdvancements.awardFirstP2PTrade(it)
                 }
 
                 return TransactionResult.Success(record)

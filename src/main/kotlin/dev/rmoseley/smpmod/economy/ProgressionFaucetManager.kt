@@ -65,6 +65,10 @@ object ProgressionFaucetManager {
 
         player.setData(attachment, currentData.copy(totalNaturalBlocksHarvested = newHarvestTotal))
 
+        if (player is ServerPlayer) {
+            dev.rmoseley.smpmod.advancements.EconomyAdvancements.awardFirstHarvest(player)
+        }
+
         // Check if repeatable milestone cycle threshold is reached
         val threshold = SmpConfig.COMMON.repeatableHarvestThreshold.get().toLong()
         if (threshold > 0L && newHarvestTotal % threshold == 0L) {

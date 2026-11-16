@@ -1,0 +1,29 @@
+{
+  "parent": "smpmod:exploration/highway_caravan",
+  "display": {
+    "icon": {
+      "id": "minecraft:cartography_table"
+    },
+    "title": {
+      "text": "Realm Cartographer"
+    },
+    "description": {
+      "text": "Map 250+ unique chunks spanning across at least 10 diverse biomes."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "map_realm": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "map_realm"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

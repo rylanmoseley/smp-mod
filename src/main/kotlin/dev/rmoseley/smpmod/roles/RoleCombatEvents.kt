@@ -143,12 +143,20 @@ object RoleCombatEvents {
             CombatXpTracker.onEntityDeath(killer, victim)
 
             if (killer is ServerPlayer && victim is Monster) {
+                dev.rmoseley.smpmod.advancements.CombatRaidAdvancements.grant(
+                    killer,
+                    dev.rmoseley.smpmod.advancements.CombatRaidAdvancements.FIRST_KILL_TEMPO
+                )
                 dev.rmoseley.smpmod.economy.BountyContractManager.recordProgress(
                     killer,
                     dev.rmoseley.smpmod.economy.BountyType.COMBAT_ELITE_SLAY,
                     1
                 )
                 if (victim is Mob && dev.rmoseley.smpmod.world.LightMobAIHandler.hasDestroysLightTrait(victim)) {
+                    dev.rmoseley.smpmod.advancements.CombatRaidAdvancements.grant(
+                        killer,
+                        dev.rmoseley.smpmod.advancements.CombatRaidAdvancements.SNUFFER_SLAYER
+                    )
                     dev.rmoseley.smpmod.economy.BountyContractManager.recordProgress(
                         killer,
                         dev.rmoseley.smpmod.economy.BountyType.COMBAT_ELITE_SLAY,

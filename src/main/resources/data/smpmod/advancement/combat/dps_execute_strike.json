@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:combat/tank_dive_intercept",
+  "display": {
+    "icon": {
+      "id": "minecraft:diamond_axe"
+    },
+    "title": {
+      "text": "Executioner's Precision"
+    },
+    "description": {
+      "text": "Deal massive burst execution during a vulnerability stagger window."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "execute_stagger": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "execute_stagger"
+    ]
+  ]
+}

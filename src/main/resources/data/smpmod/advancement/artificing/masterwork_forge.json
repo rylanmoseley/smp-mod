@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:artificing/first_craft_provenance",
+  "display": {
+    "icon": {
+      "id": "minecraft:diamond_sword"
+    },
+    "title": {
+      "text": "Masterwork Forging"
+    },
+    "description": {
+      "text": "Forge or loot an item with a Masterwork Affix such as Keen, Sturdy, or Titanic."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "masterwork_forged": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "masterwork_forged"
+    ]
+  ]
+}

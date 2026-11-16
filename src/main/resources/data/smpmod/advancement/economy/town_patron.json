@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:economy/first_p2p_trade",
+  "display": {
+    "icon": {
+      "id": "minecraft:gold_block"
+    },
+    "title": {
+      "text": "Civic Benefactor"
+    },
+    "description": {
+      "text": "Contribute to civic prosperity by donating 500 or more coins to a municipal town treasury."
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "town_patron": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "town_patron"
+    ]
+  ]
+}

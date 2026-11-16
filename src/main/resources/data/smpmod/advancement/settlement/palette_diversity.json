@@ -1,0 +1,23 @@
+{
+  "parent": "smpmod:settlement/contiguous_hamlet",
+  "display": {
+    "icon": {
+      "id": "minecraft:chiseled_stone_bricks"
+    },
+    "title": {
+      "text": "Master Mason"
+    },
+    "description": {
+      "text": "Construct structures utilizing 5 or more distinct structural block palettes in a cluster."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "palette_diversity": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

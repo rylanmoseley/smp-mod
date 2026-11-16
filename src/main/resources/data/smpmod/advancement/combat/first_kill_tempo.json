@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:combat/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:iron_sword"
+    },
+    "title": {
+      "text": "High-Tempo Skirmisher"
+    },
+    "description": {
+      "text": "Defeat a hostile mob with fast time-to-kill."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "kill_tempo": {
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "requirements": [
+    [
+      "kill_tempo"
+    ]
+  ]
+}

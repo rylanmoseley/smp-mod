@@ -1,0 +1,23 @@
+{
+  "parent": "smpmod:settlement/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:oak_fence"
+    },
+    "title": {
+      "text": "Claiming the Frontier"
+    },
+    "description": {
+      "text": "Stake your claim on the wilderness by claiming your very first chunk."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "first_homestead": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

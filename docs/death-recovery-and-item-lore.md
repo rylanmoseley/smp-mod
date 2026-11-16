@@ -137,3 +137,51 @@ Unique weapons, armor, and tools carry special **Masterwork Affixes** rolled dur
 2. Browse your pending items, showing their current recovery cost, cumulative deaths, and time remaining on the 24-hour exclusive window.
 3. Click **Reclaim** to pay the fee from your digital balance and instantly restore the item to your inventory.
 4. Type `/buyback public` to view gear forfeited by other players after the 24-hour window has expired.
+
+---
+
+## 8. Advancements & Rewards Progression
+
+The **Artificing & Provenance** advancement track celebrates the dedication of master craftsmen, dungeon excavators, cautious survivors, and antique gear collectors. Advancements reward players for creating enduring gear identities, utilizing support alchemy, participating in fair municipal buybacks, and forging legendary masterwork arsenals.
+
+Completing tiered artificing milestones distributes automated rewards through `AdvancementRewardManager`:
+* **Digital Currency Payouts:** Direct deposits into player bank accounts for commercial and craft investment.
+* **Playstyle Role XP:** Builder and Gatherer XP allocations that elevate crafting quality and masterwork roll probabilities.
+* **Tangible Recovery Catalysts:** Physical alchemical items (`smpmod:recovery_catalyst`) used to mitigate buyback penalty escalations.
+* **Server-Wide Broadcasts:** Realm-wide notifications honoring Legendary crafting feats.
+
+### Artificing Progression Tree
+
+```
+root (Artificing & Provenance)
+ ├── first_craft_provenance (Maker's Mark) [Novice]
+ │    └── masterwork_forge (Masterwork Forging) [Journeyman]
+ │         └── paragon_artificer (Paragon of the Forge) [Legendary] ── broadcast!
+ └── safe_buyback (Prudent Recovery) [Journeyman]
+      ├── catalytic_refinement (Alchemical Catalyst) [Journeyman]
+      └── public_auctioneer (Grand Appraiser) [Master]
+           └── provenance_heirloom (Living Provenance) [Master]
+```
+
+### Tiered Milestones & Rewards Table
+
+| Advancement ID | Display Title | Tier & Frame | Requirement & In-Game Description | Digital Payout | Playstyle XP | Tangible Rewards | Broadcast |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `artificing/root` | **Artificing & Provenance** | **Novice** (Task) | Root tab for Artificing & Provenance; unlocks upon entering the world. | — | — | — | No |
+| `artificing/first_craft_provenance` | **Maker's Mark** | **Novice** (Task) | Craft your first piece of unique equipment with permanent maker lore. | **+75 coins** | **+25 Builder XP**<br>**+25 Gatherer XP** | — | No |
+| `artificing/masterwork_forge` | **Masterwork Forging** | **Journeyman** (Task) | Forge or loot an item bearing a Masterwork Affix (Keen, Sturdy, Balanced, Warded, Aerodynamic, Titanic, or Precise). | **+150 coins** | **+50 Builder XP** | — | No |
+| `artificing/safe_buyback` | **Prudent Recovery** | **Journeyman** (Task) | Safely recover lost equipment from a town Buyback Terminal within a protected municipal claim. | **+100 coins** | — | **1x Recovery Catalyst** | No |
+| `artificing/catalytic_refinement` | **Alchemical Catalyst** | **Journeyman** (Goal) | Craft and deploy a Recovery Catalyst to discount buyback escalation fees. | **+200 coins** | **+75 Gatherer XP** | **1x Recovery Catalyst** | No |
+| `artificing/provenance_heirloom` | **Living Provenance** | **Master** (Challenge) | Own or trade an heirloom item possessing 3 or more historical ownership transitions in its provenance ledger. | **+350 coins** | **+100 Builder XP** | **2x Recovery Catalysts** | No |
+| `artificing/public_auctioneer` | **Grand Appraiser** | **Master** (Goal) | Purchase an unclaimed public auction item past the 24-hour exclusive window. | **+300 coins** | **+100 Gatherer XP** | **1x Recovery Catalyst** | No |
+| `artificing/paragon_artificer` | **Paragon of the Forge** | **Legendary** (Challenge) | Forge and equip a complete four-piece set of masterwork equipment with pristine provenance. | **+1,000 coins** | **+300 Builder XP** | **3x Recovery Catalysts** | **Yes** |
+
+### Deep Dungeon Integration & Sourcing
+* **Vault Delves & Catalysts:** Conquering spawner rooms and vault chambers in complex structures (YUNG's Better Dungeons, When Dungeons Arise, Trial Chambers) via `StructureDelveManager` provides a **60% drop chance** for Recovery Catalysts.
+* **Dungeon Masterworks:** Chest loot discovered inside complex dungeon structures rolls with a **60%+ masterwork affix chance**, enabling explorers to secure high-tier `masterwork_forge` completions without prior high-level crafting masteries.
+
+### Anti-Exploit & One-Time Claim Guarantees
+* **Attachment Ledger Tracking:** Player milestone completions are saved persistently within `ModAttachmentTypes.PLAYER_MILESTONES`. Repeating crafting cycles, discarding and re-acquiring items, or repeated buyback commands cannot duplicate rewards.
+* **Authentic Handover Verification:** The `provenance_heirloom` advancement validates distinct registered owner transfers recorded through formal P2P transactions (`/economy transfer-item`) or public auctions, preventing circular self-transfers.
+* **Safe Zone Subsidy Validation:** `safe_buyback` requires actual terminal reclamation inside recognized contiguous town claims (`SafeRecoveryManager`), rewarding players who plan safe fallback bases.
+

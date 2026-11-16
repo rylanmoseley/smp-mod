@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:combat/trial_survivor",
+  "display": {
+    "icon": {
+      "id": "minecraft:shield"
+    },
+    "title": {
+      "text": "Unyielding Aegis"
+    },
+    "description": {
+      "text": "Intercept an Ender Dragon dive or boss attack using Tank barrier mitigation."
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "intercept_dive": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "intercept_dive"
+    ]
+  ]
+}

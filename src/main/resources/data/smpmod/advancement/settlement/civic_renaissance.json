@@ -1,0 +1,23 @@
+{
+  "parent": "smpmod:settlement/town_status",
+  "display": {
+    "icon": {
+      "id": "minecraft:lantern"
+    },
+    "title": {
+      "text": "Municipal Renaissance"
+    },
+    "description": {
+      "text": "Unlock 2 or more civic upgrades such as Paved Highways or Warded Streetlights."
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "civic_renaissance": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

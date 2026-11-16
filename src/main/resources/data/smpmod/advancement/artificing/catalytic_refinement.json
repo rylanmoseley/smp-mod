@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:artificing/safe_buyback",
+  "display": {
+    "icon": {
+      "id": "smpmod:recovery_catalyst"
+    },
+    "title": {
+      "text": "Alchemical Catalyst"
+    },
+    "description": {
+      "text": "Craft and utilize a Recovery Catalyst to discount buyback fees."
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "catalyst_applied": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "catalyst_applied"
+    ]
+  ]
+}
