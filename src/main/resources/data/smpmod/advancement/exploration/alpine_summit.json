@@ -1,0 +1,45 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:goat_horn"
+    },
+    "title": {
+      "text": "Peak of the World"
+    },
+    "description": {
+      "text": "Scale a monumental alpine peak above Y: 220 in Tectonic mountain terrain and launch an aerodynamic glide."
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "smpmod:exploration/momentum_glider",
+  "criteria": {
+    "alpine_launch": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "position": {
+                  "y": {
+                    "min": 200.0
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "alpine_launch"
+    ]
+  ]
+}

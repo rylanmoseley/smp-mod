@@ -48,6 +48,9 @@ object WorldExplorationAdvancements {
     val MOMENTUM_GLIDER_ID: ResourceLocation =
         ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "exploration/momentum_glider")
 
+    val ALPINE_SUMMIT_ID: ResourceLocation =
+        ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "exploration/alpine_summit")
+
     val ABYSSAL_SOVEREIGN_ID: ResourceLocation =
         ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "exploration/abyssal_sovereign")
 
@@ -163,7 +166,21 @@ object WorldExplorationAdvancements {
             )
         )
 
-        // 9. Legendary: Horizon Pioneer
+        // 9. Journeyman: Peak of the World (Tectonic Alpine Summit)
+        AdvancementRewardManager.register(
+            AdvancementReward(
+                advancementId = ALPINE_SUMMIT_ID,
+                category = AdvancementCategory.EXPLORATION,
+                title = "Peak of the World",
+                description = "Scale an alpine summit above Y: 220 in Tectonic mountain terrain and launch an unboosted momentum glide.",
+                tier = AdvancementTier.JOURNEYMAN,
+                currencyPayout = 250L,
+                explorerXp = 100.0,
+                recoveryCatalystCount = 1
+            )
+        )
+
+        // 10. Legendary: Horizon Pioneer
         AdvancementRewardManager.register(
             AdvancementReward(
                 advancementId = ABYSSAL_SOVEREIGN_ID,
@@ -178,7 +195,13 @@ object WorldExplorationAdvancements {
             )
         )
 
-        SmpMod.LOGGER.info("Registered 9 World Exploration Advancement Rewards (Novice -> Legendary).")
+        SmpMod.LOGGER.info("Registered 10 World Exploration Advancement Rewards (Novice -> Legendary).")
+    }
+
+    fun onAlpineGliderLaunch(player: ServerPlayer, altitude: Double) {
+        if (altitude >= 200.0) {
+            grantAdvancement(player, ALPINE_SUMMIT_ID)
+        }
     }
 
     /**

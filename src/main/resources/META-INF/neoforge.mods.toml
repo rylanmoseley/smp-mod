@@ -60,3 +60,10 @@ description='''${mod_description}'''
     type="optional"
     ordering="AFTER"
     side="BOTH"
+
+# Tectonic World Generation Optional Integration
+[[dependencies.${mod_id}]]
+    modId="tectonic"
+    type="optional"
+    ordering="AFTER"
+    side="BOTH"
