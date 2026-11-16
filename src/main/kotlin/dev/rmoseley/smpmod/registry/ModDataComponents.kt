@@ -68,4 +68,10 @@ object ModDataComponents {
             builder.persistent(LORE_LIST_CODEC)
                 .networkSynchronized(ByteBufCodecs.fromCodecWithRegistries(LORE_LIST_CODEC))
         }
+
+    val MASTERWORK_AFFIX: DeferredHolder<DataComponentType<*>, DataComponentType<String>> =
+        REGISTRY.registerComponentType("masterwork_affix") { builder ->
+            builder.persistent(Codec.STRING)
+                .networkSynchronized(ByteBufCodecs.fromCodecWithRegistries(Codec.STRING))
+        }
 }

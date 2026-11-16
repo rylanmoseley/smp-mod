@@ -100,3 +100,32 @@ With static villager trading halls disabled, vanilla villages are transformed in
 * Pre-lit safe zones immune to aggressive dark-zone mob escalation.
 * Regional **Server-Wide Objective Hubs** where players coordinate cooperative quests.
 * Landmarks for Item Lore registration, cartography mapping, and regional trade stalls.
+
+---
+
+## 6. Community Bounty & Contract Board
+
+To complement natural gathering and prevent monotonous resource grinding, the server provides a living **Community Bounty Board**. Players can take on objective contracts tailored to their active playstyles, earning non-inflationary digital currency and direct Playstyle XP.
+
+### Available Contract Tracks
+
+| Contract ID | Category | Objective | Rewards |
+| :--- | :--- | :--- | :--- |
+| `scout_recon` | **Scout / Exploration** | Survey 15 deep cavern chunks ($Y < 0$). | **150 coins** + **50 Explorer XP** |
+| `scout_biomes` | **Scout / Exploration** | Discover 5 distinct biomes across the realm. | **200 coins** + **75 Explorer XP** |
+| `gather_timber` | **Gatherer / Harvesting** | Naturally harvest 64 raw log blocks. | **120 coins** + **60 Gatherer XP** |
+| `gather_deep_minerals` | **Gatherer / Harvesting** | Naturally harvest 32 deepslate ore blocks. | **180 coins** + **80 Gatherer XP** |
+| `combat_cull` | **Combat / Hunting** | Slay 12 hostile monsters in deep caverns. | **200 coins** + **90 Combat XP** |
+| `combat_snuffers` | **Combat / Hunting** | Slay 3 `destroys_light` elite mobs. | **300 coins** + **150 Combat XP** |
+
+### Contract Guidelines
+1. **Concurrency Limit:** Players may hold a maximum of **2 active contracts** simultaneously.
+2. **Anti-Griefing Verification:** Harvest bounties only count natural blocks verified by the anti-laundering tracker; player-placed or Silk-Touched blocks are ignored.
+3. **Automatic Progress Tracking:** Progress updates seamlessly in the background as you explore, harvest, and fight.
+
+### Bounty Commands
+* `/bounty list`: Browse all available community contracts and reward payouts.
+* `/bounty accept <id>`: Accept a bounty contract into your active log.
+* `/bounty status`: View your current active contracts and progress towards objectives.
+* `/bounty claim <id>`: Collect your coin and Playstyle XP rewards upon completing an objective.
+* `/bounty abandon <id>`: Drop an active contract to free up your concurrent contract slot.

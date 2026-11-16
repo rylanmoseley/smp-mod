@@ -4,8 +4,10 @@ import dev.rmoseley.smpmod.config.SmpConfig
 import dev.rmoseley.smpmod.event.CommonModEvents
 import dev.rmoseley.smpmod.event.GameForgeEvents
 import dev.rmoseley.smpmod.registry.ModAttachmentTypes
+import dev.rmoseley.smpmod.registry.ModBlocks
 import dev.rmoseley.smpmod.registry.ModDataComponents
 import dev.rmoseley.smpmod.registry.ModEntityAttributes
+import dev.rmoseley.smpmod.registry.ModItems
 import net.neoforged.bus.api.IEventBus
 import net.neoforged.fml.ModContainer
 import net.neoforged.fml.common.Mod
@@ -36,6 +38,8 @@ object SmpMod {
         MOD_BUS.addListener(::onClientSetup)
 
         // Register deferred registries to the mod-specific event bus
+        ModBlocks.REGISTRY.register(MOD_BUS)
+        ModItems.REGISTRY.register(MOD_BUS)
         ModDataComponents.REGISTRY.register(MOD_BUS)
         ModAttachmentTypes.REGISTRY.register(MOD_BUS)
         ModEntityAttributes.REGISTRY.register(MOD_BUS)

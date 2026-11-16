@@ -56,7 +56,8 @@ object SafeRecoveryManager {
             "Hamlet" -> 0.00
             else -> -0.05
         }
-        val effectiveSubsidy = (baseConfigSubsidy + tierBonus).coerceIn(0.0, 0.40)
+        val upgradeBonus = if (dev.rmoseley.smpmod.claims.TownTreasuryManager.hasUpgrade(cluster, dev.rmoseley.smpmod.claims.CivicUpgrade.TOWN_RECOVERY_SUBSIDY)) 0.15 else 0.0
+        val effectiveSubsidy = (baseConfigSubsidy + tierBonus + upgradeBonus).coerceIn(0.0, 0.50)
         val subsidyPercentInt = (effectiveSubsidy * 100).toInt()
 
         return RecoverySafetyStatus(

@@ -65,9 +65,13 @@ Every system in the suite is built around three core pillars from the [Technical
 | :--- | :--- |
 | **Check Digital Balance** | Run `/economy balance` or open your Player Status HUD. |
 | **Pay Another Player** | Run `/economy pay <player> <amount>` (applies configured server trade tax). |
+| **Browse Bounty Board** | Run `/bounty list` to browse objective contracts, `/bounty accept <id>`, and `/bounty claim <id>`. |
+| **Town Treasury & Upgrades** | Stand in your claim and run `/town balance`, `/town deposit <amount>`, `/town upgrades`, or `/town upgrade buy <id>`. |
 | **Open Buyback Ledger** | Run `/buyback` or visit any designated Town Recovery Terminal. |
 | **Browse Public Market** | Run `/buyback public` to view items unclaimed after 24 hours (1.25x markup). |
 | **View Playstyle XP & Role** | Run `/role profile` to inspect your Combat, Builder, Gatherer, and Explorer affinities. |
 | **Claim Land** | Open the Open Parties and Claims (OPAC) map screen (`'` key by default) or run `/claims claim`. |
 | **Inspect Claim Level** | Stand inside a claim and run `/claims cluster` to view the contiguous settlement tier and pooled buffs. |
 | **Activate Builder Flight** | Place blocks continuously within an owned or shared contiguous claim cluster (~5s grace window). |
+| **Caravan Speed Transit** | Group with 2+ players or lead pack animals along recognized roads and railways for Speed I/II. |
+| **Town Alarm Bell** | Ring a village or settlement Bell (`Blocks.BELL`) to broadcast an acoustic alert up to 96m and highlight hostiles. |

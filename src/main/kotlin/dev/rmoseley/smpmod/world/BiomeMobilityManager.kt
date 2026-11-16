@@ -73,8 +73,14 @@ object BiomeMobilityManager {
             // Synchronize with total discovered chunks attachment
             player.setData(ModAttachmentTypes.PLAYER_DISCOVERED_CHUNKS.get(), updatedCoords.size)
 
-            // Award Explorer Playstyle XP
+            // Award Explorer Playstyle XP and Bounty Contract progress
             PlaystyleXpTracker.awardExplorerXp(player, 15.0)
+            dev.rmoseley.smpmod.economy.BountyContractManager.recordProgress(
+                player,
+                dev.rmoseley.smpmod.economy.BountyType.SCOUT_EXPLORATION,
+                1,
+                biomeKey
+            )
 
             // Check milestone thresholds for notifications (e.g. 10, 25, 50, 100 chunks)
             val threshold = SmpConfig.COMMON.biomeMobilityThreshold.get()
