@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:economy/contract_master",
+  "display": {
+    "icon": {
+      "id": "minecraft:diamond_block"
+    },
+    "title": {
+      "text": "Sovereign Merchant"
+    },
+    "description": {
+      "text": "Accumulate an active fortune of 5,000 or more digital coins in your off-inventory balance."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "wealth_tycoon": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "wealth_tycoon"
+    ]
+  ]
+}

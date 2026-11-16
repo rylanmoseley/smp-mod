@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:artificing/public_auctioneer",
+  "display": {
+    "icon": {
+      "id": "minecraft:netherite_sword"
+    },
+    "title": {
+      "text": "Living Provenance"
+    },
+    "description": {
+      "text": "Own or trade an heirloom item with 3+ historical ownership transitions."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "heirloom_provenance": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "heirloom_provenance"
+    ]
+  ]
+}

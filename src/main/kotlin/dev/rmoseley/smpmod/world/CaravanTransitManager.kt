@@ -36,6 +36,7 @@ object CaravanTransitManager {
         if (inCaravan) {
             activeCaravanPlayers[player.uuid] = System.currentTimeMillis()
             applyCaravanBonuses(player)
+            dev.rmoseley.smpmod.advancements.WorldExplorationAdvancements.onCaravanTransitCheck(player)
         } else {
             activeCaravanPlayers.remove(player.uuid)
         }

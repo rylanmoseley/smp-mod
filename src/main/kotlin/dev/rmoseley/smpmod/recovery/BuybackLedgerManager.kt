@@ -254,6 +254,12 @@ object BuybackLedgerManager {
         val unsubsidizedPrice = calculatePrice(entry, now, isOwner = isRegisteredOwner, buyer = null)
         val subsidySaved = max(0L, unsubsidizedPrice - finalPrice)
 
+        dev.rmoseley.smpmod.advancements.ArtificingRecoveryAdvancements.onBuybackReclaimed(
+            player,
+            wasPublic = !isRegisteredOwner,
+            claimSubsidySaved = subsidySaved
+        )
+
         return ReclaimResult.Success(
             item = recoveredStack,
             pricePaid = finalPrice,

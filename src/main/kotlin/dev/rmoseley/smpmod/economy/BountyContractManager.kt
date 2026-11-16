@@ -194,6 +194,8 @@ object BountyContractManager {
             BountyType.COMBAT_ELITE_SLAY -> PlaystyleXpTracker.incrementCombatXp(player, contract.roleXpReward)
         }
 
+        dev.rmoseley.smpmod.advancements.EconomyAdvancements.awardContractClaim(player)
+
         return Pair(true, "Claimed §e${contract.currencyReward} coins §aand §b+${contract.roleXpReward.toInt()} Role XP §afor completing §6${contract.title}§a!")
     }
 }

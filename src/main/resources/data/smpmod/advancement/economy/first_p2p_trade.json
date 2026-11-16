@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:economy/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:emerald"
+    },
+    "title": {
+      "text": "Mercantile Handshake"
+    },
+    "description": {
+      "text": "Complete your first peer-to-peer digital transaction or player trade."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "p2p_trade": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "p2p_trade"
+    ]
+  ]
+}

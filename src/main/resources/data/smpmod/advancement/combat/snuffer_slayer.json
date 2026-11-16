@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:combat/first_kill_tempo",
+  "display": {
+    "icon": {
+      "id": "minecraft:soul_torch"
+    },
+    "title": {
+      "text": "Beacon Protector"
+    },
+    "description": {
+      "text": "Defeat an elite mob with destroys_light_on_aggro."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "snuffer_slayed": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "snuffer_slayed"
+    ]
+  ]
+}

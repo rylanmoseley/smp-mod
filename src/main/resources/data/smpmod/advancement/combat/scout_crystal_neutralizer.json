@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:combat/trial_survivor",
+  "display": {
+    "icon": {
+      "id": "minecraft:end_crystal"
+    },
+    "title": {
+      "text": "Spire Infiltrator"
+    },
+    "description": {
+      "text": "Scale obsidian heights and shatter an End Crystal tethered to the Ender Dragon."
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "neutralize_crystal": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "neutralize_crystal"
+    ]
+  ]
+}

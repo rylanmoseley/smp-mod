@@ -82,6 +82,13 @@ object BiomeMobilityManager {
                 biomeKey
             )
 
+            // Trigger World Exploration advancement milestones
+            dev.rmoseley.smpmod.advancements.WorldExplorationAdvancements.onExplorationProgress(
+                player,
+                updatedCoords.size,
+                updatedCounts.size
+            )
+
             // Check milestone thresholds for notifications (e.g. 10, 25, 50, 100 chunks)
             val threshold = SmpConfig.COMMON.biomeMobilityThreshold.get()
             if (newCount == 10 || newCount == 25 || newCount == 50 || newCount == 100 || (newCount > 0 && newCount % threshold == 0)) {

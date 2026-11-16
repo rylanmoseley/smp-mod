@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:artificing/masterwork_forge",
+  "display": {
+    "icon": {
+      "id": "minecraft:netherite_chestplate"
+    },
+    "title": {
+      "text": "Paragon of the Forge"
+    },
+    "description": {
+      "text": "Forge a full set of masterwork equipment with pristine provenance."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "paragon_equipment": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "paragon_equipment"
+    ]
+  ]
+}

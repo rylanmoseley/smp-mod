@@ -1,0 +1,29 @@
+{
+  "parent": "smpmod:exploration/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "title": {
+      "text": "Frontier Scout"
+    },
+    "description": {
+      "text": "Venture into the wilderness and discover your first unique biome."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "first_biome": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "first_biome"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

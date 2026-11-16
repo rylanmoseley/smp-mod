@@ -64,6 +64,11 @@ repositories {
         name = "Fuzs Mod Resources"
         setUrl("https://raw.githubusercontent.com/Fuzss/modresources/main/maven/")
     }
+    maven {
+        name = "CurseMaven"
+        setUrl("https://cursemaven.com")
+        content { includeGroup("curse.maven") }
+    }
 }
 
 neoForge {

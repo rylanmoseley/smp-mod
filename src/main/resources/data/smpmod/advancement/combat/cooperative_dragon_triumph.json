@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:combat/dps_execute_strike",
+  "display": {
+    "icon": {
+      "id": "minecraft:dragon_head"
+    },
+    "title": {
+      "text": "Vanguard of the End"
+    },
+    "description": {
+      "text": "Defeat the Cooperative Ender Dragon centerpiece encounter."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "defeat_dragon": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "defeat_dragon"
+    ]
+  ]
+}

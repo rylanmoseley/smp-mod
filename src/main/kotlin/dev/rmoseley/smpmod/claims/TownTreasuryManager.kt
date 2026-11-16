@@ -43,6 +43,7 @@ object TownTreasuryManager {
         synchronized(treasury) {
             treasury.balance += amount
         }
+        dev.rmoseley.smpmod.advancements.EconomyAdvancements.awardTownDonation(player, amount)
         return true
     }
 

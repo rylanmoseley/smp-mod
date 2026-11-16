@@ -127,6 +127,10 @@ object CooperativeDragonEncounter {
 
             // Record Tank achievement
             val count = currentEncounter.tankDiveIntercepts.compute(player.uuid) { _, curr -> (curr ?: 0) + 1 } ?: 1
+            dev.rmoseley.smpmod.advancements.CombatRaidAdvancements.grant(
+                player,
+                dev.rmoseley.smpmod.advancements.CombatRaidAdvancements.TANK_DIVE_INTERCEPT
+            )
 
             // Broadcast stagger announcement to all players in the End
             val raidMsg = Component.literal(
@@ -185,6 +189,11 @@ object CooperativeDragonEncounter {
                 val staggerSeconds = 5
                 currentEncounter.staggerExpiryTick = level.gameTime + (staggerSeconds * 20L)
 
+                dev.rmoseley.smpmod.advancements.CombatRaidAdvancements.grant(
+                    player,
+                    dev.rmoseley.smpmod.advancements.CombatRaidAdvancements.SCOUT_CRYSTAL_NEUTRALIZER
+                )
+
                 val alert = Component.literal(
                     "§6[Raid Alert] §bScout §f${player.name.string} §6shattered healing crystal! Backlash stuns Dragon! §c(Punish Window Open!)"
                 )
@@ -206,13 +215,23 @@ object CooperativeDragonEncounter {
      */
     fun recordDpsPunishDamage(player: ServerPlayer, damage: Double) {
         currentEncounter.dpsPunishDamage.compute(player.uuid) { _, curr -> (curr ?: 0.0) + damage }
+        dev.rmoseley.smpmod.advancements.CombatRaidAdvancements.grant(
+            player,
+            dev.rmoseley.smpmod.advancements.CombatRaidAdvancements.DPS_EXECUTE_STRIKE
+        )
     }
 
     /**
      * Support Healing Accounting during the dragon encounter.
      */
     fun recordSupportHealing(player: ServerPlayer, healedAmount: Double) {
-        currentEncounter.supportHealingProvided.compute(player.uuid) { _, curr -> (curr ?: 0.0) + healedAmount }
+        val total = currentEncounter.supportHealingProvided.compute(player.uuid) { _, curr -> (curr ?: 0.0) + healedAmount } ?: 0.0
+        if (total >= 20.0) {
+            dev.rmoseley.smpmod.advancements.CombatRaidAdvancements.grant(
+                player,
+                dev.rmoseley.smpmod.advancements.CombatRaidAdvancements.SUPPORT_REJUVENATION
+            )
+        }
     }
 
     /**
@@ -234,6 +253,12 @@ object CooperativeDragonEncounter {
         for (player in playersInEnd) {
             val profile = RoleCalculator.calculateProfile(player)
             val heldItem = player.mainHandItem
+
+            // Award Vanguard of the End Legendary Advancement
+            dev.rmoseley.smpmod.advancements.CombatRaidAdvancements.grant(
+                player,
+                dev.rmoseley.smpmod.advancements.CombatRaidAdvancements.COOPERATIVE_DRAGON_TRIUMPH
+            )
 
             // 1. Award 2500 XP to player's primary playstyle track
             when (profile.primaryRole) {

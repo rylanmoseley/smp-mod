@@ -173,6 +173,9 @@ object GameForgeEvents {
         val crafted = event.crafting
         if (RecoveryItemClassifier.isBuybackCandidate(crafted)) {
             ItemProvenance.initializeItemOrigin(crafted, player, isCrafted = true)
+            if (player is ServerPlayer) {
+                dev.rmoseley.smpmod.advancements.ArtificingRecoveryAdvancements.onItemCrafted(player, crafted)
+            }
         }
     }
 
@@ -230,6 +233,12 @@ object GameForgeEvents {
 
         // 10. Caravan & Highway Transit
         dev.rmoseley.smpmod.world.CaravanTransitManager.onPlayerTick(player)
+
+        // 11. Complex Dungeon Delve & Structure Discovery
+        dev.rmoseley.smpmod.world.StructureDelveManager.onPlayerTick(player)
+
+        // 12. Cavern Depth Milestone (Abyss Descender below Y: 0)
+        dev.rmoseley.smpmod.advancements.WorldExplorationAdvancements.onCavernDepthCheck(player)
     }
 
     @SubscribeEvent
@@ -383,7 +392,10 @@ object GameForgeEvents {
     @SubscribeEvent
     fun onAdvancementEarn(event: AdvancementEvent.AdvancementEarnEvent) {
         val player = event.entity as? ServerPlayer ?: return
-        val advPath = event.advancement.id().path
+        val advId = event.advancement.id()
+        dev.rmoseley.smpmod.advancements.AdvancementRewardManager.onAdvancementEarned(player, advId)
+
+        val advPath = advId.path
         val milestone = StarterMilestone.byId(advPath)
         if (milestone != null) {
             ProgressionFaucetManager.awardStarterMilestone(player, milestone)

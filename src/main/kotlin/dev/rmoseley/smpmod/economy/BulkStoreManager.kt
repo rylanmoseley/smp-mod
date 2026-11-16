@@ -207,6 +207,8 @@ object BulkStoreManager {
         // Remove item from player
         stack.shrink(count)
 
+        dev.rmoseley.smpmod.advancements.EconomyAdvancements.awardBulkStoreSupplier(player)
+
         player.sendSystemMessage(
             Component.literal("§6[Bulk Store] §fLiquidated $count §e${stack.hoverName.string}§f for §a+$finalPayout coins§f (unit: $unitPayout, Support bonus: +$supportBonus).")
         )

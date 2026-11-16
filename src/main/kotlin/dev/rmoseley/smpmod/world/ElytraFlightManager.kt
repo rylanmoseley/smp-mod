@@ -102,6 +102,9 @@ object ElytraFlightManager {
             return
         }
 
+        // Award Master of the Winds advancement milestone
+        dev.rmoseley.smpmod.advancements.WorldExplorationAdvancements.onGliderDeployed(player)
+
         // 3. Scout Role & Masterwork Aerodynamics (Rewarding launch towers & altitude conversion)
         val scoutAgility = player.getAttribute(ModEntityAttributes.ROLE_SCOUT_AGILITY)?.value ?: 1.0
         val chestItem = player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST)

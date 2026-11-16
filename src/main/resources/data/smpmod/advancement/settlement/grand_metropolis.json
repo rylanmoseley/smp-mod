@@ -1,0 +1,23 @@
+{
+  "parent": "smpmod:settlement/civic_renaissance",
+  "display": {
+    "icon": {
+      "id": "minecraft:beacon"
+    },
+    "title": {
+      "text": "Regional Metropolis"
+    },
+    "description": {
+      "text": "Expand a contiguous settlement to 16 or more chunks reaching Metropolis tier with rich palette variety."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "grand_metropolis": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

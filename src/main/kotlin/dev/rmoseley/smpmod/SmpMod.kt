@@ -55,6 +55,7 @@ object SmpMod {
     }
 
     private fun onCommonSetup(event: FMLCommonSetupEvent) {
+        dev.rmoseley.smpmod.advancements.ModAdvancements.init()
         LOGGER.info("SMP Mod Suite common setup complete.")
     }
 

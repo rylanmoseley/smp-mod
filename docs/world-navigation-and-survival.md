@@ -156,3 +156,114 @@ The mod suite includes dedicated acoustic simulation hooks designed to seamlessl
 * **Wool & Curtain Occlusion:** Calculates environmental dampening (up to **85% sound muffling**) in rooms insulated with wool blocks, carpets, or curtains, suppressing footstep noise and speech propagation.
 * **Cavernous Reverb:** Dynamically calculates acoustic echo in deep underground caverns ($Y < 0$).
 * **Nether Thermal Distortion:** Models thick, reverberant atmospheric distortion across the Nether's scorching wastes.
+
+---
+
+## 10. Unified Generated Structure Revamps & Complex Dungeons
+
+To eliminate repetitive vanilla box dungeons and elevate subterranean exploration, the mod features a **Unified Structure Revamp Integration Engine** ([StructureDelveManager.kt](file:///home/sandbox/smp-mod/src/main/kotlin/dev/rmoseley/smpmod/world/StructureDelveManager.kt)). It links subterranean overhauls (**YUNG's Better Dungeons**, Catacombs, Fortresses) and colossal rogue-like citadels (**When Dungeons Arise**, Bandit Towers, Foundries, Monasteries) directly into the core gameplay loops:
+
+```
+                  Player Crosses into Complex Dungeon Piece
+                                      │
+           ┌──────────────────────────┼──────────────────────────┐
+           ▼                          ▼                          ▼
+┌──────────────────────┐   ┌──────────────────────┐   ┌──────────────────────┐
+│  Combat Escalation   │   │ Exploration Discovery│   │ Masterwork & Catalysts│
+│                      │   │                      │   │                      │
+│ • destroys_light     │   │ • Entry Alert Toast  │   │ • 60%+ Masterwork    │
+│   chance jumps to    │   │ • +150 Explorer XP   │   │   affix roll chance  │
+│   35% - 50%          │   │ • Scout Sensory      │   │ • Guaranteed high-tier│
+│ • 48m mob pathing    │   │   spawner radar      │   │   enchantment tomes  │
+│ • Spatial light      │   │ • Increments         │   │ • 60% Recovery       │
+│   avoidance AI       │   │   dungeonsCleared    │   │   Catalyst drop      │
+└──────────────────────┘   └──────────────────────┘   └──────────────────────┘
+```
+
+### 1. Combat & Light Destruction Escalation
+* **Elevated Threat:** Inside tagged complex dungeon structures (`#smpmod:complex_dungeons`), hostile mobs spawn with the `destroys_light_on_aggro` trait at a **35% to 50% rate**.
+* **Tactical Illumination:** Fragile torches and campfires are systematically targeted and extinguished, making **Support Warded Light Flares** and **Permanent Warded Lanterns** essential for surviving multi-level catacombs.
+
+### 2. Exploration Milestones & Scout Radar
+* **Discovery Toast & Rewards:** Stepping into an uncharted dungeon complex displays a HUD banner (`[Dungeon Delve] Entered [Structure Name]`) and immediately awards **+150 Explorer XP**.
+* **Scout Sensory Radar:** Scouts detect hidden mob spawners, trial spawners, and ambush traps up to 24 blocks away, highlighting them through walls.
+* **Vault Clearance:** Conquering spawner rooms or defeating elite dungeon encounters increments the player's lifetime `dungeonsCleared` statistic, granting **+100 Combat XP** and **+100 Explorer XP**.
+
+### 3. Loot Sinks, Masterwork Gear & Catalysts
+* **Masterwork Vault Chests:** Loot generated inside deep dungeon vaults has a **60%+ chance** to roll Masterwork Affixes (`Keen`, `Sturdy`, `Titanic`, `Aerodynamic`, etc.).
+* **Recovery Catalysts:** Clearing dungeon vaults has a **60% chance** to yield a rare **Recovery Catalyst**, providing critical discounts at Town Buyback Terminals.
+* **Non-AFK Mending Tomes:** Guaranteed high-tier enchantment books (Mending, Unbreaking III, Silk Touch) replace vanilla villager trading halls.
+
+---
+
+## 11. Advancements & Rewards Progression: Wilds & Expeditions Tree
+
+The SMP Mod Suite introduces a deep, tiered progression tree for world exploration, transit, and survival navigation managed by [WorldExplorationAdvancements.kt](file:///home/sandbox/smp-mod/src/main/kotlin/dev/rmoseley/smpmod/advancements/WorldExplorationAdvancements.kt) and dispatched via [AdvancementRewardManager.kt](file:///home/sandbox/smp-mod/src/main/kotlin/dev/rmoseley/smpmod/advancements/AdvancementRewardManager.kt).
+
+Each advancement represents a meaningful milestone in expanding server frontiers—from initial biome scouting and deep cavern descent to Nether caravans, paved highway logistics, and aerodynamic glider deployment. Rewards provide non-material digital currency, Playstyle Role XP, and tangible **Recovery Catalysts** stored across persistent player attachments.
+
+### Progression Tree Architecture
+
+```
+                                  [exploration/root]
+                                 Wilds & Expeditions
+                                     (Root Tab)
+                                          │
+                    ┌─────────────────────┴─────────────────────┐
+                    ▼                                           ▼
+       [exploration/into_the_wilds]                 [exploration/deep_caverns]
+              Frontier Scout                             Abyss Descender
+                 (Novice)                                    (Novice)
+                    │                                           │
+         ┌──────────┴──────────┐                                ▼
+         ▼                     ▼                   [exploration/dungeon_delver]
+[exploration/nether_convoy] [exploration/highway_caravan] Deep Dungeon Delver
+     Thermal Convoy             Highway Caravan Master       (Journeyman)
+      (Journeyman)                   (Journeyman)               │
+                                           │                    │
+                                           ▼                    │
+                            [exploration/master_cartographer]   │
+                                   Realm Cartographer           │
+                                        (Master)                │
+                                           │                    │
+                    ┌──────────────────────┴────────────────────┼────────┐
+                    ▼                                           │        ▼
+       [exploration/momentum_glider]                            │  [Server Broadcast]
+            Master of the Winds                                 │
+                 (Master)                                       │
+                                                                ▼
+                                                [exploration/abyssal_sovereign]
+                                                        Horizon Pioneer
+                                                          (Legendary)
+                                                                │
+                                                                ▼
+                                                        [Server Broadcast]
+```
+
+### Detailed Advancement Progression & Reward Tiers
+
+| Advancement ID | Display Title | Tier | Frame | Criteria & Milestones | Economy Reward | Playstyle XP | Tangible Reward | Server Broadcast |
+|---|---|---|---|---|---|---|---|:---:|
+| `exploration/root` | **Wilds & Expeditions** | Novice | Task | Join or step beyond initial spawn settlement borders | — | — | — | No |
+| `exploration/into_the_wilds` | **Frontier Scout** | Novice | Task | Venture into uncharted lands and discover your 1st unique biome | **+50 Coins** | **+30 Explorer XP** | — | No |
+| `exploration/deep_caverns` | **Abyss Descender** | Novice | Task | Descend below elevation $Y \le 0$ into deepslate caverns | **+75 Coins** | **+40 Explorer XP** | — | No |
+| `exploration/dungeon_delver` | **Deep Dungeon Delver** | Journeyman | Goal | Infiltrate a tagged complex dungeon (`#smpmod:complex_dungeons`) or trial chamber | **+200 Coins** | **+80 Explorer XP** | **1x Recovery Catalyst** | No |
+| `exploration/nether_convoy` | **Thermal Convoy** | Journeyman | Goal | Traverse the Nether in an active caravan ($Y < 128$) without roof glitching | **+150 Coins** | **+75 Explorer XP** | — | No |
+| `exploration/highway_caravan` | **Highway Caravan Master** | Journeyman | Goal | Lead pack animals or active caravan on recognized roads or rail corridors | **+150 Coins** | **+60 Explorer XP** | — | No |
+| `exploration/master_cartographer` | **Realm Cartographer** | Master | Challenge | Map **250+ unique chunks** across at least **10 distinct biomes** | **+350 Coins** | **+150 Explorer XP** | **1x Recovery Catalyst** | No |
+| `exploration/momentum_glider` | **Master of the Winds** | Master | Challenge | Unlock and deploy aerodynamic Elytra glider flight via exploration milestones | **+400 Coins** | **+180 Explorer XP** | **1x Recovery Catalyst** | **Yes (Server-Wide)** |
+| `exploration/abyssal_sovereign` | **Horizon Pioneer** | Legendary | Challenge | Map **1,000+ unique chunks** across the frontier and conquer deep structures | **+1,000 Coins** | **+300 Explorer XP** | **3x Recovery Catalysts** | **Yes (Server-Wide)** |
+
+### System Integration & Reward Mechanics
+
+1. **Anti-Duplication & Lifetime Persistence:**
+   - Every advancement claim is validated against `PLAYER_MILESTONES` (`claimedMilestones` set). Once claimed, rewards cannot be duplicated or farmed.
+2. **Economic Liquidity Injection:**
+   - Currency is credited directly to the player's non-material bank balance via `EconomyManager.credit(player, payout, TransactionType.MILESTONE_STARTER)`.
+3. **Continuous Playstyle Role XP:**
+   - Explorer Playstyle XP directly elevates a player's Scout capabilities, increasing sensory radar range, speed boosts in mapped biomes, and momentum glider glide efficiency.
+4. **Tangible Recovery Catalysts:**
+   - High-tier achievements award physical **Recovery Catalysts** (`smpmod:recovery_catalyst`). These rare artifacts are essential for crafting and securing item buybacks at Town Buyback Terminals, subsidizing equipment recovery after death in hostile zones.
+5. **Server-Wide Prestige Announcements:**
+   - Master and Legendary accomplishments (`Master of the Winds` and `Horizon Pioneer`) broadcast gold-accented server-wide announcements to celebrate pioneer achievements across the community.
+

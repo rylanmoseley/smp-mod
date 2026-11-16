@@ -131,3 +131,76 @@ Settlement leaders (the claim founder/owner) can purchase permanent civic upgrad
 * `/town withdraw <amount>`: Town leader withdrawal of municipal funds.
 * `/town upgrades`: Browse available and unlocked civic upgrades for your current settlement tier.
 * `/town upgrade buy <id>`: Purchase and activate a civic upgrade for the contiguous settlement.
+
+---
+
+## 8. Settlement Advancements & Rewards Progression
+
+The **Towns & Architecture** advancement tree tracks a player's journey from an isolated wilderness squatter to the steward of a thriving regional metropolis. Milestones reward constructive participation with non-inflationary digital currency, direct Builder Playstyle XP, and tangible artifacts like [Recovery Catalysts](file:///home/sandbox/smp-mod/docs/death-penalty-and-catalysts.md).
+
+### Advancement Tree Hierarchy
+
+```mermaid
+graph TD
+    Root["Towns & Architecture<br/><code>settlement/root</code>"] --> FirstHomestead["Claiming the Frontier<br/>(Novice)<br/><code>settlement/first_homestead</code>"]
+    FirstHomestead --> ContiguousHamlet["Hamlet Emergence<br/>(Novice)<br/><code>settlement/contiguous_hamlet</code>"]
+    ContiguousHamlet --> BuilderFlight["Aerial Architect<br/>(Journeyman)<br/><code>settlement/builder_flight_cadence</code>"]
+    ContiguousHamlet --> PaletteDiversity["Master Mason<br/>(Journeyman)<br/><code>settlement/palette_diversity</code>"]
+    PaletteDiversity --> TownStatus["Fortified Town<br/>(Master)<br/><code>settlement/town_status</code>"]
+    TownStatus --> CivicRenaissance["Municipal Renaissance<br/>(Master)<br/><code>settlement/civic_renaissance</code>"]
+    CivicRenaissance --> GrandMetropolis["Regional Metropolis<br/>(Legendary)<br/><code>settlement/grand_metropolis</code>"]
+```
+
+### Progression Tiers & Reward Schedule
+
+| Advancement ID | Display Title | Tier | Frame | Criteria & Trigger | Payout | Builder XP | Catalysts | Broadcast |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `settlement/root` | **Towns & Architecture** | Novice | Task | Root tab (auto-unlock on join/tick) | — | — | — | No |
+| `settlement/first_homestead` | **Claiming the Frontier** | Novice | Task | Stake claim on first chunk via `/claims claim` | +100 coins | +40 XP | — | No |
+| `settlement/contiguous_hamlet` | **Hamlet Emergence** | Novice | Task | Establish contiguous cluster of 2–3 chunks | +100 coins | +50 XP | — | No |
+| `settlement/palette_diversity` | **Master Mason** | Journeyman | Task | Construct using 5+ distinct block palettes | +150 coins | +80 XP | — | No |
+| `settlement/builder_flight_cadence` | **Aerial Architect** | Journeyman | Goal | Maintain cadence flight for >60 continuous seconds | +200 coins | +100 XP | — | No |
+| `settlement/town_status` | **Fortified Town** | Master | Goal | Expand contiguous settlement to 9+ chunks (Town tier) | +400 coins | +150 XP | +1 | **Yes** |
+| `settlement/civic_renaissance` | **Municipal Renaissance** | Master | Goal | Unlock 2+ municipal civic upgrades | +500 coins | +200 XP | +2 | No |
+| `settlement/grand_metropolis` | **Regional Metropolis** | Legendary | Challenge | Expand to 16+ contiguous chunks with high palette diversity | +1,000 coins | +350 XP | +3 | **Yes** |
+
+### Mechanical Milestones in Detail
+
+1. **Claiming the Frontier (`first_homestead`)**:
+   - Encourages early onboarding into the claim system.
+   - Requires claiming an initial chunk anywhere in the world.
+   - Payout of 100 coins and 40 Builder XP kickstarts the player's path toward unlocking higher chunk caps.
+
+2. **Hamlet Emergence (`contiguous_hamlet`)**:
+   - Incentivizes contiguous territorial expansion over disconnected outposts.
+   - Unlocked when a cluster of 2 to 3 orthogonally adjacent chunks is claimed.
+   - Provides +100 coins and +50 Builder XP, teaching players the topological clustering rule.
+
+3. **Master Mason (`palette_diversity`)**:
+   - Combats monoblock spamming by requiring net construction of 5 or more distinct structural block categories (e.g., polished stone, timber logs, stone bricks, glass panes, terracotta trim).
+   - Synergizes with the logarithmic variety scoring algorithm in `VarietyScorer`.
+
+4. **Aerial Architect (`builder_flight_cadence`)**:
+   - Celebrates mastery of the cadence-based builder flight mechanic.
+   - Builders must maintain continuous flight within claim boundaries for over 60 seconds without falling, leaving the cluster, or entering combat.
+
+5. **Fortified Town (`town_status`)**:
+   - Awarded when a contiguous cluster reaches **Town tier** (9+ contiguous chunks).
+   - Grants a substantial treasury booster of +400 coins, +150 Builder XP, and **1 Recovery Catalyst**.
+   - Triggers a server-wide broadcast celebrating the establishment of a fortified regional hub.
+
+6. **Municipal Renaissance (`civic_renaissance`)**:
+   - Encourages investment in shared community infrastructure.
+   - Granted when the town unlocks at least 2 permanent civic upgrades (e.g., *Paved Highway Network* and *Warded Streetlights*).
+   - Grants +500 coins, +200 Builder XP, and **2 Recovery Catalysts**.
+
+7. **Regional Metropolis (`grand_metropolis`)**:
+   - The pinnacle architectural milestone of the SMP Mod Suite.
+   - Requires reaching **Metropolis tier** (16+ contiguous chunks) paired with high palette variety.
+   - Celebrated with a server-wide announcement, +1,000 coins, +350 Builder XP, and **3 Recovery Catalysts**.
+
+### Lifetime Claim Guardrails & Anti-Exploit Mechanics
+* **One-Time Payout Protection:** Advancements are keyed to the player's persistent data attachment (`PLAYER_MILESTONES`). Unclaiming and reclaiming chunks or oscillating block placements cannot re-trigger rewards.
+* **Direct Inventory or Drop Fallback:** Tangible rewards like Recovery Catalysts are placed directly into the player's inventory; if full, they drop safely at the player's feet.
+* **Server Broadcast Transparency:** Master and Legendary milestones announce player achievements to the entire server, celebrating cooperative construction achievements.
+

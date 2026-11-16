@@ -1,0 +1,29 @@
+{
+  "parent": "smpmod:exploration/master_cartographer",
+  "display": {
+    "icon": {
+      "id": "minecraft:echo_shard"
+    },
+    "title": {
+      "text": "Horizon Pioneer"
+    },
+    "description": {
+      "text": "Map 1,000+ unique chunks across the frontier and discover ancient deep structures."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "discover_horizon": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "discover_horizon"
+    ]
+  ],
+  "sends_telemetry_event": false
+}
