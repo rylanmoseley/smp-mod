@@ -27,9 +27,9 @@ object LightMobAIHandler {
     fun onAggroLightInteraction(mob: Mob, targetPos: BlockPos) {
         val level = mob.level()
         val chunkPos = ChunkPos(targetPos)
-        val claim = ClaimManager.getClaimAt(chunkPos)
+        val claimOwner = ClaimManager.getClaimOwner(level, chunkPos)
 
-        if (claim != null) {
+        if (claimOwner != null) {
             // Inside contiguous claim: claim-safe snuff aura (blocks are NEVER destroyed)
             val snuffDurationSeconds = SmpConfig.COMMON.lightSnuffDurationSeconds.get()
             // In full implementation, applies a temporary level shroud light modifier or particles
