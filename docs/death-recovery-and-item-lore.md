@@ -110,7 +110,28 @@ Items in the SMP Mod Suite tell a story. Using Minecraft 1.21.1 Data Components,
 
 ---
 
-## 6. How to Recover Your Gear
+## 6. Masterwork Affixes & Item Variations
+
+Unique weapons, armor, and tools carry special **Masterwork Affixes** rolled during forging or uncovered in perilous deep dungeons. These lightweight variations create distinct gear identities worth recovering through buybacks and trading:
+
+| Masterwork Affix | Color | Equipment Target | Direct In-Game Effect |
+| :--- | :--- | :--- | :--- |
+| **Keen** | `§c` Red | Weapons | **+10% Critical Strike Damage** on falling jump crits. |
+| **Sturdy** | `§9` Blue | All Gear | **+25% Enhanced Durability** (25% chance to negate durability damage). |
+| **Balanced** | `§e` Yellow | Weapons / Tools | **+0.2 Attack Speed** & **-15% Attack Whiff Recovery Window**. |
+| **Warded** | `§b` Aqua | Armor | **+8% Damage Resistance** against dark-zone hostile mobs. |
+| **Aerodynamic** | `§a` Green | Chestplate / Elytra | **+10% Elytra Glide Efficiency** & reduced air drag. |
+| **Titanic** | `§7` Gray | Armor / Shield | **+10% Knockback Resistance** & **+5% Armor Damage Mitigation**. |
+| **Precise** | `§d` Pink | Weapons | **+15% Combat Hit Precision** & bonus Tempo Playstyle XP. |
+
+### Sourcing & Mastery Scaling
+* **Crafting Quality:** Base 25% chance when crafting buyback-candidate gear, scaling up to **75%** for dedicated Builder & Gatherer specialists (`tankRatio + supportRatio`).
+* **Dungeon Tomes & Chests:** Deep cavern vaults and trial chambers carry a **60% base chance** to generate with masterwork affixes.
+* **Lore Integration:** Masterwork affixes display directly on item tooltips in custom gold lettering alongside the maker's mark and historical ownership ledger.
+
+---
+
+## 7. How to Recover Your Gear
 
 1. Open your chat and type `/buyback` (or right-click any **Town Buyback Terminal** in a claimed settlement).
 2. Browse your pending items, showing their current recovery cost, cumulative deaths, and time remaining on the 24-hour exclusive window.

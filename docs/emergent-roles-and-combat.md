@@ -55,12 +55,12 @@ Combat XP is not farmed by standing next to a 1-hit zombie chute. It evaluates a
 
 ## 3. The Four Battlefield Identities
 
-| Combat Role | Paired XP Track | Battlefield Scaling & Unique Abilities |
-| :--- | :--- | :--- |
-| **DPS** | **Combat XP** | • **Burst Execution:** Scales attack damage and critical multipliers.<br>• **Armor Penetration:** Punishes heavily armored dark-zone elites.<br>• **Vulnerability Windows:** Deals massive burst damage during boss stagger phases. |
-| **Tank** | **Builder XP** | • **Mitigation:** Reduces incoming physical and explosive damage by up to $50\%$.<br>• **Cover & Shielding:** Deploys temporary barricade shields for teammates.<br>• **Threat Control:** Actively taunts and pulls `destroys_light_on_aggro` mobs off backline lights and vulnerable teammates. |
-| **Support** | **Gatherer XP** | • **Team Sustain:** Radiates an out-of-combat rejuvenation aura for nearby allies.<br>• **Consumable Efficiency:** Multiplies potion durations and food saturation for the party.<br>• **Warded Light Flares:** Deploys radiant flares that **cannot be snuffed or extinguished** by hostile mob auras! |
-| **Scout** | **Explorer XP** | • **Agility:** Boosts movement speed, sprint efficiency, and dodge recovery.<br>• **Trap & Threat Detection:** Highlights hidden dark-zone ambushes and trial spawners.<br>• **Aerial Traversal:** Maximum Elytra glide momentum efficiency and pillar climbing. |
+| Combat Role | Paired XP Track | Battlefield Scaling & Unique Abilities | Synergistic Masterwork Affixes |
+| :--- | :--- | :--- | :--- |
+| **DPS** | **Combat XP** | • **Burst Execution:** Scales attack damage and critical multipliers.<br>• **Armor Penetration:** Punishes heavily armored dark-zone elites.<br>• **Vulnerability Windows:** Deals massive burst damage during boss stagger phases. | **Keen** (+10% Crit Damage)<br>**Precise** (+15% Hit Precision & Tempo XP) |
+| **Tank** | **Builder XP** | • **Mitigation:** Reduces incoming physical and explosive damage by up to $50\%$.<br>• **Cover & Shielding:** Deploys temporary barricade shields for teammates.<br>• **Threat Control:** Actively taunts and pulls `destroys_light_on_aggro` mobs off backline lights and vulnerable teammates. | **Titanic** (+10% Knockback Resist, +5% Armor)<br>**Sturdy** (+25% Durability) |
+| **Support** | **Gatherer XP** | • **Team Sustain:** Radiates an out-of-combat rejuvenation aura for nearby allies.<br>• **Consumable Efficiency:** Multiplies potion durations and food saturation for the party.<br>• **Warded Light Flares:** Deploys radiant flares that **cannot be snuffed or extinguished** by hostile mob auras! | **Warded** (+8% Dark-Zone Mob Resistance)<br>**Permanent Warded Lanterns** (Crafted block) |
+| **Scout** | **Explorer XP** | • **Agility:** Boosts movement speed, sprint efficiency, and dodge recovery.<br>• **Trap & Threat Detection:** Highlights hidden dark-zone ambushes and trial spawners.<br>• **Aerial Traversal:** Maximum Elytra glide momentum efficiency and pillar climbing. | **Aerodynamic** (+10% Elytra Glide Efficiency)<br>**Balanced** (+0.2 Speed, -15% Whiff Window) |
 
 ---
 

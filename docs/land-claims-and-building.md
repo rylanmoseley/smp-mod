@@ -102,3 +102,32 @@ Wilderness and dungeon monsters possessing the `destroys_light_on_aggro` trait a
 
 * **No Block Damage:** Hostile mobs **cannot break blocks** inside contiguous claims.
 * **Temporary Snuff Aura:** Instead of destroying Builder lighting, aggroed mobs apply a temporary **20–30 second light shroud aura** that suppresses light output without damaging infrastructure. Once the aura expires or the mob is slain, illumination naturally restores.
+
+---
+
+## 7. Town Civic Upgrades & Communal Treasuries
+
+Contiguous settlements can establish communal **Town Treasuries** to finance high-value civic infrastructure upgrades for all residents and visitors.
+
+### Treasury Funding Mechanics
+Town funds accumulate automatically without tedious tax forms:
+1. **P2P Sales Tax Dividend:** When players execute formal `/p2p` shop trades inside a town claim, the 5% transaction tax is deposited directly into the town treasury.
+2. **Municipal Buyback Share:** A portion of death recovery fees spent at town terminals flows into the settlement coffers.
+3. **Resident Donations:** Community members can donate personal digital funds using `/town deposit <amount>`.
+
+### Civic Upgrades Catalog
+Settlement leaders (the claim founder/owner) can purchase permanent civic upgrades once their contiguous chunk count reaches the required tier:
+
+| Civic Upgrade | Cost | Required Tier | Municipal Effect |
+| :--- | :--- | :--- | :--- |
+| **Paved Highway Network** (`paved_highways`) | 500 coins | **Settlement** (4+ chunks) | Doubles transit speed buffs (**Speed II, +40% speed**) on roads and rails inside and departing town claims. |
+| **Municipal Quarantine** (`municipal_quarantine`) | 750 coins | **Settlement** (4+ chunks) | Reduces dark-zone light snuff aura duration by **50%** and suppresses hostile mob aggro speed. |
+| **Town Recovery Subsidy** (`recovery_subsidy`) | 1,000 coins | **Town** (9+ chunks) | Grants residents an extra **+15% discount** on all death buybacks completed within the claim. |
+| **Warded Streetlights** (`warded_streetlights`) | 1,500 coins | **Town** (9+ chunks) | Automatically protects all lanterns within town boundaries from mob destruction and snuffing. |
+
+### Town Management Commands
+* `/town balance`: View your town's current treasury funds and lifetime taxes collected.
+* `/town deposit <amount>`: Donate digital currency into the communal treasury.
+* `/town withdraw <amount>`: Town leader withdrawal of municipal funds.
+* `/town upgrades`: Browse available and unlocked civic upgrades for your current settlement tier.
+* `/town upgrade buy <id>`: Purchase and activate a civic upgrade for the contiguous settlement.

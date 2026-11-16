@@ -88,8 +88,10 @@ object LightMobAIHandler {
     fun onAggroLightInteraction(mob: Mob, targetPos: BlockPos) {
         val level = mob.level()
 
-        // 1. Support Role Warded Light Flare immunity
-        if (WardedLightManager.isWarded(level, targetPos)) {
+        // 1. Support Role Warded Light Flare immunity, Permanent Warded Lantern, or Town Civic Warded Streetlights
+        val state = level.getBlockState(targetPos)
+        val isTownWarded = dev.rmoseley.smpmod.claims.TownTreasuryManager.hasUpgradeAt(level, targetPos, dev.rmoseley.smpmod.claims.CivicUpgrade.WARDED_STREETLIGHTS)
+        if (WardedLightManager.isWarded(level, targetPos) || WardedLanternBlock.isWardedLantern(state) || isTownWarded) {
             WardedLightManager.onAttemptExtinguishWarded(mob, targetPos)
             return
         }
@@ -99,12 +101,14 @@ object LightMobAIHandler {
 
         if (isClaimed) {
             // 2. Contiguous Claim Anti-Griefing Guardrail: Suppress light output via aura (NEVER destroy blocks)
-            val effectiveDuration = ClaimManager.getEffectiveLightSnuffDuration(level, targetPos)
+            var effectiveDuration = ClaimManager.getEffectiveLightSnuffDuration(level, targetPos)
+            if (dev.rmoseley.smpmod.claims.TownTreasuryManager.hasUpgradeAt(level, targetPos, dev.rmoseley.smpmod.claims.CivicUpgrade.MUNICIPAL_QUARANTINE)) {
+                effectiveDuration = (effectiveDuration / 2).coerceAtLeast(3)
+            }
             applyClaimLightSnuff(level, targetPos, effectiveDuration)
             LightSnuffManager.applySnuffAura(level, targetPos, mob)
         } else {
             // 3. Wilderness & Dungeons: actively break temporary light source
-            val state = level.getBlockState(targetPos)
             if (isFragileLightSource(state)) {
                 level.destroyBlock(targetPos, true, mob)
 
@@ -181,6 +185,7 @@ object LightMobAIHandler {
     }
 
     fun isFragileLightSource(state: BlockState): Boolean {
+        if (WardedLanternBlock.isWardedLantern(state)) return false
         return state.`is`(Blocks.TORCH) ||
                 state.`is`(Blocks.WALL_TORCH) ||
                 state.`is`(Blocks.SOUL_TORCH) ||

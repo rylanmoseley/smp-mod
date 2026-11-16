@@ -37,6 +37,14 @@ object ItemProvenance {
             stack.set(ModDataComponents.DEATH_COUNT.get(), 0)
         }
 
+        // Roll Masterwork Affix if candidate
+        if (RecoveryItemClassifier.isBuybackCandidate(stack) && stack.get(ModDataComponents.MASTERWORK_AFFIX.get()) == null) {
+            val affix = if (isCrafted) MasterworkAffix.rollForCraft(creator) else MasterworkAffix.rollForDungeon()
+            if (affix != null) {
+                stack.set(ModDataComponents.MASTERWORK_AFFIX.get(), affix.name)
+            }
+        }
+
         val initialHistory = listOf("Origin: $originString")
         stack.set(ModDataComponents.PROVENANCE_LORE.get(), initialHistory)
 
@@ -78,6 +86,12 @@ object ItemProvenance {
 
         // 1. Immutable Origin line: Crafted by / Looted by
         loreLines.add(Component.literal("§7$origin"))
+
+        // 1.5 Masterwork Affix line
+        val affix = MasterworkAffix.getAffix(stack)
+        if (affix != null) {
+            loreLines.add(Component.literal("${affix.colorCode}★ Masterwork: ${affix.displayName} §7(${affix.description})"))
+        }
 
         // 2. Current Registered Owner line
         loreLines.add(Component.literal("§aOwned by §f$owner"))
