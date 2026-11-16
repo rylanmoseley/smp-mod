@@ -138,11 +138,15 @@ Advancements in this tree are registered through `CombatRaidAdvancements` and pr
 | `combat/root` | **Dark-Zone Trials** | Novice (`task`) | Netherite Sword | Enter the world and step into dark-zone combat | — | — | — | No |
 | `combat/first_kill_tempo` | **High-Tempo Skirmisher** | Novice (`task`) | Iron Sword | Defeat a hostile mob with fast Time-To-Kill (TTK) | +50 coins | +30 Combat XP | — | No |
 | `combat/snuffer_slayer` | **Beacon Protector** | Novice (`task`) | Soul Torch | Defeat an elite mob possessing the `destroys_light_on_aggro` trait | +100 coins | +50 Combat XP | — | No |
+| `combat/light_guardian` | **Extinguish the Shadows** | Journeyman (`goal`) | Lantern | Slay 5+ darkness-stalking mobs before they extinguish tactical lights | +200 coins | +80 Combat XP | — | No |
 | `combat/trial_survivor` | **Vault Delver** | Journeyman (`goal`) | Trial Key | Clear a deep trial chamber vault or spawner dungeon room | +200 coins | +80 Combat XP | — | No |
 | `combat/scout_crystal_neutralizer` | **Spire Infiltrator** | Journeyman (`goal`) | End Crystal | Scale obsidian heights and shatter an End Crystal tethered to the Dragon | +250 coins | +100 Combat XP<br>+40 Explorer XP | +1 Catalyst | No |
+| `combat/tomb_cleanser` | **Tomb Cleanser** | Master (`challenge`) | Spawner | Purge 5+ monster spawners within complex subterranean dungeons | +400 coins | +170 Combat XP | +1 Catalyst | **Server-Wide** |
+| `combat/raid_bastion` | **Bulwark Against the Horde** | Master (`challenge`) | Ominous Bottle | Defend a settlement or village sanctuary against an ominous raid | +350 coins | +150 Combat XP | +1 Catalyst | No |
 | `combat/tank_dive_intercept` | **Unyielding Aegis** | Master (`goal`) | Shield | Intercept an Ender Dragon dive or boss attack using Tank barrier mitigation | +300 coins | +120 Combat XP | +1 Catalyst | No |
 | `combat/dps_execute_strike` | **Executioner's Precision** | Master (`challenge`) | Diamond Axe | Deal massive burst execution damage during a boss vulnerability window | +300 coins | +120 Combat XP | +1 Catalyst | No |
 | `combat/support_rejuvenation` | **Field Medic Radiance** | Master (`challenge`) | Golden Apple | Deploy warded lights and sustain teammates through intense raid phases | +350 coins | +150 Combat XP | +2 Catalysts | No |
+| `combat/warlord_dominance` | **Paragon of the Vanguard** | Master (`challenge`) | Netherite Sword | Accumulate 1,000+ Combat XP across dark-zone trials and raids | +500 coins | +200 Combat XP | +2 Catalysts | **Server-Wide** |
 | `combat/cooperative_dragon_triumph` | **Vanguard of the End** | Legendary (`challenge`) | Dragon Head | Triumph over the Cooperative Ender Dragon centerpiece raid alongside your party | +1,000 coins | +350 Combat XP | +3 Catalysts | **Server-Wide** |
 
 ---

@@ -2,6 +2,7 @@ package dev.rmoseley.smpmod.advancements
 
 import dev.rmoseley.smpmod.SmpMod
 import dev.rmoseley.smpmod.claims.ClaimManager
+import dev.rmoseley.smpmod.claims.CivicUpgrade
 import dev.rmoseley.smpmod.claims.ContiguousCluster
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
@@ -18,8 +19,12 @@ object SettlementAdvancements {
     val CONTIGUOUS_HAMLET: ResourceLocation = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "settlement/contiguous_hamlet")
     val PALETTE_DIVERSITY: ResourceLocation = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "settlement/palette_diversity")
     val BUILDER_FLIGHT_CADENCE: ResourceLocation = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "settlement/builder_flight_cadence")
+    val HIGHWAY_ENGINEER: ResourceLocation = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "settlement/highway_engineer")
+    val COOPERATIVE_CLUSTER: ResourceLocation = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "settlement/cooperative_cluster")
     val TOWN_STATUS: ResourceLocation = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "settlement/town_status")
+    val PALETTE_VIRTUOSO: ResourceLocation = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "settlement/palette_virtuoso")
     val CIVIC_RENAISSANCE: ResourceLocation = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "settlement/civic_renaissance")
+    val WARDED_BASTION: ResourceLocation = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "settlement/warded_bastion")
     val GRAND_METROPOLIS: ResourceLocation = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "settlement/grand_metropolis")
 
     val REWARDS: List<AdvancementReward> = listOf(
@@ -79,6 +84,28 @@ object SettlementAdvancements {
             broadcastServer = false
         ),
         AdvancementReward(
+            advancementId = HIGHWAY_ENGINEER,
+            category = AdvancementCategory.SETTLEMENT,
+            title = "Artery of Civilization",
+            description = "Construct or lay down 64+ paved road or rail blocks connecting claimed settlement territory",
+            tier = AdvancementTier.JOURNEYMAN,
+            currencyPayout = 200L,
+            builderXp = 80.0,
+            recoveryCatalystCount = 0,
+            broadcastServer = false
+        ),
+        AdvancementReward(
+            advancementId = COOPERATIVE_CLUSTER,
+            category = AdvancementCategory.SETTLEMENT,
+            title = "Commonwealth Assembly",
+            description = "Establish a contiguous settlement cluster shared and co-developed by 3 or more town residents",
+            tier = AdvancementTier.JOURNEYMAN,
+            currencyPayout = 200L,
+            builderXp = 90.0,
+            recoveryCatalystCount = 0,
+            broadcastServer = false
+        ),
+        AdvancementReward(
             advancementId = TOWN_STATUS,
             category = AdvancementCategory.SETTLEMENT,
             title = "Fortified Town",
@@ -88,6 +115,17 @@ object SettlementAdvancements {
             builderXp = 150.0,
             recoveryCatalystCount = 1,
             broadcastServer = true
+        ),
+        AdvancementReward(
+            advancementId = PALETTE_VIRTUOSO,
+            category = AdvancementCategory.SETTLEMENT,
+            title = "Architectural Polymath",
+            description = "Construct a contiguous settlement cluster utilizing 12 or more unique structural block palettes",
+            tier = AdvancementTier.MASTER,
+            currencyPayout = 350L,
+            builderXp = 150.0,
+            recoveryCatalystCount = 1,
+            broadcastServer = false
         ),
         AdvancementReward(
             advancementId = CIVIC_RENAISSANCE,
@@ -101,6 +139,17 @@ object SettlementAdvancements {
             broadcastServer = false
         ),
         AdvancementReward(
+            advancementId = WARDED_BASTION,
+            category = AdvancementCategory.SETTLEMENT,
+            title = "Fortress of Sanctuary",
+            description = "Fortify a town settlement cluster with both Warded Streetlights and Municipal Quarantine civic upgrades",
+            tier = AdvancementTier.MASTER,
+            currencyPayout = 400L,
+            builderXp = 160.0,
+            recoveryCatalystCount = 1,
+            broadcastServer = true
+        ),
+        AdvancementReward(
             advancementId = GRAND_METROPOLIS,
             category = AdvancementCategory.SETTLEMENT,
             title = "Regional Metropolis",
@@ -112,6 +161,8 @@ object SettlementAdvancements {
             broadcastServer = true
         )
     )
+
+    private val playerRoadBlocksPlaced = java.util.concurrent.ConcurrentHashMap<java.util.UUID, java.util.concurrent.atomic.AtomicInteger>()
 
     fun register() {
         REWARDS.forEach { AdvancementRewardManager.register(it) }
@@ -157,11 +208,18 @@ object SettlementAdvancements {
         if (cluster.blockCountsByType.size >= 5) {
             award(player, PALETTE_DIVERSITY)
         }
+        if (cluster.blockCountsByType.size >= 12) {
+            award(player, PALETTE_VIRTUOSO)
+        }
         if (size >= 9) {
             award(player, TOWN_STATUS)
         }
         if (size >= 16 && cluster.blockCountsByType.size >= 5) {
             award(player, GRAND_METROPOLIS)
+        }
+        val residentCount = cluster.members.size + 1
+        if (residentCount >= 3) {
+            award(player, COOPERATIVE_CLUSTER)
         }
     }
 
@@ -171,6 +229,9 @@ object SettlementAdvancements {
     fun checkPaletteDiversity(player: ServerPlayer, uniquePaletteCount: Int) {
         if (uniquePaletteCount >= 5) {
             award(player, PALETTE_DIVERSITY)
+        }
+        if (uniquePaletteCount >= 12) {
+            award(player, PALETTE_VIRTUOSO)
         }
     }
 
@@ -189,6 +250,19 @@ object SettlementAdvancements {
     fun checkCivicUpgrades(player: ServerPlayer, activeUpgradeCount: Int) {
         if (activeUpgradeCount >= 2) {
             award(player, CIVIC_RENAISSANCE)
+        }
+    }
+
+    fun checkHighwayBlockPlaced(player: ServerPlayer) {
+        val total = playerRoadBlocksPlaced.computeIfAbsent(player.uuid) { java.util.concurrent.atomic.AtomicInteger(0) }.incrementAndGet()
+        if (total >= 64) {
+            award(player, HIGHWAY_ENGINEER)
+        }
+    }
+
+    fun checkWardedBastion(player: ServerPlayer, activeUpgrades: Set<CivicUpgrade>) {
+        if (activeUpgrades.contains(CivicUpgrade.WARDED_STREETLIGHTS) && activeUpgrades.contains(CivicUpgrade.MUNICIPAL_QUARANTINE)) {
+            award(player, WARDED_BASTION)
         }
     }
 }

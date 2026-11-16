@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:combat/trial_survivor",
+  "display": {
+    "icon": {
+      "id": "minecraft:ominous_bottle"
+    },
+    "title": {
+      "text": "Bulwark Against the Horde"
+    },
+    "description": {
+      "text": "Defend a settlement or village sanctuary against an ominous raid."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "raid_bastion": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "raid_bastion"
+    ]
+  ]
+}

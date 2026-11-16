@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:settlement/first_homestead",
+  "display": {
+    "icon": {
+      "id": "minecraft:stone_bricks"
+    },
+    "title": {
+      "text": "Artery of Civilization"
+    },
+    "description": {
+      "text": "Construct or lay down 64+ paved road or rail blocks connecting claimed settlement territory."
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "highway_engineer": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "highway_engineer"
+    ]
+  ]
+}

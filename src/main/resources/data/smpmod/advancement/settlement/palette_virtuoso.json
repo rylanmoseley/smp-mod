@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:settlement/palette_diversity",
+  "display": {
+    "icon": {
+      "id": "minecraft:chiseled_stone_bricks"
+    },
+    "title": {
+      "text": "Architectural Polymath"
+    },
+    "description": {
+      "text": "Construct a contiguous settlement cluster utilizing 12 or more unique structural block palettes."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "palette_virtuoso": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "palette_virtuoso"
+    ]
+  ]
+}

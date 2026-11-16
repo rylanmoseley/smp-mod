@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:exploration/dungeon_delver",
+  "display": {
+    "icon": {
+      "id": "minecraft:trial_key"
+    },
+    "title": {
+      "text": "Relics of the Deep"
+    },
+    "description": {
+      "text": "Excavate ancient suspicious gravel/sand or unlock an ominous trial vault in subterranean ruins."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "ancient_archeologist": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "ancient_archeologist"
+    ]
+  ]
+}

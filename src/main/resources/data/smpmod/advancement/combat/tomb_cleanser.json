@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:combat/trial_survivor",
+  "display": {
+    "icon": {
+      "id": "minecraft:spawner"
+    },
+    "title": {
+      "text": "Tomb Cleanser"
+    },
+    "description": {
+      "text": "Purge 5 or more monster spawners within complex subterranean dungeons."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "tomb_cleanser": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "tomb_cleanser"
+    ]
+  ]
+}

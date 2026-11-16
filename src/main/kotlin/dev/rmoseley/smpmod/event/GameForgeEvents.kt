@@ -84,6 +84,14 @@ object GameForgeEvents {
         if (event.placedBlock.`is`(Blocks.BELL)) {
             RepurposedVillageManager.registerVillageCenter(level, event.pos)
         }
+
+        // 5. Track highway and railway engineering
+        val placedState = event.placedBlock
+        if (dev.rmoseley.smpmod.world.BiomeMobilityManager.isRoadBlock(placedState) || placedState.block is net.minecraft.world.level.block.BaseRailBlock) {
+            (player as? ServerPlayer)?.let {
+                dev.rmoseley.smpmod.advancements.SettlementAdvancements.checkHighwayBlockPlaced(it)
+            }
+        }
     }
 
     @SubscribeEvent
@@ -111,6 +119,9 @@ object GameForgeEvents {
                     for (drop in bonusDrops) {
                         Block.popResource(level, event.pos, drop)
                     }
+                    (player as? ServerPlayer)?.let { serverPlayer ->
+                        dev.rmoseley.smpmod.advancements.EconomyAdvancements.recordDeepOreHarvest(serverPlayer)
+                    }
                 }
                 (player as? ServerPlayer)?.let { serverPlayer ->
                     dev.rmoseley.smpmod.roles.GathererXpTracker.onBlockHarvested(
@@ -125,6 +136,13 @@ object GameForgeEvents {
                         1
                     )
                 }
+            }
+        }
+
+        // Track dungeon spawner destruction for combat milestones
+        if (block == Blocks.SPAWNER) {
+            (player as? ServerPlayer)?.let {
+                dev.rmoseley.smpmod.advancements.CombatRaidAdvancements.onDungeonSpawnerDestroyed(it)
             }
         }
     }
@@ -239,6 +257,12 @@ object GameForgeEvents {
 
         // 12. Cavern Depth Milestone (Abyss Descender below Y: 0)
         dev.rmoseley.smpmod.advancements.WorldExplorationAdvancements.onCavernDepthCheck(player)
+
+        // 13. Subterranean Voyage & Long-Distance Exploration
+        if (player.tickCount % 40 == 0) {
+            dev.rmoseley.smpmod.advancements.WorldExplorationAdvancements.onSubterraneanVoyage(player)
+            dev.rmoseley.smpmod.advancements.WorldExplorationAdvancements.onPlayerTravelCheck(player)
+        }
     }
 
     @SubscribeEvent
@@ -263,10 +287,16 @@ object GameForgeEvents {
         if (state.`is`(Blocks.BELL)) {
             RepurposedVillageManager.registerVillageCenter(player.level(), pos)
             dev.rmoseley.smpmod.world.VoiceAcousticHooks.triggerTownAlarm(player.serverLevel(), pos, player)
+            dev.rmoseley.smpmod.advancements.WorldExplorationAdvancements.onSanctuaryBellRung(player)
             if (RepurposedVillageManager.handleObjectiveInteraction(player, pos)) {
                 event.isCanceled = true
                 return
             }
+        }
+
+        // Subterranean Relic / Vault Interaction
+        if (state.`is`(Blocks.SUSPICIOUS_SAND) || state.`is`(Blocks.SUSPICIOUS_GRAVEL) || state.`is`(Blocks.VAULT)) {
+            dev.rmoseley.smpmod.advancements.WorldExplorationAdvancements.onAncientRelicUncovered(player)
         }
 
         // 2. Support Role: Empowering Warded Light Flares (sneaking + right click light source)
@@ -386,6 +416,15 @@ object GameForgeEvents {
                 event.isCanceled = true
                 event.cancellationResult = InteractionResult.SUCCESS
             }
+        }
+    }
+
+    @SubscribeEvent
+    fun onAnvilUpdate(event: net.neoforged.neoforge.event.AnvilUpdateEvent) {
+        val left = event.left
+        if (left.get(dev.rmoseley.smpmod.registry.ModDataComponents.MASTERWORK_AFFIX.get()) != null) {
+            val player = event.player as? ServerPlayer ?: return
+            dev.rmoseley.smpmod.advancements.ArtificingRecoveryAdvancements.awardRelicRestorer(player)
         }
     }
 

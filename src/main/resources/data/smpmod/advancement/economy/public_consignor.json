@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:economy/first_p2p_trade",
+  "display": {
+    "icon": {
+      "id": "minecraft:chest"
+    },
+    "title": {
+      "text": "Liquidity Provider"
+    },
+    "description": {
+      "text": "Consign or purchase an unclaimed salvage item on the public 24-hour buyback market."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "public_consignor": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "public_consignor"
+    ]
+  ]
+}

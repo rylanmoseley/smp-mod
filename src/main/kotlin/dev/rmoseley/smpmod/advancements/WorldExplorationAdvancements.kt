@@ -51,6 +51,18 @@ object WorldExplorationAdvancements {
     val ALPINE_SUMMIT_ID: ResourceLocation =
         ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "exploration/alpine_summit")
 
+    val SUBTERRANEAN_VOYAGER_ID: ResourceLocation =
+        ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "exploration/subterranean_voyager")
+
+    val SANCTUARY_RINGER_ID: ResourceLocation =
+        ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "exploration/sanctuary_ringer")
+
+    val ANCIENT_ARCHEOLOGIST_ID: ResourceLocation =
+        ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "exploration/ancient_archeologist")
+
+    val TRANSCONTINENTAL_PIONEER_ID: ResourceLocation =
+        ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "exploration/transcontinental_pioneer")
+
     val ABYSSAL_SOVEREIGN_ID: ResourceLocation =
         ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "exploration/abyssal_sovereign")
 
@@ -180,7 +192,62 @@ object WorldExplorationAdvancements {
             )
         )
 
-        // 10. Legendary: Horizon Pioneer
+        // 10. Journeyman: Subterranean Mariner (Tectonic Underground Rivers)
+        AdvancementRewardManager.register(
+            AdvancementReward(
+                advancementId = SUBTERRANEAN_VOYAGER_ID,
+                category = AdvancementCategory.EXPLORATION,
+                title = "Subterranean Mariner",
+                description = "Navigate a boat along a subterranean river below elevation Y: 0 in deep Tectonic cavern systems.",
+                tier = AdvancementTier.JOURNEYMAN,
+                currencyPayout = 200L,
+                explorerXp = 75.0
+            )
+        )
+
+        // 11. Journeyman: Sanctuary Watchman
+        AdvancementRewardManager.register(
+            AdvancementReward(
+                advancementId = SANCTUARY_RINGER_ID,
+                category = AdvancementCategory.EXPLORATION,
+                title = "Sanctuary Watchman",
+                description = "Ring a landmark sanctuary bell at night to scan darkness, alerting the settlement to lurking stalkers.",
+                tier = AdvancementTier.JOURNEYMAN,
+                currencyPayout = 150L,
+                explorerXp = 60.0
+            )
+        )
+
+        // 12. Master: Relics of the Deep
+        AdvancementRewardManager.register(
+            AdvancementReward(
+                advancementId = ANCIENT_ARCHEOLOGIST_ID,
+                category = AdvancementCategory.EXPLORATION,
+                title = "Relics of the Deep",
+                description = "Excavate ancient suspicious gravel/sand or unlock an ominous trial vault in subterranean ruins.",
+                tier = AdvancementTier.MASTER,
+                currencyPayout = 350L,
+                explorerXp = 140.0,
+                recoveryCatalystCount = 1
+            )
+        )
+
+        // 13. Master: Vanguard of the Frontier
+        AdvancementRewardManager.register(
+            AdvancementReward(
+                advancementId = TRANSCONTINENTAL_PIONEER_ID,
+                category = AdvancementCategory.EXPLORATION,
+                title = "Vanguard of the Frontier",
+                description = "Venture over 5,000 blocks away from world spawn across diverse continental biomes.",
+                tier = AdvancementTier.MASTER,
+                currencyPayout = 450L,
+                explorerXp = 180.0,
+                recoveryCatalystCount = 1,
+                broadcastServer = true
+            )
+        )
+
+        // 14. Legendary: Horizon Pioneer
         AdvancementRewardManager.register(
             AdvancementReward(
                 advancementId = ABYSSAL_SOVEREIGN_ID,
@@ -195,7 +262,7 @@ object WorldExplorationAdvancements {
             )
         )
 
-        SmpMod.LOGGER.info("Registered 10 World Exploration Advancement Rewards (Novice -> Legendary).")
+        SmpMod.LOGGER.info("Registered 14 World Exploration Advancement Rewards (Novice -> Legendary).")
     }
 
     fun onAlpineGliderLaunch(player: ServerPlayer, altitude: Double) {
@@ -283,6 +350,31 @@ object WorldExplorationAdvancements {
             if (totalChunks >= 250) {
                 grantAdvancement(player, ABYSSAL_SOVEREIGN_ID)
             }
+        }
+    }
+
+    fun onSubterraneanVoyage(player: ServerPlayer) {
+        val vehicle = player.vehicle
+        if (vehicle != null && vehicle is net.minecraft.world.entity.vehicle.Boat && player.level().dimension() == Level.OVERWORLD && player.blockY < 0) {
+            grantAdvancement(player, SUBTERRANEAN_VOYAGER_ID)
+        }
+    }
+
+    fun onSanctuaryBellRung(player: ServerPlayer) {
+        grantAdvancement(player, SANCTUARY_RINGER_ID)
+    }
+
+    fun onAncientRelicUncovered(player: ServerPlayer) {
+        grantAdvancement(player, ANCIENT_ARCHEOLOGIST_ID)
+    }
+
+    fun onPlayerTravelCheck(player: ServerPlayer) {
+        val spawnPos = player.level().sharedSpawnPos
+        val dx = player.x - spawnPos.x
+        val dz = player.z - spawnPos.z
+        val distSqr = dx * dx + dz * dz
+        if (distSqr >= 25_000_000.0) { // 5000^2
+            grantAdvancement(player, TRANSCONTINENTAL_PIONEER_ID)
         }
     }
 }

@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:economy/contract_complete",
+  "display": {
+    "icon": {
+      "id": "minecraft:spyglass"
+    },
+    "title": {
+      "text": "Contract Syndicate"
+    },
+    "description": {
+      "text": "Prove professional reliability by fulfilling 5 community bounty board contracts."
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "bounty_veteran": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "bounty_veteran"
+    ]
+  ]
+}

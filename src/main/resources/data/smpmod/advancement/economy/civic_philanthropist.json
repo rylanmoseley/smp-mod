@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:economy/town_patron",
+  "display": {
+    "icon": {
+      "id": "minecraft:beacon"
+    },
+    "title": {
+      "text": "Grand Civic Benefactor"
+    },
+    "description": {
+      "text": "Endow communal infrastructure by investing 1,500+ cumulative coins into town treasuries."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "civic_philanthropist": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "civic_philanthropist"
+    ]
+  ]
+}
