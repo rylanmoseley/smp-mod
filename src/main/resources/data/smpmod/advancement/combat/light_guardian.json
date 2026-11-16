@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:combat/snuffer_slayer",
+  "display": {
+    "icon": {
+      "id": "minecraft:lantern"
+    },
+    "title": {
+      "text": "Extinguish the Shadows"
+    },
+    "description": {
+      "text": "Slay 5 or more darkness-stalking mobs with the destroys_light_on_aggro trait before they shatter light sources."
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "light_guardian": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "light_guardian"
+    ]
+  ]
+}

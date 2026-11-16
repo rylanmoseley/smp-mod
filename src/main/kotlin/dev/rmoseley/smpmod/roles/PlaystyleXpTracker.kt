@@ -35,6 +35,10 @@ object PlaystyleXpTracker {
         incrementXp(player, explorer = amount)
     }
 
+    fun getCombatXp(player: Player): Double {
+        return player.getData(ModAttachmentTypes.PLAYER_PLAYSTYLE_XP.get()).combatXp
+    }
+
     // --- Backward Compatible Helper Methods ---
 
     fun awardCombatXp(player: Player, mobTier: Int, timeToKillSeconds: Double, wasCritical: Boolean) {

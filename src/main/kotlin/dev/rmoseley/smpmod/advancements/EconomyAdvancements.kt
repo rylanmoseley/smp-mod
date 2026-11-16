@@ -63,6 +63,27 @@ object EconomyAdvancements {
         gathererXp = 75.0
     )
 
+    val BOUNTY_VETERAN = AdvancementReward(
+        advancementId = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "economy/bounty_veteran"),
+        category = AdvancementCategory.ECONOMY,
+        title = "Contract Syndicate",
+        description = "Prove professional reliability by fulfilling 5 community bounty board contracts.",
+        tier = AdvancementTier.JOURNEYMAN,
+        currencyPayout = 200L,
+        gathererXp = 80.0,
+        recoveryCatalystCount = 1
+    )
+
+    val PUBLIC_CONSIGNOR = AdvancementReward(
+        advancementId = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "economy/public_consignor"),
+        category = AdvancementCategory.ECONOMY,
+        title = "Liquidity Provider",
+        description = "Consign or purchase an unclaimed salvage item on the public 24-hour buyback market.",
+        tier = AdvancementTier.JOURNEYMAN,
+        currencyPayout = 150L,
+        gathererXp = 60.0
+    )
+
     val CONTRACT_MASTER = AdvancementReward(
         advancementId = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "economy/contract_master"),
         category = AdvancementCategory.ECONOMY,
@@ -74,6 +95,17 @@ object EconomyAdvancements {
         broadcastServer = true
     )
 
+    val DEEP_PROSPECTOR = AdvancementReward(
+        advancementId = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "economy/deep_prospector"),
+        category = AdvancementCategory.ECONOMY,
+        title = "Mineral Vein Monopolist",
+        description = "Naturally prospect and extract 20+ unplaced deepslate ore veins below Y: 0 in deep caverns.",
+        tier = AdvancementTier.MASTER,
+        currencyPayout = 400L,
+        gathererXp = 150.0,
+        recoveryCatalystCount = 1
+    )
+
     val TOWN_PATRON = AdvancementReward(
         advancementId = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "economy/town_patron"),
         category = AdvancementCategory.ECONOMY,
@@ -83,6 +115,18 @@ object EconomyAdvancements {
         currencyPayout = 250L,
         builderXp = 100.0,
         recoveryCatalystCount = 1
+    )
+
+    val CIVIC_PHILANTHROPIST = AdvancementReward(
+        advancementId = ResourceLocation.fromNamespaceAndPath(SmpMod.MOD_ID, "economy/civic_philanthropist"),
+        category = AdvancementCategory.ECONOMY,
+        title = "Grand Civic Benefactor",
+        description = "Endow communal infrastructure by investing 1,500+ cumulative coins into town treasuries.",
+        tier = AdvancementTier.MASTER,
+        currencyPayout = 450L,
+        builderXp = 180.0,
+        recoveryCatalystCount = 2,
+        broadcastServer = true
     )
 
     val WEALTH_TYCOON = AdvancementReward(
@@ -98,6 +142,8 @@ object EconomyAdvancements {
     )
 
     private val playerContractCompletions = ConcurrentHashMap<UUID, AtomicInteger>()
+    private val playerDeepOresHarvested = ConcurrentHashMap<UUID, AtomicInteger>()
+    private val playerCumulativeDonations = ConcurrentHashMap<UUID, AtomicInteger>()
 
     /**
      * Registers all economy rewards with AdvancementRewardManager.
@@ -108,8 +154,12 @@ object EconomyAdvancements {
         AdvancementRewardManager.register(FIRST_P2P_TRADE)
         AdvancementRewardManager.register(BULK_STORE_SUPPLIER)
         AdvancementRewardManager.register(CONTRACT_COMPLETE)
+        AdvancementRewardManager.register(BOUNTY_VETERAN)
+        AdvancementRewardManager.register(PUBLIC_CONSIGNOR)
         AdvancementRewardManager.register(CONTRACT_MASTER)
+        AdvancementRewardManager.register(DEEP_PROSPECTOR)
         AdvancementRewardManager.register(TOWN_PATRON)
+        AdvancementRewardManager.register(CIVIC_PHILANTHROPIST)
         AdvancementRewardManager.register(WEALTH_TYCOON)
     }
 
@@ -142,14 +192,32 @@ object EconomyAdvancements {
     fun awardContractClaim(player: ServerPlayer) {
         grant(player, "economy/contract_complete")
         val count = playerContractCompletions.computeIfAbsent(player.uuid) { AtomicInteger(0) }.incrementAndGet()
+        if (count >= 5) {
+            grant(player, "economy/bounty_veteran")
+        }
         if (count >= 10) {
             grant(player, "economy/contract_master")
+        }
+    }
+
+    fun awardPublicMarketTrade(player: ServerPlayer) {
+        grant(player, "economy/public_consignor")
+    }
+
+    fun recordDeepOreHarvest(player: ServerPlayer) {
+        val total = playerDeepOresHarvested.computeIfAbsent(player.uuid) { AtomicInteger(0) }.incrementAndGet()
+        if (total >= 20) {
+            grant(player, "economy/deep_prospector")
         }
     }
 
     fun awardTownDonation(player: ServerPlayer, amount: Long) {
         if (amount >= 500L) {
             grant(player, "economy/town_patron")
+        }
+        val cumulative = playerCumulativeDonations.computeIfAbsent(player.uuid) { AtomicInteger(0) }.addAndGet(amount.toInt())
+        if (cumulative >= 1500) {
+            grant(player, "economy/civic_philanthropist")
         }
     }
 

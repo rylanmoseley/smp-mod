@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:settlement/contiguous_hamlet",
+  "display": {
+    "icon": {
+      "id": "minecraft:player_head"
+    },
+    "title": {
+      "text": "Commonwealth Assembly"
+    },
+    "description": {
+      "text": "Establish a contiguous settlement cluster shared and co-developed by 3 or more town residents."
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "cooperative_cluster": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "cooperative_cluster"
+    ]
+  ]
+}

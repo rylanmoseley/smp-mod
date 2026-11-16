@@ -155,12 +155,16 @@ Completing tiered artificing milestones distributes automated rewards through `A
 ```
 root (Artificing & Provenance)
  ├── first_craft_provenance (Maker's Mark) [Novice]
- │    └── masterwork_forge (Masterwork Forging) [Journeyman]
- │         └── paragon_artificer (Paragon of the Forge) [Legendary] ── broadcast!
+ │    ├── masterwork_forge (Masterwork Forging) [Journeyman]
+ │    │    ├── relic_restorer (Relic Conservator) [Journeyman]
+ │    │    ├── triumvirate_armament (Armament of the Aegis) [Master] ── broadcast!
+ │    │    └── paragon_artificer (Paragon of the Forge) [Legendary] ── broadcast!
  └── safe_buyback (Prudent Recovery) [Journeyman]
       ├── catalytic_refinement (Alchemical Catalyst) [Journeyman]
+      │    └── catalyst_synthesizer (Alchemical Transmutation) [Journeyman]
       └── public_auctioneer (Grand Appraiser) [Master]
            └── provenance_heirloom (Living Provenance) [Master]
+                └── chronicles_of_lineage (Chronicles of the Ancients) [Master] ── broadcast!
 ```
 
 ### Tiered Milestones & Rewards Table
@@ -170,10 +174,14 @@ root (Artificing & Provenance)
 | `artificing/root` | **Artificing & Provenance** | **Novice** (Task) | Root tab for Artificing & Provenance; unlocks upon entering the world. | — | — | — | No |
 | `artificing/first_craft_provenance` | **Maker's Mark** | **Novice** (Task) | Craft your first piece of unique equipment with permanent maker lore. | **+75 coins** | **+25 Builder XP**<br>**+25 Gatherer XP** | — | No |
 | `artificing/masterwork_forge` | **Masterwork Forging** | **Journeyman** (Task) | Forge or loot an item bearing a Masterwork Affix (Keen, Sturdy, Balanced, Warded, Aerodynamic, Titanic, or Precise). | **+150 coins** | **+50 Builder XP** | — | No |
+| `artificing/relic_restorer` | **Relic Conservator** | **Journeyman** (Task) | Repair or polish a masterwork relic at an anvil while preserving its historic maker mark lore. | **+175 coins** | **+60 Builder XP** | — | No |
 | `artificing/safe_buyback` | **Prudent Recovery** | **Journeyman** (Task) | Safely recover lost equipment from a town Buyback Terminal within a protected municipal claim. | **+100 coins** | — | **1x Recovery Catalyst** | No |
 | `artificing/catalytic_refinement` | **Alchemical Catalyst** | **Journeyman** (Goal) | Craft and deploy a Recovery Catalyst to discount buyback escalation fees. | **+200 coins** | **+75 Gatherer XP** | **1x Recovery Catalyst** | No |
+| `artificing/catalyst_synthesizer` | **Alchemical Transmutation** | **Journeyman** (Goal) | Synthesize or acquire 3 or more rare Recovery Catalysts for buyback security. | **+200 coins** | **+75 Gatherer XP** | — | No |
 | `artificing/provenance_heirloom` | **Living Provenance** | **Master** (Challenge) | Own or trade an heirloom item possessing 3 or more historical ownership transitions in its provenance ledger. | **+350 coins** | **+100 Builder XP** | **2x Recovery Catalysts** | No |
+| `artificing/chronicles_of_lineage` | **Chronicles of the Ancients** | **Master** (Challenge) | Wield an heirloom tool or weapon possessing 5 or more distinct historical ownership transfers. | **+400 coins** | **+150 Gatherer XP** | **1x Recovery Catalyst** | **Yes** |
 | `artificing/public_auctioneer` | **Grand Appraiser** | **Master** (Goal) | Purchase an unclaimed public auction item past the 24-hour exclusive window. | **+300 coins** | **+100 Gatherer XP** | **1x Recovery Catalyst** | No |
+| `artificing/triumvirate_armament` | **Armament of the Aegis** | **Master** (Challenge) | Simultaneously equip a Masterwork weapon, offhand item, and chestplate. | **+450 coins** | **+180 Builder XP** | **1x Recovery Catalyst** | **Yes** |
 | `artificing/paragon_artificer` | **Paragon of the Forge** | **Legendary** (Challenge) | Forge and equip a complete four-piece set of masterwork equipment with pristine provenance. | **+1,000 coins** | **+300 Builder XP** | **3x Recovery Catalysts** | **Yes** |
 
 ### Deep Dungeon Integration & Sourcing

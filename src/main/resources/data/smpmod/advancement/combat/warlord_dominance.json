@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:combat/dps_execute_strike",
+  "display": {
+    "icon": {
+      "id": "minecraft:netherite_sword"
+    },
+    "title": {
+      "text": "Paragon of the Vanguard"
+    },
+    "description": {
+      "text": "Accumulate 1,000+ Combat XP across dark-zone trials and raids."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "warlord_dominance": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "warlord_dominance"
+    ]
+  ]
+}
