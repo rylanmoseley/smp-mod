@@ -1,0 +1,23 @@
+{
+  "parent": "smpmod:settlement/palette_diversity",
+  "display": {
+    "icon": {
+      "id": "minecraft:bell"
+    },
+    "title": {
+      "text": "Fortified Town"
+    },
+    "description": {
+      "text": "Expand a contiguous settlement to 9 or more chunks, reaching Town tier."
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "town_status": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

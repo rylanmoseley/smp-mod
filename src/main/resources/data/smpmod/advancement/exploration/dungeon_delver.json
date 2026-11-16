@@ -1,0 +1,29 @@
+{
+  "parent": "smpmod:exploration/deep_caverns",
+  "display": {
+    "icon": {
+      "id": "minecraft:trial_key"
+    },
+    "title": {
+      "text": "Deep Dungeon Delver"
+    },
+    "description": {
+      "text": "Infiltrate and explore an uncharted subterranean dungeon complex or ancient trial chamber."
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "enter_dungeon": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "enter_dungeon"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

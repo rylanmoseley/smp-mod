@@ -1,0 +1,29 @@
+{
+  "parent": "smpmod:exploration/into_the_wilds",
+  "display": {
+    "icon": {
+      "id": "minecraft:respawn_anchor"
+    },
+    "title": {
+      "text": "Thermal Convoy"
+    },
+    "description": {
+      "text": "Traverse the treacherous Nether in an organized caravan convoy without roof transit."
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "traverse_nether": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "traverse_nether"
+    ]
+  ],
+  "sends_telemetry_event": false
+}

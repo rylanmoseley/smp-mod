@@ -49,6 +49,10 @@ object ItemProvenance {
         stack.set(ModDataComponents.PROVENANCE_LORE.get(), initialHistory)
 
         updateLore(stack)
+
+        if (!isCrafted && creator is net.minecraft.server.level.ServerPlayer) {
+            dev.rmoseley.smpmod.advancements.ArtificingRecoveryAdvancements.onItemLooted(creator, stack)
+        }
     }
 
     /**
@@ -70,6 +74,10 @@ object ItemProvenance {
         stack.set(ModDataComponents.PROVENANCE_LORE.get(), updatedHistory)
 
         updateLore(stack)
+
+        if (newOwner is net.minecraft.server.level.ServerPlayer) {
+            dev.rmoseley.smpmod.advancements.ArtificingRecoveryAdvancements.onOwnershipTransferred(newOwner, stack)
+        }
     }
 
     /**

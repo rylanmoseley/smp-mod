@@ -46,3 +46,17 @@ description='''${mod_description}'''
     versionRange="[0.33.0,)"
     ordering="AFTER"
     side="BOTH"
+
+# YUNG's Better Dungeons Optional Integration
+[[dependencies.${mod_id}]]
+    modId="betterdungeons"
+    type="optional"
+    ordering="AFTER"
+    side="BOTH"
+
+# When Dungeons Arise Optional Integration
+[[dependencies.${mod_id}]]
+    modId="dungeons_arise"
+    type="optional"
+    ordering="AFTER"
+    side="BOTH"

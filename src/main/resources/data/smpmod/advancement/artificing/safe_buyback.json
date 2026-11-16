@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:artificing/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:recovery_compass"
+    },
+    "title": {
+      "text": "Prudent Recovery"
+    },
+    "description": {
+      "text": "Safely recover lost equipment from a town Buyback Terminal."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "safe_buyback": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "safe_buyback"
+    ]
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:combat/snuffer_slayer",
+  "display": {
+    "icon": {
+      "id": "minecraft:trial_key"
+    },
+    "title": {
+      "text": "Vault Delver"
+    },
+    "description": {
+      "text": "Clear a deep trial chamber or spawner vault."
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "clear_vault": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "clear_vault"
+    ]
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:artificing/safe_buyback",
+  "display": {
+    "icon": {
+      "id": "minecraft:gold_ingot"
+    },
+    "title": {
+      "text": "Grand Appraiser"
+    },
+    "description": {
+      "text": "Purchase an unclaimed public auction item past the 24h window."
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "public_auction_purchase": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "public_auction_purchase"
+    ]
+  ]
+}

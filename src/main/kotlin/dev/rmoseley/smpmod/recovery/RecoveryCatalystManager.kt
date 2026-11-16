@@ -141,6 +141,10 @@ object RecoveryCatalystManager {
             " (Support assistance applied on behalf of ${entry.registeredOwnerName})"
         } else ""
 
+        if (applicator is net.minecraft.server.level.ServerPlayer) {
+            dev.rmoseley.smpmod.advancements.ArtificingRecoveryAdvancements.onCatalystApplied(applicator)
+        }
+
         return CatalystApplicationResult.Success(
             previousDeathCount = prevCount,
             newDeathCount = newCount,

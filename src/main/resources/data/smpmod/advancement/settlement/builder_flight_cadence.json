@@ -1,0 +1,23 @@
+{
+  "parent": "smpmod:settlement/contiguous_hamlet",
+  "display": {
+    "icon": {
+      "id": "minecraft:feather"
+    },
+    "title": {
+      "text": "Aerial Architect"
+    },
+    "description": {
+      "text": "Maintain continuous cadence-based builder flight for over 60 seconds."
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "builder_flight_cadence": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

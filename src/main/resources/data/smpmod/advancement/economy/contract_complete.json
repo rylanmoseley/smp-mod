@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:economy/first_p2p_trade",
+  "display": {
+    "icon": {
+      "id": "minecraft:writable_book"
+    },
+    "title": {
+      "text": "Mercenary Surveyor"
+    },
+    "description": {
+      "text": "Fulfill all objectives for a Community Bounty Board contract and claim your bounty."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "contract_complete": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "contract_complete"
+    ]
+  ]
+}

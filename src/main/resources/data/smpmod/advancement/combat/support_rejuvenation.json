@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:combat/trial_survivor",
+  "display": {
+    "icon": {
+      "id": "minecraft:golden_apple"
+    },
+    "title": {
+      "text": "Field Medic Radiance"
+    },
+    "description": {
+      "text": "Deploy warded lights and sustain team through raid phase."
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sustain_team": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "sustain_team"
+    ]
+  ]
+}

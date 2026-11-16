@@ -1,0 +1,28 @@
+{
+  "parent": "smpmod:economy/root",
+  "display": {
+    "icon": {
+      "id": "minecraft:iron_pickaxe"
+    },
+    "title": {
+      "text": "Pioneer Prospector"
+    },
+    "description": {
+      "text": "Harvest your first natural world resource without player-placed laundering."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "harvest": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "harvest"
+    ]
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "parent": "smpmod:settlement/first_homestead",
+  "display": {
+    "icon": {
+      "id": "minecraft:hay_block"
+    },
+    "title": {
+      "text": "Hamlet Emergence"
+    },
+    "description": {
+      "text": "Establish a contiguous settlement cluster of 2 to 3 claimed chunks."
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "contiguous_hamlet": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

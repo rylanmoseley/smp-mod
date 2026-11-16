@@ -129,3 +129,47 @@ To complement natural gathering and prevent monotonous resource grinding, the se
 * `/bounty status`: View your current active contracts and progress towards objectives.
 * `/bounty claim <id>`: Collect your coin and Playstyle XP rewards upon completing an objective.
 * `/bounty abandon <id>`: Drop an active contract to free up your concurrent contract slot.
+
+---
+
+## 7. Advancements & Rewards Progression
+
+The **Frontier Commerce** advancement branch rewards players for active economic integration, trading, municipal liquidation, contract completion, civic philanthropy, and personal capital accumulation. 
+
+Unlike conventional achievements, completing tiered economic milestones dispatches direct rewards via the `AdvancementRewardManager`:
+* **Non-material digital currency** injected directly into player balances.
+* **Playstyle Role XP** (Gatherer and Builder proficiencies).
+* **Tangible Recovery Catalysts** ensuring essential gear preservation on death.
+* **Server-Wide Broadcasts** honoring Master and Legendary market achievements.
+
+### Economy Progression Tree
+
+```
+root (Frontier Commerce)
+ ├── first_harvest (Pioneer Prospector) [Novice]
+ │    └── bulk_store_supplier (Municipal Supplier) [Journeyman]
+ └── first_p2p_trade (Mercantile Handshake) [Novice]
+      ├── contract_complete (Mercenary Surveyor) [Journeyman]
+      │    └── contract_master (Guild Commissioner) [Master] ── broadcast!
+      │         └── wealth_tycoon (Sovereign Merchant) [Legendary] ── broadcast!
+      └── town_patron (Civic Benefactor) [Master]
+```
+
+### Tiered Milestones & Rewards Table
+
+| Advancement ID | Display Title | Tier & Frame | Requirement & Description | Digital Payout | Playstyle XP | Tangible Rewards | Broadcast |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `economy/root` | **Frontier Commerce** | **Novice** (Task) | Establish presence in the frontier; unlocks the Commerce tree upon first joining the realm. | — | — | — | No |
+| `economy/first_harvest` | **Pioneer Prospector** | **Novice** (Task) | Naturally harvest your first raw survival resource in the wild without player-placed laundering. | **+50 coins** | **+25 Gatherer XP** | — | No |
+| `economy/first_p2p_trade` | **Mercantile Handshake** | **Novice** (Task) | Execute your first peer-to-peer trade or direct digital transfer (`/economy pay`) with another player. | **+75 coins** | **+30 Gatherer XP** | — | No |
+| `economy/bulk_store_supplier` | **Municipal Supplier** | **Journeyman** (Task) | Liquidate naturally gathered resources into the server bulk store liquidation system. | **+150 coins** | **+60 Gatherer XP** | — | No |
+| `economy/contract_complete` | **Mercenary Surveyor** | **Journeyman** (Task) | Complete and claim your first objective from the Community Bounty Board (`/bounty claim`). | **+200 coins** | **+75 Gatherer XP** | — | No |
+| `economy/contract_master` | **Guild Commissioner** | **Master** (Challenge) | Prove seasoned reliability by completing and claiming 10 Community Bounty Board contracts. | **+500 coins** | **+150 Gatherer XP** | — | **Yes** |
+| `economy/town_patron` | **Civic Benefactor** | **Master** (Goal) | Invest in communal municipal development by donating 500+ coins to a town treasury (`/town deposit`). | **+250 coins** | **+100 Builder XP** | **1x Recovery Catalyst** | No |
+| `economy/wealth_tycoon` | **Sovereign Merchant** | **Legendary** (Challenge) | Amass an off-inventory fortune of 5,000+ digital currency coins in your personal wallet. | **+1,000 coins** | **+250 Gatherer XP** | **3x Recovery Catalysts** | **Yes** |
+
+### Anti-Exploit & One-Time Claim Guarantees
+* **Lifetime De-duplication:** All advancement rewards are recorded persistently in player data attachments (`claimedMilestones`). Re-triggering or resetting criteria will not re-award coins, playstyle XP, or catalysts.
+* **Anti-Laundering Verification:** Harvest-related advancements strictly require blocks verified as naturally generated (`!player_placed`).
+* **Atomic Balances:** Coin payouts leverage lock-striped concurrent balance updates and are recorded to the immutable `EconomyAuditLedger`.
+

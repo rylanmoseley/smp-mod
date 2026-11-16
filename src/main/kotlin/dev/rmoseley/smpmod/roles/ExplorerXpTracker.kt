@@ -60,6 +60,13 @@ object ExplorerXpTracker {
                 Component.literal("§6[Explorer] §fDiscovered new biome: §e$biomeName §a(+50 Explorer XP)")
             )
             PlaystyleXpTracker.incrementExplorerXp(player, 50.0)
+
+            // Trigger World Exploration advancement milestones
+            dev.rmoseley.smpmod.advancements.WorldExplorationAdvancements.onExplorationProgress(
+                player,
+                playerChunks.size,
+                playerBiomes.size
+            )
         }
 
         // 3. Distance Expedition Milestones
