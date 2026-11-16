@@ -45,6 +45,7 @@ object SmpMod {
 
         // Register game event listeners on the global NeoForge bus
         NeoForge.EVENT_BUS.register(GameForgeEvents)
+        NeoForge.EVENT_BUS.register(dev.rmoseley.smpmod.roles.RoleCombatEvents)
 
         LOGGER.info("SMP Mod Suite initialized successfully.")
     }

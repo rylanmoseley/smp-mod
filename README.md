@@ -31,8 +31,12 @@ dev.rmoseley.smpmod
 ├── recovery/                    # Ownership-bound buybacks & provenance lore
 │   ├── BuybackLedgerManager.kt
 │   └── ItemProvenance.kt
-├── claims/                      # Contiguous land claims & construction scoring
-│   ├── ClaimManager.kt
+├── claims/                      # Claim integrations & contiguous cluster leveling
+│   ├── IClaimProvider.kt        # SPI abstraction (OPAC, FTB Chunks, or Internal)
+│   ├── OpacClaimProvider.kt     # Open Parties and Claims (OPAC) integration
+│   ├── InternalClaimProvider.kt # Fallback standalone claim provider
+│   ├── ContiguousCluster.kt     # Contiguous cluster model & development leveling
+│   ├── ClaimManager.kt          # BFS cluster analysis & claim coordination
 │   ├── VarietyScorer.kt
 │   └── BuilderFlightController.kt
 ├── world/                       # World topology, Nether hazards, & AI
@@ -50,7 +54,7 @@ dev.rmoseley.smpmod
 ### Core Mechanisms
 - **Non-Material Economy:** Digital player balances safe from death drops, fed by starter & repeatable milestones, P2P commerce, and natural harvest shop unlocks.
 - **Provenance-Tracked UUID Buybacks:** Named, enchanted, and high-tier items receive persistent UUIDs and track `Crafted by` / `Owned by` lore. On death, items route to a buyback ledger with an escalating fee, a 24h exclusive reclamation window, and smooth ~30-day decay. Mundane stackables route to the server bulk store.
-- **Contiguous Claims & Builder Flight:** Claimed chunks must maintain contiguous topology. Variety-weighted block placements generate pooled defensive buffs and grant temporary (~5s) building flight within claims.
+- **Noncontiguous Claims & Contiguous Cluster Leveling:** Players and parties can claim noncontiguous chunks across the world (e.g. outposts, mining camps). However, **development leveling** (pooled defensive buffs, variety-weighted net block calculations, and temporary builder flight) evaluates strictly per **contiguous chunk cluster** via BFS flood-fill. Integrates natively with **Open Parties and Claims (OPAC)**.
 - **Light AI & World Hazards:** Dark zones escalate mob strength, while mobs with `destroys_light_on_aggro` snuff lights (break/drop in wilderness, temporary shroud aura inside claims). Nether roof access is blocked, transit highways carry hazards, and Elytra is gated behind exploration milestones with momentum gliding.
 - **Emergent Combat Roles:** Zero elective classes. A player's combat profile across **DPS**, **Tank**, **Support**, and **Scout** is dynamically derived from their Playstyle XP ratio ($\text{Combat}$, $\text{Builder}$, $\text{Gatherer}$, $\text{Explorer}$).
 
@@ -60,7 +64,7 @@ dev.rmoseley.smpmod
 
 - **Target Game Version:** Minecraft `1.21.1`
 - **Mod Loader:** NeoForge `21.1.234+`
-- **Language:** Kotlin `2.0.21` via Kotlin for Forge `5.10.0+`
+- **Language:** Kotlin `2.2.20` via Kotlin for Forge `5.10.0+`
 - **Gradle Plugin:** `net.neoforged.moddev` (ModDevGradle `2.0.142`)
 - **JVM Target:** Java 21 (`JavaLanguageVersion.of(21)`)
 - **Mappings:** Official Mojang Mappings + Parchment (`2024.11.17`)
