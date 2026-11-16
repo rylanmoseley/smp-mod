@@ -105,6 +105,34 @@ object ElytraFlightManager {
         // Award Master of the Winds advancement milestone
         dev.rmoseley.smpmod.advancements.WorldExplorationAdvancements.onGliderDeployed(player)
 
+        // High-Altitude Alpine Thermal Glide (Tectonic Mountain Ranges Y >= 200)
+        // Natural high-elevation updrafts and reduced air drag reward scaling monumental summits
+        if (player.y >= 200.0) {
+            dev.rmoseley.smpmod.advancements.WorldExplorationAdvancements.onAlpineGliderLaunch(player, player.y)
+
+            // Alpine thermal lift and momentum preservation (+4% horizontal velocity)
+            val alpineScale = 1.04
+            player.deltaMovement = Vec3(
+                player.deltaMovement.x * alpineScale,
+                (player.deltaMovement.y + 0.015).coerceAtMost(0.2),
+                player.deltaMovement.z * alpineScale
+            )
+
+            if (player.tickCount % 6 == 0) {
+                val serverLevel = player.serverLevel()
+                serverLevel.sendParticles(
+                    ParticleTypes.SNOWFLAKE,
+                    player.x, player.y + 0.1, player.z,
+                    3, 0.3, 0.2, 0.3, 0.02
+                )
+                serverLevel.sendParticles(
+                    ParticleTypes.CLOUD,
+                    player.x, player.y, player.z,
+                    2, 0.2, 0.1, 0.2, 0.01
+                )
+            }
+        }
+
         // 3. Scout Role & Masterwork Aerodynamics (Rewarding launch towers & altitude conversion)
         val scoutAgility = player.getAttribute(ModEntityAttributes.ROLE_SCOUT_AGILITY)?.value ?: 1.0
         val chestItem = player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST)
