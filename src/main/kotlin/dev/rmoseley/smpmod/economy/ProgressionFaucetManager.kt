@@ -81,7 +81,7 @@ object ProgressionFaucetManager {
             )
 
             // Synergize with Gatherer XP
-            PlaystyleXpTracker.awardGathererXp(player, 15.0, false)
+            PlaystyleXpTracker.awardGathererXp(player, 25.0, false)
 
             player.sendSystemMessage(
                 Component.literal("§a[Harvest Milestone] §fCompleted $newHarvestTotal natural harvests! Rewarded §e+$payout coins§f and bonus Gatherer XP.")
@@ -100,11 +100,12 @@ object ProgressionFaucetManager {
 
         player.setData(attachment, currentData.copy(totalBlocksConstructed = newConstructedTotal))
 
-        // Every 25 placed blocks in a claim earns a recurring construction dividend
-        val threshold = 25L
-        if (newConstructedTotal % threshold == 0L) {
-            val bonusFromVariety = (varietyScore * 5.0).coerceIn(0.0, 25.0).toLong()
-            val payout = 25L + bonusFromVariety
+        // Check if recurring construction dividend threshold is reached (default 100 blocks placed)
+        val threshold = SmpConfig.COMMON.constructionDividendThreshold.get().toLong()
+        if (threshold > 0L && newConstructedTotal % threshold == 0L) {
+            val basePayout = SmpConfig.COMMON.constructionDividendPayout.get().toLong()
+            val bonusFromVariety = (varietyScore * 3.0).coerceIn(0.0, 15.0).toLong()
+            val payout = basePayout + bonusFromVariety
 
             EconomyManager.credit(
                 player,
@@ -114,7 +115,7 @@ object ProgressionFaucetManager {
             )
 
             // Grant bonus Builder XP
-            PlaystyleXpTracker.incrementBuilderXp(player, 15.0)
+            PlaystyleXpTracker.incrementBuilderXp(player, 25.0)
 
             player.sendSystemMessage(
                 Component.literal("§9[Construction Dividend] §fCompleted milestone ($newConstructedTotal blocks placed)! Rewarded §a+$payout coins§f and bonus Builder XP.")

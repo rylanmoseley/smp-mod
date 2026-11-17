@@ -22,12 +22,20 @@ Controls currency minting, milestone payouts, and trade taxes.
     starterAdvancementPayout = 100
 
     # Number of natural block harvests required per repeatable currency payout
-    # Range: 50 to 10000 | Default: 500
-    repeatableHarvestThreshold = 500
+    # Range: 25 to 10000 | Default: 200
+    repeatableHarvestThreshold = 200
 
     # Currency awarded per repeatable harvest cycle completion
+    # Range: 1 to 10000 | Default: 35
+    repeatableHarvestPayout = 35
+
+    # Number of verified placed blocks within claimed territory per construction dividend
+    # Range: 10 to 10000 | Default: 100
+    constructionDividendThreshold = 100
+
+    # Base currency awarded per construction dividend milestone (scaled up to +15 bonus by variety)
     # Range: 1 to 10000 | Default: 25
-    repeatableHarvestPayout = 25
+    constructionDividendPayout = 25
 
     # Transaction fee percentage deducted from formal P2P shop transfers (0.0 to 1.0)
     # Range: 0.0 to 1.0 | Default: 0.05 (5%)
@@ -87,17 +95,19 @@ Calibrates claim caps, variety scoring, and builder flight duration.
 
 ```toml
 [ClaimsAndBuilding]
-    # Max claimable chunks unlocked per Builder Playstyle level
-    # Range: 1 to 10 | Default: 2
-    chunksPerBuilderLevel = 2
+    # Max claimable contiguous chunks unlocked per Builder Playstyle level
+    # Range: 1 to 10 | Default: 3
+    chunksPerBuilderLevel = 3
 
-    # Base claimable chunk limit awarded to any new player
-    # Range: 1 to 64 | Default: 4
-    maxBaseClaimChunks = 4
+    # Base claimable chunk limit awarded to any new player (3x3 parcel)
+    # Range: 1 to 64 | Default: 9
+    maxBaseClaimChunks = 9
 
     # Base multiplier for variety-weighted block placement diversity
     # Range: 0.1 to 10.0 | Default: 1.0
     varietyPaletteWeightBase = 1.0
+    builderFlightGraceSeconds = 5
+```
 
     # Temporary building flight grace duration in seconds, refreshed by continuous block placement
     # Range: 1 to 30 | Default: 5 seconds

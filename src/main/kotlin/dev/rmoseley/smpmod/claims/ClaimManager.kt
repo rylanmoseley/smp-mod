@@ -225,10 +225,10 @@ object ClaimManager {
      */
     fun calculateClusterDevelopmentLevel(chunkCount: Int, varietyScore: Double, netBlocks: Long): Int {
         val sizeTierBonus = when {
-            chunkCount >= 16 -> 5
-            chunkCount >= 9 -> 4
-            chunkCount >= 4 -> 3
-            chunkCount >= 2 -> 2
+            chunkCount >= SettlementTier.METROPOLIS.minChunks -> 5
+            chunkCount >= SettlementTier.TOWN.minChunks -> 4
+            chunkCount >= SettlementTier.SETTLEMENT.minChunks -> 3
+            chunkCount >= SettlementTier.HAMLET.minChunks -> 2
             else -> 1
         }
         val varietyFactor = (varietyScore / 75.0).toInt()
