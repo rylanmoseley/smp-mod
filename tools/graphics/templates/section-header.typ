@@ -81,37 +81,37 @@
   )
 )
 
-// 5. Left Stamp Box: 64x64 pixel sprite in square parchment stamp box
-#place(top + left, dx: 32 * px, dy: 36 * px,
+// 5. Left Stamp Box: 70x70 pixel sprite in square parchment stamp box
+#place(top + left, dx: 32 * px, dy: 32 * px,
   box(
-    width: 88 * px,
-    height: 88 * px,
+    width: 96 * px,
+    height: 96 * px,
     fill: parchment-inset,
     stroke: 1.5pt + ink-primary,
     [
       #place(center + horizon,
-        render-subsystem-sprite(sub.id, size: 60pt)
+        render-subsystem-sprite(sub.id, size: 70pt)
       )
     ]
   )
 )
 
 // 6. Header Typography & Grounded Subsystem Copy
-#place(top + left, dx: 144 * px, dy: 44 * px,
-  box(width: 780 * px, [
+#place(top + left, dx: 150 * px, dy: 34 * px,
+  box(width: 820 * px, [
     #stack(
-      spacing: 7 * px,
+      spacing: 5 * px,
       text(
         font: font-heading,
-        size: 10.5 * px,
+        size: 14 * px,
         weight: "bold",
-        fill: ink-secondary,
+        fill: accent,
         tracking: 2pt,
         [CHAPTER #sub.numeral   —   #upper(sub.name)]
       ),
       text(
         font: font-display,
-        size: 28 * px,
+        size: 34 * px,
         weight: "bold",
         fill: ink-primary,
         tracking: -0.25pt,
@@ -119,8 +119,8 @@
       ),
       text(
         font: font-body,
-        size: 13.5 * px,
-        weight: "regular",
+        size: 17 * px,
+        weight: "medium",
         fill: ink-secondary,
         sub.subtitle
       )
