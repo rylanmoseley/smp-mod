@@ -32,6 +32,8 @@
   let px-size = size / n
   cetz.canvas(length: 1pt, {
     import cetz.draw: *
+    // Exact square canvas anchor to prevent bounding-box shrinkage on empty border pixels
+    rect((0, 0), (size, size), stroke: none, fill: none)
     for r in range(n) {
       let row = sprite-matrix.at(r)
       let m = row.len()
@@ -45,8 +47,8 @@
             run-len += 1
           }
           let x0 = c * px-size
-          let x1 = (c + run-len) * px-size + 0.04pt
-          let y1 = y + px-size + 0.04pt
+          let x1 = calc.min(size, (c + run-len) * px-size + 0.04pt)
+          let y1 = calc.min(size, y + px-size + 0.04pt)
           rect((x0, y), (x1, y1), fill: palette.at(ch), stroke: none)
           c += run-len
         } else {
@@ -61,14 +63,14 @@
 // 24x24 Primary Emblem: Warded Boundary Crest & Settlement Beacon
 // ---------------------------------------------------------------------------
 #let emblem-24 = (
-  "........XXXXXX..........",
-  ".......XXFFFFXX.........",
-  "......XXFVYYVFXX........",
-  ".....XXFVYYYYVFXX.......",
-  "....XXFVYYYYYYVFXX......",
-  "...XXFFVYYYYYYVFFXX.....",
-  "..XXFVVVVYYYYVVVVFXX....",
-  ".XXVVVVVVVVVVVVVVVVXX...",
+  ".........XXXXXX.........",
+  "........XXFFFFXX........",
+  ".......XXFVYYVFXX.......",
+  "......XXFVYYYYVFXX......",
+  ".....XXFVYYYYYYVFXX.....",
+  "....XXFFVYYYYYYVFFXX....",
+  "...XXFVVVVYYYYVVVVFXX...",
+  "..XXVVVVVVVVVVVVVVVVXX..",
   "XXXXXXXXXXXXXXXXXXXXXXXX",
   "XXSSSSSSSSSSSSSSSSSSSSXX",
   "XXSSSSMMMMMMMMMMMMSSSSXX",
@@ -129,21 +131,21 @@
 )
 
 #let sprite-land-claims-16 = (
-  "......XX........",
-  ".....XMMX.......",
-  "....XMMMMX......",
-  "...XMMMMMMX.....",
-  "...XMMMMMMX.....",
-  "....XMMMMX......",
-  ".....XMMX.......",
-  "......XX........",
-  "......XX........",
-  "..XXXXXXXXXX....",
-  ".XGGGGGGGGGGX...",
-  ".XGGGGGGGGGGX...",
-  ".XDDDDDDDDDDX...",
-  ".XDDDDDDDDDDX...",
-  "..XXXXXXXXXX....",
+  ".......XX.......",
+  "......XMMX......",
+  ".....XMMMMX.....",
+  "....XMMMMMMX....",
+  "....XMMMMMMX....",
+  ".....XMMMMX.....",
+  "......XMMX......",
+  ".......XX.......",
+  ".......XX.......",
+  "...XXXXXXXXXX...",
+  "..XGGGGGGGGGGX..",
+  "..XGGGGGGGGGGX..",
+  "..XDDDDDDDDDDX..",
+  "..XDDDDDDDDDDX..",
+  "...XXXXXXXXXX...",
   "................",
 )
 
@@ -155,7 +157,7 @@
   "...XCCCCCCCCX...",
   "..XCCCCCCCCCCX..",
   ".XCCCCCCCCCCCCX.",
-  "XXXXXXXXXXXXXXX.",
+  ".XXXXXXXXXXXXXX.",
   "....XXXXXXXX....",
   "...XX..YY..XX...",
   "..XX..YYYY..XX..",
@@ -175,8 +177,8 @@
   ".....XVXXVX.....",
   "......XVVX......",
   ".....XIIIIX.....",
-  "....XIIIIXIIX...",
-  "...XIIIIIIIIIX..",
+  "....XIIIIIIX....",
+  "...XIIIIIIIIX...",
   "..XIIIIXXIIIIX..",
   "..XIIIX..XIIIX..",
   "...XIX....XIX...",
@@ -266,6 +268,7 @@
 
 #let sprite-role-scout-16 = (
   "................",
+  "................",
   "......XXX.......",
   ".....XCCX.......",
   "....XCCCCX......",
@@ -278,7 +281,6 @@
   "..XCCCCCCCCCCCX.",
   "..XCCCCCCCCCCCCX",
   "..XXXXXXXXXXXXXX",
-  "................",
   "................",
   "................",
 )
@@ -313,35 +315,38 @@
 /// Cartographer's 8-Point Compass Rose
 #let draw-compass-rose(size: 80pt) = {
   let r = size / 2
+  let font-sz = calc.max(6pt, size * 0.09)
   cetz.canvas(length: 1pt, {
     import cetz.draw: *
-    circle((r, r), radius: r * 0.92, stroke: 1pt + ink-primary, fill: none)
-    circle((r, r), radius: r * 0.86, stroke: 0.5pt + ink-faint, fill: none)
+    // Exact square canvas anchor
+    rect((0, 0), (size, size), stroke: none, fill: none)
+    circle((r, r), radius: r * 0.82, stroke: 1pt + ink-primary, fill: none)
+    circle((r, r), radius: r * 0.76, stroke: 0.5pt + ink-faint, fill: none)
     circle((r, r), radius: r * 0.12, stroke: 1pt + ink-primary, fill: parchment-base)
 
     // Primary Compass Points (N, S, E, W)
-    line((r, r * 0.12), (r, r * 1.88), stroke: 1.25pt + ink-primary)
-    line((r * 0.12, r), (r * 1.88, r), stroke: 1.25pt + ink-primary)
+    line((r, r * 0.22), (r, r * 1.78), stroke: 1.25pt + ink-primary)
+    line((r * 0.22, r), (r * 1.78, r), stroke: 1.25pt + ink-primary)
 
     // Diagonal Points
-    line((r * 0.35, r * 0.35), (r * 1.65, r * 1.65), stroke: 0.75pt + ink-secondary)
-    line((r * 0.35, r * 1.65), (r * 1.65, r * 0.35), stroke: 0.75pt + ink-secondary)
+    line((r * 0.40, r * 0.40), (r * 1.60, r * 1.60), stroke: 0.75pt + ink-secondary)
+    line((r * 0.40, r * 1.60), (r * 1.60, r * 0.40), stroke: 0.75pt + ink-secondary)
 
-    // Cardinal Letters
-    content((r, r * 1.95), [
-      #set text(font: font-heading, size: 8pt, weight: "bold", fill: ink-primary)
+    // Cardinal Letters (comfortably within square canvas bounds)
+    content((r, r * 1.88), [
+      #set text(font: font-heading, size: font-sz, weight: "bold", fill: ink-primary)
       N
     ])
-    content((r * 1.95, r), [
-      #set text(font: font-heading, size: 8pt, weight: "bold", fill: ink-primary)
+    content((r * 1.88, r), [
+      #set text(font: font-heading, size: font-sz, weight: "bold", fill: ink-primary)
       E
     ])
-    content((r, r * 0.05), [
-      #set text(font: font-heading, size: 8pt, weight: "bold", fill: ink-primary)
+    content((r, r * 0.12), [
+      #set text(font: font-heading, size: font-sz, weight: "bold", fill: ink-primary)
       S
     ])
-    content((r * 0.05, r), [
-      #set text(font: font-heading, size: 8pt, weight: "bold", fill: ink-primary)
+    content((r * 0.12, r), [
+      #set text(font: font-heading, size: font-sz, weight: "bold", fill: ink-primary)
       W
     ])
   })
