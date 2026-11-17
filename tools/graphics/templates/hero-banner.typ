@@ -54,7 +54,7 @@
           tracking: -0.5pt,
           [SMP Mod Suite]
         )
-        #v(-2 * px)
+        #v(8 * px)
         #text(
           font: font-body,
           size: 19 * px,
@@ -67,7 +67,7 @@
 
     #v(16 * px)
     #ledger-rule(length: 100%, stroke: 0.75pt + rule-border)
-    #v(14 * px)
+    #v(16 * px)
 
     // Grounded Typographic Metadata Line (No pill capsules)
     #grid(
@@ -88,7 +88,7 @@
       ]
     )
 
-    #v(12 * px)
+    #v(16 * px)
     #text(
       font: font-body,
       size: 15 * px,
