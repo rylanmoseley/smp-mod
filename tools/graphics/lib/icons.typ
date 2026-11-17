@@ -315,37 +315,37 @@
 /// Cartographer's 8-Point Compass Rose
 #let draw-compass-rose(size: 80pt) = {
   let r = size / 2
-  let font-sz = calc.max(6pt, size * 0.09)
+  let font-sz = calc.max(8pt, size * 0.12)
   cetz.canvas(length: 1pt, {
     import cetz.draw: *
     // Exact square canvas anchor
     rect((0, 0), (size, size), stroke: none, fill: none)
-    circle((r, r), radius: r * 0.82, stroke: 1pt + ink-primary, fill: none)
-    circle((r, r), radius: r * 0.76, stroke: 0.5pt + ink-faint, fill: none)
+    circle((r, r), radius: r * 0.80, stroke: 1.25pt + ink-primary, fill: none)
+    circle((r, r), radius: r * 0.74, stroke: 0.5pt + ink-faint, fill: none)
     circle((r, r), radius: r * 0.12, stroke: 1pt + ink-primary, fill: parchment-base)
 
     // Primary Compass Points (N, S, E, W)
-    line((r, r * 0.22), (r, r * 1.78), stroke: 1.25pt + ink-primary)
-    line((r * 0.22, r), (r * 1.78, r), stroke: 1.25pt + ink-primary)
+    line((r, r * 0.24), (r, r * 1.76), stroke: 1.25pt + ink-primary)
+    line((r * 0.24, r), (r * 1.76, r), stroke: 1.25pt + ink-primary)
 
     // Diagonal Points
     line((r * 0.40, r * 0.40), (r * 1.60, r * 1.60), stroke: 0.75pt + ink-secondary)
     line((r * 0.40, r * 1.60), (r * 1.60, r * 0.40), stroke: 0.75pt + ink-secondary)
 
-    // Cardinal Letters (comfortably within square canvas bounds)
-    content((r, r * 1.88), [
+    // Cardinal Letters (prominent and legible)
+    content((r, r * 1.85), [
       #set text(font: font-heading, size: font-sz, weight: "bold", fill: ink-primary)
       N
     ])
-    content((r * 1.88, r), [
+    content((r * 1.85, r), [
       #set text(font: font-heading, size: font-sz, weight: "bold", fill: ink-primary)
       E
     ])
-    content((r, r * 0.12), [
+    content((r, r * 0.15), [
       #set text(font: font-heading, size: font-sz, weight: "bold", fill: ink-primary)
       S
     ])
-    content((r * 0.12, r), [
+    content((r * 0.15, r), [
       #set text(font: font-heading, size: font-sz, weight: "bold", fill: ink-primary)
       W
     ])

@@ -28,7 +28,7 @@
     // Top Plate Category & Roman Numeral Header
     #text(
       font: font-heading,
-      size: 10.5 * px,
+      size: 13.5 * px,
       weight: "bold",
       fill: pigment-ochre,
       tracking: 2pt,
@@ -37,27 +37,27 @@
 
     #v(8 * px)
     #ledger-rule(length: 100%, stroke: 0.75pt + rule-border)
-    #v(18 * px)
+    #v(16 * px)
 
     // Title Row: Pixel Emblem + Grand Serif Typography
     #grid(
-      columns: (72 * px, 1fr),
+      columns: (80 * px, 1fr),
       gutter: 18 * px,
       align: horizon,
-      render-emblem(size: 72pt),
+      render-emblem(size: 80pt),
       [
         #text(
           font: font-display,
-          size: 44 * px,
+          size: 48 * px,
           weight: "bold",
           fill: ink-primary,
           tracking: -0.5pt,
           [SMP Mod Suite]
         )
-        #v(-3 * px)
+        #v(-2 * px)
         #text(
           font: font-body,
-          size: 16.5 * px,
+          size: 19 * px,
           weight: "medium",
           fill: ink-secondary,
           [Cohesive NeoForge 1.21.1 Systems for Cooperative Survival]
@@ -65,9 +65,9 @@
       ]
     )
 
-    #v(18 * px)
-    #ledger-rule(length: 100%, stroke: 0.75pt + rule-border)
     #v(16 * px)
+    #ledger-rule(length: 100%, stroke: 0.75pt + rule-border)
+    #v(14 * px)
 
     // Grounded Typographic Metadata Line (No pill capsules)
     #grid(
@@ -76,7 +76,7 @@
       [
         #text(
           font: font-heading,
-          size: 10 * px,
+          size: 13 * px,
           weight: "bold",
           fill: ink-secondary,
           tracking: 1.5pt,
@@ -84,15 +84,16 @@
         )
       ],
       [
-        #chapter-stamp([OFFICIAL ATLAS], pigment: pigment-moss, size: 7.5pt)
+        #chapter-stamp([OFFICIAL ATLAS], pigment: pigment-moss, size: 9.5pt)
       ]
     )
 
     #v(12 * px)
     #text(
       font: font-body,
-      size: 12.5 * px,
-      fill: ink-faint,
+      size: 15 * px,
+      weight: "medium",
+      fill: ink-secondary,
       [Contiguous Town Leveling  ·  Digital Economy  ·  Emergent Roles  ·  Tectonic Navigation]
     )
   ])
@@ -121,7 +122,7 @@
 
       // Hand-drawn-style Compass Rose in top-right corner
       #place(top + right, dx: -14 * px, dy: 14 * px,
-        draw-compass-rose(size: 68pt)
+        draw-compass-rose(size: 72pt)
       )
 
       // Bottom Map Legend Stamp
@@ -129,9 +130,9 @@
         box(
           fill: parchment-base,
           stroke: 1pt + ink-primary,
-          inset: (x: 8pt, y: 4pt),
+          inset: (x: 10pt, y: 5pt),
           [
-            #text(font: font-heading, size: 8pt, weight: "bold", fill: ink-primary, tracking: 1pt, [SURVEY PLATE I — CONTIGUOUS CLAIMS])
+            #text(font: font-heading, size: 10.5 * px, weight: "bold", fill: ink-primary, tracking: 1pt, [SURVEY PLATE I — CONTIGUOUS CLAIMS])
           ]
         )
       )
