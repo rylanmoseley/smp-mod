@@ -12,8 +12,6 @@ on:
       - '.github/workflows/modpack.yml'
   pull_request:
     branches: [ "main", "develop" ]
-  release:
-    types: [ published ]
   workflow_dispatch:
 
 jobs:
@@ -96,16 +94,3 @@ jobs:
           name: SMP-Survival-Suite-curseforge
           path: dist/SMP-Survival-Suite-CurseForge.zip
           retention-days: 14
-
-      - name: Attach Assets to GitHub Release
-        if: github.event_name == 'release'
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            dist/SMP-Survival-Suite.mrpack
-            dist/SMP-Survival-Suite-CurseForge.zip
-            build/libs/smpmod-*.jar
-            server/server.properties
-            server/config/smpmod-common.toml
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

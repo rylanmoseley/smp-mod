@@ -1,0 +1,266 @@
+name: Publish Release to Modrinth & GitHub
+
+on:
+  release:
+    types: [ published ]
+  workflow_dispatch:
+    inputs:
+      version_type:
+        description: 'Modrinth Version Type'
+        required: true
+        default: 'beta'
+        type: choice
+        options:
+          - release
+          - beta
+          - alpha
+      dry_run:
+        description: 'Dry Run Mode (verifies build & metadata, skips Modrinth API upload)'
+        required: false
+        default: false
+        type: boolean
+      version_name:
+        description: 'Custom Version Title (e.g. "SMP Mod Suite v0.1.0-beta.1")'
+        required: false
+        default: ''
+        type: string
+      changelog:
+        description: 'Custom Changelog text in Markdown (leave blank to use git commits / release notes)'
+        required: false
+        default: ''
+        type: string
+      build_modpack:
+        description: 'Also compile Packwiz modpack (.mrpack / .zip) and attach to release'
+        required: false
+        default: true
+        type: boolean
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Build, Package & Publish Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Setup Go for Packwiz
+        uses: actions/setup-go@v5
+        with:
+          go-version: 'stable'
+          cache: false
+
+      - name: Install Packwiz CLI
+        run: |
+          go install github.com/packwiz/packwiz@latest
+          echo "$HOME/go/bin" >> $GITHUB_PATH
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v4
+
+      - name: Resolve Release & Version Metadata
+        id: version-info
+        run: |
+          # Read gradle.properties version as baseline
+          GRADLE_VER=$(grep '^mod_version=' gradle.properties | cut -d'=' -f2 | tr -d ' \r\n')
+          echo "Baseline gradle.properties version: $GRADLE_VER"
+
+          VERSION_NUM="$GRADLE_VER"
+          VERSION_NAME="SMP Mod Suite v$GRADLE_VER"
+          VERSION_TYPE="${{ inputs.version_type }}"
+          
+          if [ -z "$VERSION_TYPE" ]; then
+            VERSION_TYPE="release"
+          fi
+
+          # 1. Evaluate GitHub Release trigger
+          if [ "${{ github.event_name }}" = "release" ]; then
+            TAG="${{ github.event.release.tag_name }}"
+            # Strip leading 'v' if present
+            VERSION_NUM="${TAG#v}"
+            
+            # Use release title if provided
+            if [ -n "${{ github.event.release.name }}" ]; then
+              VERSION_NAME="${{ github.event.release.name }}"
+            else
+              VERSION_NAME="SMP Mod Suite v$VERSION_NUM"
+            fi
+
+            # Automatically derive version_type from prerelease flag and tag name
+            if [ "${{ github.event.release.prerelease }}" = "true" ]; then
+              if echo "$TAG" | grep -iq "alpha"; then
+                VERSION_TYPE="alpha"
+              else
+                VERSION_TYPE="beta"
+              fi
+            else
+              VERSION_TYPE="release"
+            fi
+
+            echo "${{ github.event.release.body }}" > /tmp/release_changelog.md
+
+          # 2. Evaluate workflow_dispatch trigger
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            if [ -n "${{ inputs.version_name }}" ]; then
+              VERSION_NAME="${{ inputs.version_name }}"
+            fi
+
+            if [ -n "${{ inputs.changelog }}" ]; then
+              echo "${{ inputs.changelog }}" > /tmp/release_changelog.md
+            else
+              # Generate changelog from git log since last tag or last 10 commits
+              LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+              if [ -n "$LAST_TAG" ]; then
+                echo "## Changes since $LAST_TAG" > /tmp/release_changelog.md
+                git log "${LAST_TAG}..HEAD" --pretty=format:"* %s (%h)" >> /tmp/release_changelog.md
+              else
+                echo "## Changes" > /tmp/release_changelog.md
+                git log -n 10 --pretty=format:"* %s (%h)" >> /tmp/release_changelog.md
+              fi
+            fi
+          fi
+
+          # Ensure changelog file is not empty
+          if [ ! -s /tmp/release_changelog.md ]; then
+            echo "Automated build of $VERSION_NAME for Minecraft 1.21.1 NeoForge." > /tmp/release_changelog.md
+          fi
+
+          echo "version_num=$VERSION_NUM" >> $GITHUB_OUTPUT
+          echo "version_name=$VERSION_NAME" >> $GITHUB_OUTPUT
+          echo "version_type=$VERSION_TYPE" >> $GITHUB_OUTPUT
+          echo "changelog_file=/tmp/release_changelog.md" >> $GITHUB_OUTPUT
+
+          echo "=============================================================================="
+          echo " Release Metadata Configured:"
+          echo " Version Number: $VERSION_NUM"
+          echo " Version Name:   $VERSION_NAME"
+          echo " Version Type:   $VERSION_TYPE"
+          echo " Trigger:        ${{ github.event_name }}"
+          echo " Dry Run:        ${{ inputs.dry_run }}"
+          echo "=============================================================================="
+
+      - name: Build SMP Mod Jar with Gradle
+        run: ./gradlew build --no-daemon
+
+      - name: Locate Built Mod Jar
+        id: find-jar
+        run: |
+          JAR_PATH=$(ls build/libs/smpmod-*.jar | grep -v -- '-sources' | head -n 1)
+          if [ ! -f "$JAR_PATH" ]; then
+            echo "ERROR: Compiled mod JAR not found in build/libs/" >&2
+            exit 1
+          fi
+          echo "Found compiled mod JAR: $JAR_PATH"
+          echo "jar_file=$JAR_PATH" >> $GITHUB_OUTPUT
+          echo "jar_name=$(basename "$JAR_PATH")" >> $GITHUB_OUTPUT
+
+      - name: Prepare Modpack Overrides & Export Bundles
+        if: ${{ github.event_name == 'release' || inputs.build_modpack }}
+        run: |
+          mkdir -p pack/mods dist
+          cp "${{ steps.find-jar.outputs.jar_file }}" pack/mods/
+          
+          cd pack
+          packwiz refresh
+          packwiz mr export --output ../dist/SMP-Survival-Suite.mrpack
+          packwiz cf export --output ../dist/SMP-Survival-Suite-CurseForge.zip
+          cd ..
+
+          echo "Exported Modpack Bundles:"
+          ls -la dist/
+
+      - name: Upload Mod Jar Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: smpmod-release-jar
+          path: ${{ steps.find-jar.outputs.jar_file }}
+          retention-days: 14
+
+      - name: Upload Modpack Artifacts
+        if: ${{ github.event_name == 'release' || inputs.build_modpack }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: SMP-Survival-Suite-release-bundles
+          path: dist/
+          retention-days: 14
+
+      - name: Attach Assets to GitHub Release
+        if: ${{ github.event_name == 'release' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ${{ steps.find-jar.outputs.jar_file }}
+            dist/SMP-Survival-Suite.mrpack
+            dist/SMP-Survival-Suite-CurseForge.zip
+            server/server.properties
+            server/config/smpmod-common.toml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check Modrinth Token Availability
+        id: check-token
+        run: |
+          if [ -n "${{ secrets.MODRINTH_TOKEN }}" ]; then
+            echo "has_token=true" >> $GITHUB_OUTPUT
+            echo "MODRINTH_TOKEN secret is present."
+          else
+            echo "has_token=false" >> $GITHUB_OUTPUT
+            echo "::warning ::MODRINTH_TOKEN secret is not set in repository settings. Modrinth publish step will be skipped."
+          fi
+
+      - name: Publish Mod to Modrinth
+        if: ${{ !inputs.dry_run && steps.check-token.outputs.has_token == 'true' }}
+        uses: modrinth/minotaur@v2
+        with:
+          token: ${{ secrets.MODRINTH_TOKEN }}
+          project-id: smpmod-rdiamondcreeper
+          file: ${{ steps.find-jar.outputs.jar_file }}
+          version-name: ${{ steps.version-info.outputs.version_name }}
+          version-number: ${{ steps.version-info.outputs.version_num }}
+          version-type: ${{ steps.version-info.outputs.version_type }}
+          changelog-file: ${{ steps.version-info.outputs.changelog_file }}
+          game-versions: |
+            1.21.1
+          loaders: |
+            neoforge
+          dependencies: |
+            kotlin-for-forge | required
+            open-parties-and-claims | optional
+            tectonic | optional
+          featured: ${{ steps.version-info.outputs.version_type == 'release' }}
+
+      - name: Dry Run / Verification Summary
+        if: ${{ inputs.dry_run || steps.check-token.outputs.has_token == 'false' }}
+        run: |
+          echo "=============================================================================="
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            echo " [DRY RUN ACTIVE] Modrinth publishing was skipped per manual trigger request."
+          else
+            echo " [NO TOKEN DETECTED] Modrinth publishing was skipped because MODRINTH_TOKEN is unset."
+          fi
+          echo " Target Project Slug: smpmod-rdiamondcreeper"
+          echo " Version Name:        ${{ steps.version-info.outputs.version_name }}"
+          echo " Version Number:      ${{ steps.version-info.outputs.version_num }}"
+          echo " Version Type:        ${{ steps.version-info.outputs.version_type }}"
+          echo " Mod Jar File:        ${{ steps.find-jar.outputs.jar_file }}"
+          echo " Minecraft Version:   1.21.1"
+          echo " Mod Loader:          neoforge"
+          echo " Dependencies:        kotlin-for-forge (required), open-parties-and-claims (optional), tectonic (optional)"
+          echo "=============================================================================="
