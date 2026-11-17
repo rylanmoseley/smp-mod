@@ -69,13 +69,16 @@ chown -R minecraft:minecraft /var/log/minecraft
 
 ---
 
-## 4. Setting Up Automated Git Configuration Sync
+## 4. Setting Up Automated Turnkey Server Provisioning & Sync
 
-The included [sync-server.sh](file:///home/sandbox/smp-mod/server/proxmox/sync-server.sh) script automatically:
-1. Pulls the latest commits from the `main` branch of this repository.
-2. Compares checksums of `smpmod-common.toml`, `server.properties`, and `luckperms-smp.txt`.
-3. Downloads the latest `smpmod-*.jar` release from GitHub Releases via GitHub API.
-4. If changes are detected, alerts online players via RCON and restarts the server safely.
+The included [sync-server.sh](file:///home/sandbox/smp-mod/server/proxmox/sync-server.sh) script is a **complete end-to-end provisioner**:
+
+1. **NeoForge 1.21.1 Engine:** Automatically checks if `unix_args.txt` and NeoForge libraries exist; if not, downloads `neoforge-21.1.234-installer.jar` and runs headless server installation.
+2. **Companion Mods:** Runs the Packwiz bootstrap engine against `pack/pack.toml` to automatically download all 16 server companion mods (Tectonic, YUNG's Dungeons & Strongholds, OPAC claims, Simple Voice Chat, Squaremap, Spark, Chunky, FerriteCore, LuckPerms).
+3. **Core Mod Binary:** Checks GitHub Releases via GitHub API and downloads the latest `smpmod-*.jar`.
+4. **Datapacks:** Synchronizes any community or custom datapacks in `server/datapacks/` into `/opt/minecraft/server/world/datapacks/`.
+5. **Configs & Permissions:** Synchronizes `smpmod-common.toml`, `server.properties`, and `luckperms-smp.txt`, accepts the EULA, and ensures scripts are executable.
+6. **Graceful Restart:** If changes are detected while the server is running, broadcasts a 60s countdown warning via RCON, runs `save-all`, and safely restarts systemd.
 
 ### Step 1: Deploy the Sync Script
 Copy `server/proxmox/sync-server.sh` to `/opt/minecraft/scripts/sync-server.sh`:
@@ -85,12 +88,12 @@ chmod +x /opt/minecraft/scripts/sync-server.sh
 chown minecraft:minecraft /opt/minecraft/scripts/sync-server.sh
 ```
 
-### Step 2: Test the Sync Script
-Run the script manually to populate the server directory for the first time:
+### Step 2: Run Turnkey Initial Provisioning
+Execute the script as the `minecraft` user:
 ```bash
 sudo -u minecraft /opt/minecraft/scripts/sync-server.sh
 ```
-This clones the repository into `/opt/minecraft/smp-mod-repo` and synchronizes the configuration files.
+In a single run on an empty directory, this will download NeoForge, all companion mods, configs, and core jars—leaving the server completely ready to boot!
 
 ---
 
