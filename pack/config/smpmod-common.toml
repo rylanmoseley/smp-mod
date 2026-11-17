@@ -1,0 +1,174 @@
+# ==============================================================================
+# SMP Mod Suite - Production Common Configuration
+# File: config/smpmod-common.toml
+# ==============================================================================
+
+[Economy]
+    # Currency awarded upon completing starter onboarding advancements
+    starterAdvancementPayout = 100
+
+    # Number of verified natural block harvests required per repeatable coin payout
+    repeatableHarvestThreshold = 200
+
+    # Currency awarded per completed natural harvest cycle
+    repeatableHarvestPayout = 35
+
+    # Number of verified placed blocks within claimed territory per construction dividend
+    constructionDividendThreshold = 100
+
+    # Base currency awarded per construction dividend milestone (scales up to +15 bonus by palette variety)
+    constructionDividendPayout = 25
+
+    # Transaction fee percentage deducted from formal P2P shop transfers (0.05 = 5%)
+    p2pTradeTaxPercent = 0.05
+
+[RecoveryAndBuyback]
+    # Escalating multiplier increment per cumulative death on an owned item (+25% fee per death)
+    baseBuybackEscalationStep = 0.25
+
+    # Exclusive reclaim window duration for registered owner before public listing (24 hours)
+    exclusiveOwnerWindowSeconds = 86400
+
+    # Public marketplace buyback price markup after the exclusive 24h window expires (1.25x)
+    publicListingMarkup = 1.25
+
+    # Number of real-world days required for escalated buyback fees to decay back to baseline (30 days)
+    wallClockDecayDays = 30
+
+[AntiAFK]
+    # Radius in chunks where repetitive mob kills begin suffering steep diminishing XP and drop returns
+    grinderChunkDecayRadius = 3
+
+    # Ore vein density multiplier in deep caves (Y < 0) to reward active caving over passive strip-mining
+    deepCaveVeinDensityMultiplier = 1.5
+
+    # High-tier enchantment tome drop weight multiplier in dungeons and trial structures
+    dungeonTomeDropMultiplier = 2.0
+
+[ClaimsAndBuilding]
+    # Max claimable contiguous chunks unlocked per Builder Playstyle level
+    chunksPerBuilderLevel = 3
+
+    # Base claimable chunk limit awarded to any new player (3x3 chunk parcel = 9 chunks)
+    maxBaseClaimChunks = 9
+
+    # Base multiplier for variety-weighted block placement diversity
+    varietyPaletteWeightBase = 1.0
+
+    # Temporary building flight grace duration in seconds, refreshed by continuous block placement
+    builderFlightGraceSeconds = 5
+
+[WorldAndAI]
+    # Number of unique chunks mapped/discovered required to deploy Elytra glider flight
+    elytraExplorerChunkMilestone = 500
+
+    # Number of unique biomes mapped required to deploy Elytra glider flight
+    elytraMultiBiomeMilestone = 5
+
+    # Duration in seconds that light-snuff aura extinguishes lights within contiguous claims (25s)
+    lightSnuffDurationSeconds = 25
+
+    # Spawn probability of destroys_light_on_aggro mobs in wild caves (5%)
+    wildernessLightDestroyChance = 0.05
+
+    # Spawn probability of destroys_light_on_aggro mobs inside dungeons/trial chambers (35%)
+    dungeonLightDestroyChance = 0.35
+
+    # Y-coordinate limit above which Nether transit and building is completely blocked
+    netherRoofYLimit = 127
+
+    # Distance in blocks within which fellow players mitigate Nether solo sprint exhaustion (20m)
+    netherConvoyRadius = 20.0
+
+    # Seconds of continuous solo sprinting in Nether before thermal exhaustion kicks in (3s)
+    netherSoloSprintExhaustionSeconds = 3
+
+    # Number of unique chunks discovered per biome mobility tier
+    biomeMobilityThreshold = 20
+
+    # Maximum movement speed bonus attainable in fully explored biomes (+20%)
+    biomeMobilityMaxBonus = 0.20
+
+    # Additional movement speed bonus when traversing paved roads in explored biomes (+10%)
+    roadMobilityBonus = 0.10
+
+    # Duration in seconds for Support role Warded Light flares (300s = 5m)
+    wardedFlareDurationSeconds = 300
+
+    # Sanctuary radius around village centers for safe rest stops and mob suppression (48m)
+    villageSanctuaryRadius = 48.0
+
+[RolesAndXP]
+    # Weight applied to time-to-kill speed in Combat XP calculation
+    combatXpSpeedWeight = 1.2
+
+    # Weight applied to hit precision/crits in Combat XP calculation
+    combatXpAccuracyWeight = 1.5
+
+    # Playstyle XP ratio threshold above which a player becomes a dedicated Role Specialist (40%)
+    specialistThresholdRatio = 0.40
+
+    # Damage multiplier bonus granted to DPS during boss vulnerability / execute punish windows (1.8x)
+    dpsPunishBonusMultiplier = 1.8
+
+    # Target health percentage threshold below which execution punish activates (35% HP)
+    dpsExecuteThresholdPercent = 0.35
+
+    # Radius in blocks for Tank taunt pulse pulling dark-zone elites off lights and allies (16m)
+    tankThreatRadius = 16
+
+    # Percentage AoE and projectile damage reduction provided by Tank kinetic barrier (75%)
+    tankKineticBarrierReduction = 0.75
+
+    # Base radius in blocks for Support role healing pulse and aura buff radiation (8m)
+    supportAuraRadius = 8.0
+
+    # Base health points restored per Support sustain pulse (1.5 HP = 0.75 hearts)
+    supportHealAmount = 1.5
+
+    # Sensory radar radius in blocks for Scout dark-zone trap and threat detection (24m)
+    scoutTrapDetectionRadius = 24
+
+    # Duration in seconds that the Ender Dragon remains staggered after a Tank dive intercept (6s)
+    dragonStaggerDurationSeconds = 6
+
+    # Number of mob kills in the same chunk/radius before anti-grinder XP decay kicks in
+    grinderKillsDecayThreshold = 5
+
+    # Maximum shop discount ratio attainable through high Gatherer XP specialization (25%)
+    gathererShopMaxDiscount = 0.25
+
+[MultiplayerSleep]
+    # Percentage of players in bed required to pass the night (1% for 1-player sleep)
+    playersSleepingPercentage = 1
+
+    # Broadcast sunrise announcement to the realm when morning arrives
+    announceSunrise = true
+
+    # Broadcast sleep progress message when a player enters bed
+    announceSleep = true
+
+    # Award Well Rested regeneration, haste, and saturation buffs when waking up in claimed towns or village sanctuaries
+    enableSanctuaryRestBuffs = true
+
+[Discord]
+    # Discord Webhook URL for server event announcements (leave empty to disable)
+    discordWebhookUrl = ""
+
+    # Server name displayed on Discord embed footers
+    discordServerName = "SMP Realm"
+
+    # Send Discord alerts for Fortified Town and Metropolis foundings
+    notifyTownMilestones = true
+
+    # Send Discord alerts for cooperative Ender Dragon victories
+    notifyDragonVictories = true
+
+    # Send Discord alerts when 24h unclaimed salvage drops hit the public buyback market
+    notifyPublicSalvage = true
+
+    # Send Discord crime reports when a player murders a villager
+    notifyVillagerCrimes = true
+
+    # Send Discord alerts for Master and Legendary advancement completions
+    notifyAdvancements = true

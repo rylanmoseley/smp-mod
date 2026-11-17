@@ -1,0 +1,85 @@
+# ==============================================================================
+# LuckPerms Permission Groups Setup for SMP Mod Suite
+# ==============================================================================
+# To apply this permission setup, you can run these commands in the server console,
+# or paste them into the LuckPerms Web Editor (/lp editor).
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Group: default (Unverified Guests / New Arrivals)
+# ------------------------------------------------------------------------------
+lp group default permission set minecraft.command.help true
+lp group default permission set smpmod.commands.leaderboard true
+lp group default permission set smpmod.commands.role.profile true
+
+# ------------------------------------------------------------------------------
+# 2. Group: member (Active Survival Players - Inherits default)
+# ------------------------------------------------------------------------------
+lp creategroup member
+lp group member setdisplayname "Member"
+lp group member parent add default
+
+# Economy & Commerce
+lp group member permission set smpmod.commands.economy.balance true
+lp group member permission set smpmod.commands.economy.pay true
+lp group member permission set smpmod.commands.bounty.list true
+lp group member permission set smpmod.commands.bounty.accept true
+lp group member permission set smpmod.commands.bounty.status true
+lp group member permission set smpmod.commands.bounty.claim true
+lp group member permission set smpmod.commands.bounty.abandon true
+
+# Town & Claims
+lp group member permission set smpmod.commands.town.balance true
+lp group member permission set smpmod.commands.town.deposit true
+lp group member permission set smpmod.commands.town.upgrades true
+lp group member permission set smpmod.commands.claims.cluster true
+lp group member permission set openpartiesandclaims.claim true
+
+# Death Recovery & Buyback
+lp group member permission set smpmod.commands.buyback.view true
+lp group member permission set smpmod.commands.buyback.public true
+
+# Voice Chat & Performance Diagnostics
+lp group member permission set voicechat.speak true
+lp group member permission set voicechat.listen true
+lp group member permission set spark.healthreport true
+
+# ------------------------------------------------------------------------------
+# 3. Group: mayor (Town Founders & Settlement Claim Owners - Inherits member)
+# ------------------------------------------------------------------------------
+lp creategroup mayor
+lp group mayor setdisplayname "Mayor"
+lp group mayor parent add member
+
+# Municipal Treasury Management
+lp group mayor permission set smpmod.commands.town.withdraw true
+lp group mayor permission set smpmod.commands.town.manage true
+
+# ------------------------------------------------------------------------------
+# 4. Group: moderator (Community Moderators - Inherits mayor)
+# ------------------------------------------------------------------------------
+lp creategroup moderator
+lp group moderator setdisplayname "Moderator"
+lp group moderator parent add mayor
+
+lp group moderator permission set ledger.inspect true
+lp group moderator permission set spark.tickmonitor true
+lp group moderator permission set minecraft.command.teleport true
+lp group moderator permission set minecraft.command.kick true
+lp group moderator permission set minecraft.command.mute true
+
+# ------------------------------------------------------------------------------
+# 5. Group: admin (Server Administrators - All Permissions)
+# ------------------------------------------------------------------------------
+lp creategroup admin
+lp group admin setdisplayname "Administrator"
+lp group admin parent add moderator
+
+# SMP Mod Suite Admin Privileges
+lp group admin permission set smpmod.commands.economy.admin true
+lp group admin permission set smpmod.commands.claims.admin true
+lp group admin permission set smpmod.commands.role.admin true
+lp group admin permission set openpartiesandclaims.admin true
+lp group admin permission set ledger.rollback true
+lp group admin permission set spark.* true
+lp group admin permission set chunky.* true

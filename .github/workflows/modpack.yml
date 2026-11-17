@@ -1,0 +1,111 @@
+name: Build Mod, Server & Packwiz Modpack
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+    paths:
+      - 'src/**'
+      - 'pack/**'
+      - 'server/**'
+      - 'build.gradle.kts'
+      - 'gradle.properties'
+      - '.github/workflows/modpack.yml'
+  pull_request:
+    branches: [ "main", "develop" ]
+  release:
+    types: [ published ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build & Package SMP Suite
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Setup Go for Packwiz
+        uses: actions/setup-go@v5
+        with:
+          go-version: 'stable'
+          cache: false
+
+      - name: Install Packwiz CLI
+        run: |
+          go install github.com/packwiz/packwiz@latest
+          echo "$HOME/go/bin" >> $GITHUB_PATH
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v4
+
+      - name: Build SMP Mod Jar with Gradle
+        run: ./gradlew build --no-daemon
+
+      - name: Prepare Modpack Overrides
+        run: |
+          mkdir -p pack/mods
+          # Copy compiled mod jar into pack mods directory
+          JAR_FILE=$(ls build/libs/smpmod-*.jar | grep -v -- '-sources' | head -n 1)
+          echo "Found built jar: $JAR_FILE"
+          cp "$JAR_FILE" pack/mods/
+          
+          # Refresh Packwiz hashes
+          cd pack
+          packwiz refresh
+
+      - name: Export Modrinth Modpack (.mrpack)
+        run: |
+          mkdir -p dist
+          cd pack
+          packwiz mr export --output ../dist/SMP-Survival-Suite.mrpack
+
+      - name: Export CurseForge Modpack (.zip)
+        run: |
+          cd pack
+          packwiz cf export --output ../dist/SMP-Survival-Suite-CurseForge.zip
+
+      - name: Upload Mod Jar Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: smpmod-jar
+          path: build/libs/smpmod-*.jar
+          retention-days: 14
+
+      - name: Upload Modrinth Modpack (.mrpack)
+        uses: actions/upload-artifact@v4
+        with:
+          name: SMP-Survival-Suite-mrpack
+          path: dist/SMP-Survival-Suite.mrpack
+          retention-days: 14
+
+      - name: Upload CurseForge Modpack (.zip)
+        uses: actions/upload-artifact@v4
+        with:
+          name: SMP-Survival-Suite-curseforge
+          path: dist/SMP-Survival-Suite-CurseForge.zip
+          retention-days: 14
+
+      - name: Attach Assets to GitHub Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/SMP-Survival-Suite.mrpack
+            dist/SMP-Survival-Suite-CurseForge.zip
+            build/libs/smpmod-*.jar
+            server/server.properties
+            server/config/smpmod-common.toml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
