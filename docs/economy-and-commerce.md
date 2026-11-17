@@ -91,12 +91,36 @@ Automated AFK farming invalidates cooperative play and causes severe economic hy
 | Passive Farm Nerfed | Systemic Nerf Applied | Active Gameplay Replacement |
 | :--- | :--- | :--- |
 | **Automated Iron Farms** | Golem spawning restricted outside natural village events. | **Buffed Deep-Cave Ore Veins:** Deepslate iron and copper veins generate significantly denser clusters in perilous deep caves. |
-| **Villager Trading Halls** | Vanilla villager trade refresh loops and discount exploitation are disabled. | **Dungeon Tomes & Bosses:** Top-tier enchantment books (Mending, Unbreaking III, Silk Touch) drop as guaranteed rewards from dungeons, trial chambers, and bosses. |
+| **Villager 1x1 Exploitation & Infinite Breeding** | Villagers only spawn in natural villages and cannot reproduce. Cramped booths halt restocks and hike prices. | **Explorer Relocation & Living Markets:** Seasoned Explorers capture and trade villagers as spawn eggs. Merchants require 3x3+ open roaming areas to restock. |
 | **Static XP Mob Chutes** | Diminishing returns applied to mob kills within static chunks; drops and XP decay to zero if mobs are trapped without player combat engagement. | **Combat Speed & Accuracy XP:** Active, high-tempo combat against dangerous mobs awards massive Combat XP and currency milestones. |
 | **Automated Raid Farms** | Bad Omen stacking and static raid funneling are rebalanced. | **Server-Wide Objectives & Support Crafting:** Gatherers and Crafters produce alchemical catalysts that multiply resource yields. |
 
+### Living Villager Overhaul & Settlement Commerce
+Rather than completely deactivating villager trading or tolerating dehumanizing 1x1 trading cells, the mod suite introduces a nuanced, immersive living villager ecosystem:
+
+1. **Natural Village Spawning & Reproduction Suppression:**
+   * Villagers only spawn in naturally generated world villages.
+   * Villagers **do not reproduce**: breeding AI, love food consumption, and baby entity generation are strictly suppressed realm-wide.
+2. **Explorer Relocation (`EncapsulatedVillagerItem`):**
+   * Seasoned Explorers (**Scouts** or players with **100+ Explorer XP**) can sneak-right-click an adult villager to encapsulate them into a tradable specimen egg.
+   * **Intact Trades & Levels:** The encapsulated egg preserves the villager's exact profession, master level, experience, and custom trade recipes.
+   * **Commerce:** Explorers can sell these specimens to town builders on the player-to-player market or deploy them into their own settlements by right-clicking the ground.
+3. **Anti-1x1 Mobility Restocking & Captivity Surcharges:**
+   * Villagers require open space to live, trade, and restock. The server continuously evaluates each merchant's horizontal 3x3 footprint at feet level.
+   * **Cramped Booths (<4 Walkable Blocks or Boat/Cart Confinement):**
+     * Trade restocking is **completely frozen**—exhausted offers cannot replenish.
+     * All trades carry a steep **+10 emerald captivity distress surcharge**.
+     * Merchants emit visual distress smoke particles.
+   * **Free-Roaming Merchants (≥4 Walkable Blocks):**
+     * Restocks occur smoothly according to their natural daily schedule.
+     * Captivity surcharges are cleared, and happy villager particles appear upon roaming freely.
+4. **Permanent Villager Slayer Surcharge & Bad Luck Curse:**
+   * Slaying an innocent villager permanently increments the player's lifetime `villagerKills` record.
+   * **Realm-Wide Price Hike:** Merchants throughout the entire realm despise villager slayers. Every trade permanently costs an extra **+5 to +30 emeralds** (scaling with kill count).
+   * **Curse of Unluck:** Villager slayers are afflicted with persistent **Unluck** and Bad Omen debuffs, reducing their rare loot chances in deep caves and dungeons.
+
 ### Repurposed Villages
-With static villager trading halls disabled, vanilla villages are transformed into **safe rest stops for weary explorers**:
+Vanilla villages serve as **safe rest stops for weary explorers**:
 * Pre-lit safe zones immune to aggressive dark-zone mob escalation.
 * Regional **Server-Wide Objective Hubs** where players coordinate cooperative quests.
 * Landmarks for Item Lore registration, cartography mapping, and regional trade stalls.

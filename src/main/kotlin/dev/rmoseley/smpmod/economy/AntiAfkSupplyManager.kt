@@ -127,20 +127,11 @@ object AntiAfkSupplyManager {
     }
 
     /**
-     * Intercepts villager interaction to deactivate automated trading halls.
-     * Repurposes villages into regional objective hubs, safe rest stops, and lore landmarks.
+     * Intercepts villager interaction and delegates to living villager regulation.
      */
     fun onVillagerInteract(player: Player, villager: Villager, hand: InteractionHand): InteractionResult {
-        if (hand != InteractionHand.MAIN_HAND) return InteractionResult.PASS
-
-        // Send landmark notice instead of opening exploitative vanilla trading GUI
-        if (!player.level().isClientSide) {
-            player.sendSystemMessage(
-                Component.literal("§e[Village Landmark] §7This village is a protected regional rest stop and objective hub. Villager trading halls are deactivated. High-tier tomes and resources are found in deep caves and active dungeons!")
-            )
-        }
-
-        return InteractionResult.SUCCESS
+        val serverPlayer = player as? ServerPlayer ?: return InteractionResult.PASS
+        return dev.rmoseley.smpmod.world.VillagerLivingManager.onVillagerInteract(serverPlayer, villager, hand)
     }
 
     /**

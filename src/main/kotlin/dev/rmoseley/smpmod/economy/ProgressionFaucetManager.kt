@@ -90,6 +90,39 @@ object ProgressionFaucetManager {
     }
 
     /**
+     * Records a verified construction block placement within claimed territory,
+     * advancing recurring construction dividends for active builders.
+     */
+    fun onConstructionBlockPlaced(player: Player, varietyScore: Double, block: net.minecraft.world.level.block.Block) {
+        val attachment = ModAttachmentTypes.PLAYER_MILESTONES.get()
+        val currentData = player.getData(attachment)
+        val newConstructedTotal = currentData.totalBlocksConstructed + 1L
+
+        player.setData(attachment, currentData.copy(totalBlocksConstructed = newConstructedTotal))
+
+        // Every 25 placed blocks in a claim earns a recurring construction dividend
+        val threshold = 25L
+        if (newConstructedTotal % threshold == 0L) {
+            val bonusFromVariety = (varietyScore * 5.0).coerceIn(0.0, 25.0).toLong()
+            val payout = 25L + bonusFromVariety
+
+            EconomyManager.credit(
+                player,
+                payout,
+                TransactionType.CONSTRUCTION_DIVIDEND,
+                "Recurring Construction Dividend ($newConstructedTotal blocks placed)"
+            )
+
+            // Grant bonus Builder XP
+            PlaystyleXpTracker.incrementBuilderXp(player, 15.0)
+
+            player.sendSystemMessage(
+                Component.literal("§9[Construction Dividend] §fCompleted milestone ($newConstructedTotal blocks placed)! Rewarded §a+$payout coins§f and bonus Builder XP.")
+            )
+        }
+    }
+
+    /**
      * Records completion/clearing of a dungeon or boss encounter.
      */
     fun onDungeonCleared(player: ServerPlayer, dungeonType: String, basePayout: Long = 150L) {

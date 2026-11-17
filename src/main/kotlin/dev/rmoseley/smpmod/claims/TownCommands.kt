@@ -36,6 +36,26 @@ object TownCommands {
                         }
                 )
                 .then(
+                    Commands.literal("tourism")
+                        .executes { ctx ->
+                            val player = ctx.source.playerOrException
+                            val chunkPos = ChunkPos(player.blockPosition())
+                            val cluster = ClaimManager.getContiguousCluster(player.level(), chunkPos)
+                            val ownerUuid = cluster?.ownerUuid ?: player.uuid
+                            val tourism = TownTreasuryManager.getTourismRecord(ownerUuid)
+                            val prosperous = cluster != null && TownTreasuryManager.isSettlementProsperous(cluster)
+                            val statusStr = if (prosperous) "§aACTIVE (Speed & Regen buff)" else "§7INACTIVE"
+
+                            ctx.source.sendSuccess(
+                                {
+                                    Component.literal("§6[Settlement Tourism] §7Total Nonresident Visitor Time: §e${tourism.totalVisitorMinutes}m §7| Prosperity Status: $statusStr")
+                                },
+                                false
+                            )
+                            1
+                        }
+                )
+                .then(
                     Commands.literal("deposit")
                         .then(
                             Commands.argument("amount", LongArgumentType.longArg(1))

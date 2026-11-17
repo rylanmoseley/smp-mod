@@ -136,6 +136,8 @@ object ModAttachmentTypes {
     data class PlayerMilestoneData(
         val claimedMilestones: Set<String> = emptySet(),
         val totalNaturalBlocksHarvested: Long = 0L,
+        val totalBlocksConstructed: Long = 0L,
+        val villagerKills: Int = 0,
         val dungeonsCleared: Int = 0,
         val activePlaytimeTicks: Long = 0L,
         val lastActiveCheckX: Double = 0.0,
@@ -151,6 +153,8 @@ object ModAttachmentTypes {
                 instance.group(
                     STRING_SET_CODEC.optionalFieldOf("claimedMilestones", emptySet()).forGetter(PlayerMilestoneData::claimedMilestones),
                     Codec.LONG.optionalFieldOf("totalNaturalBlocksHarvested", 0L).forGetter(PlayerMilestoneData::totalNaturalBlocksHarvested),
+                    Codec.LONG.optionalFieldOf("totalBlocksConstructed", 0L).forGetter(PlayerMilestoneData::totalBlocksConstructed),
+                    Codec.INT.optionalFieldOf("villagerKills", 0).forGetter(PlayerMilestoneData::villagerKills),
                     Codec.INT.optionalFieldOf("dungeonsCleared", 0).forGetter(PlayerMilestoneData::dungeonsCleared),
                     Codec.LONG.optionalFieldOf("activePlaytimeTicks", 0L).forGetter(PlayerMilestoneData::activePlaytimeTicks),
                     Codec.DOUBLE.optionalFieldOf("lastActiveCheckX", 0.0).forGetter(PlayerMilestoneData::lastActiveCheckX),

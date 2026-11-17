@@ -258,8 +258,13 @@ object ClaimManager {
         // Record placement
         ledger.addPlacement(blockId)
 
-        // Calculate variety-weighted score
-        return VarietyScorer.calculateBlockPlacementScore(block, currentBlockCount, uniquePaletteCount)
+        // Calculate variety-weighted score (with +10% bonus during active settlement tourism prosperity)
+        val baseScore = VarietyScorer.calculateBlockPlacementScore(block, currentBlockCount, uniquePaletteCount)
+        return if (cluster != null && TownTreasuryManager.isSettlementProsperous(cluster)) {
+            baseScore * 1.10
+        } else {
+            baseScore
+        }
     }
 
     /**
@@ -393,9 +398,17 @@ object ClaimManager {
     fun getRegionalShopDiscount(player: Player, level: Level, pos: BlockPos): Double {
         val chunkPos = ChunkPos(pos)
         val cluster = getContiguousCluster(level, chunkPos)
-        if (cluster != null && isChunkClaimedBy(level, chunkPos, player)) {
-            return cluster.clusterTier.shopDiscountPercent
+        var discount = if (cluster != null && isChunkClaimedBy(level, chunkPos, player)) {
+            cluster.clusterTier.shopDiscountPercent
+        } else {
+            getPlayerHighestSettlementTier(level, player).shopDiscountPercent
         }
-        return getPlayerHighestSettlementTier(level, player).shopDiscountPercent
+
+        // Active Tourism Prosperity bonus (+5% discount)
+        if (cluster != null && TownTreasuryManager.isSettlementProsperous(cluster)) {
+            discount += 0.05
+        }
+
+        return discount
     }
 }

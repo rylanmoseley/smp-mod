@@ -3,7 +3,10 @@ package dev.rmoseley.smpmod.claims
 import dev.rmoseley.smpmod.economy.EconomyManager
 import dev.rmoseley.smpmod.economy.TransactionType
 import net.minecraft.core.BlockPos
+import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.level.ChunkPos
 import net.minecraft.world.level.Level
 import java.util.UUID
@@ -126,5 +129,76 @@ object TownTreasuryManager {
 
     fun getActiveUpgrades(ownerUuid: UUID): Set<CivicUpgrade> {
         return treasuries[ownerUuid]?.activeUpgrades ?: emptySet()
+    }
+
+    // =========================================================================
+    // Nonresident Tourism & Regional Prosperity Buffs
+    // =========================================================================
+
+    data class SettlementTourismRecord(
+        var visitorTicksThisCycle: Int = 0,
+        var totalVisitorMinutes: Long = 0L,
+        var lastVisitorTimestamp: Long = 0L
+    )
+
+    private val tourismRecords = ConcurrentHashMap<UUID, SettlementTourismRecord>()
+
+    fun getTourismRecord(ownerUuid: UUID): SettlementTourismRecord {
+        return tourismRecords.computeIfAbsent(ownerUuid) { SettlementTourismRecord() }
+    }
+
+    /**
+     * Records nonresident visitor presence inside a town cluster.
+     * Every 1,200 ticks (1 minute) of visitor time awards a +10 coin Tourism Dividend to the treasury.
+     * Visitors receive hospitality buffs (Speed I & Saturation) while exploring town limits.
+     */
+    fun recordVisitorPresence(cluster: ContiguousCluster, visitor: ServerPlayer) {
+        val record = getTourismRecord(cluster.ownerUuid)
+        synchronized(record) {
+            record.lastVisitorTimestamp = System.currentTimeMillis()
+            record.visitorTicksThisCycle++
+
+            if (record.visitorTicksThisCycle >= 1200) {
+                record.visitorTicksThisCycle = 0
+                record.totalVisitorMinutes++
+                depositTax(cluster.ownerUuid, 10L)
+
+                visitor.server.playerList.getPlayer(cluster.ownerUuid)?.let { owner ->
+                    owner.sendSystemMessage(
+                        Component.literal("§6[Tourism Revenue] §eA nonresident traveler spent time in your settlement! +10 coins deposited into the Town Treasury. Total visitor time: ${record.totalVisitorMinutes}m.")
+                    )
+                }
+            }
+        }
+
+        // Welcome guest hospitality buff
+        visitor.addEffect(MobEffectInstance(MobEffects.MOVEMENT_SPEED, 80, 0, false, false, true))
+        visitor.addEffect(MobEffectInstance(MobEffects.SATURATION, 80, 0, false, false, true))
+    }
+
+    /**
+     * Checks if a settlement is currently in a prosperous tourism state (visitor in the last 15 minutes).
+     */
+    fun isSettlementProsperous(cluster: ContiguousCluster): Boolean {
+        val record = tourismRecords[cluster.ownerUuid] ?: return false
+        val fifteenMinutesMs = 15 * 60 * 1000L
+        return (System.currentTimeMillis() - record.lastVisitorTimestamp) < fifteenMinutesMs
+    }
+
+    /**
+     * Applies the Tourism Prosperity Buff (Speed I & Regeneration I) to residents inside a flourishing town.
+     */
+    fun applyResidentTourismBuff(player: ServerPlayer, cluster: ContiguousCluster) {
+        if (isSettlementProsperous(cluster)) {
+            player.addEffect(MobEffectInstance(MobEffects.MOVEMENT_SPEED, 80, 0, false, false, true))
+            player.addEffect(MobEffectInstance(MobEffects.REGENERATION, 80, 0, false, false, true))
+
+            if (player.tickCount % 600 == 0) {
+                player.displayClientMessage(
+                    Component.literal("§a[Tourism Prosperity] §fYour bustling town is energized by visiting travelers! (Speed I & Regen I active)"),
+                    true
+                )
+            }
+        }
     }
 }
