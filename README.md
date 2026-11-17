@@ -1,6 +1,7 @@
 # SMP Mod Suite (`smpmod`)
 
 [![Build and Verify](https://github.com/rylanmoseley/smp-mod/actions/workflows/build.yml/badge.svg)](https://github.com/rylanmoseley/smp-mod/actions/workflows/build.yml)
+[![Build Mod, Server & Packwiz Modpack](https://github.com/rylanmoseley/smp-mod/actions/workflows/modpack.yml/badge.svg)](https://github.com/rylanmoseley/smp-mod/actions/workflows/modpack.yml)
 
 A high-cohesion Minecraft server mod suite built for **NeoForge 1.21.1** in **Kotlin** using **Kotlin for Forge (KFF)**.
 
@@ -86,6 +87,13 @@ Run standard Gradle tasks via the wrapper:
 # Run Data Generation (recipes, tags, models)
 ./gradlew runData
 ```
+
+---
+
+## Server Deployment & Modpack Distribution
+
+- **Dedicated Server Operations:** Full production guides, tuned `server.properties`, Java 21 G1GC launch scripts (`run.sh` / `run.bat`), Chunky pre-generation runbooks, and LuckPerms permission trees are documented in **[`./server/`](./server/README.md)**.
+- **Client Modpack (Packwiz & Modrinth):** Client distribution is managed in **[`./pack/`](./pack/README.md)** using [Packwiz](https://packwiz.github.io/). Export to Modrinth (`.mrpack`) or CurseForge (`.zip`) with one command, or let the GitHub Actions CI automatically attach bundles to releases.
 
 ---
 

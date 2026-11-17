@@ -1,0 +1,13 @@
+name = "SMP Survival Suite"
+author = "Rylan Moseley"
+version = "0.1.0-alpha"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "0ed445314c35c435f102a53a5b32f24e9c5df72415644ee8ddbe3084735b63bb"
+
+[versions]
+minecraft = "1.21.1"
+neoforge = "21.1.234"
