@@ -97,3 +97,34 @@ The repository includes the Gradle wrapper. Run standard tasks from the reposito
 3. **Clean Workspace:** Remove any intermediate test scripts or temporary files before committing.
 4. **Commit:** Write clear, concise commit messages using conventional commit format.
 5. **Open Pull Request:** Open a pull request targeting the **`develop`** branch on GitHub. Describe what changes were made, why they are needed, and how they were tested.
+
+---
+
+## 5. Release & Publishing Process (Modrinth & GitHub)
+
+The project uses an automated release pipeline in [`.github/workflows/release.yml`](./.github/workflows/release.yml) to publish builds directly to **Modrinth ([`smpmod-rdiamondcreeper`](https://modrinth.com/mod/smpmod-rdiamondcreeper))** and GitHub Releases.
+
+### Human Testing Pre-Release Checklist
+Before committing to any public release or triggering production builds, complete manual verification:
+1. **Local Test Client & Dedicated Server:**
+   - Run `./gradlew runClient` to verify player HUDs, status commands (`/economy balance`, `/role profile`, `/leaderboard`), and item lore counters.
+   - Run `./gradlew runServer` to verify clean server initialization, OPAC integration, and event listener registration.
+2. **Packwiz Modpack Synchronization:**
+   - Run `cd pack && packwiz refresh` to assert all companion mod hashes (`lithostitched`, `tectonic`, `open-parties-and-claims`, etc.) match upstream Modrinth index hashes.
+3. **Branding & Documentation Verification:**
+   - Run `./tools/graphics/verify.sh` to ensure all brand headers, gallery cards, and 512x512 icons pass dimension and byte-budget assertions.
+
+### Release Channels & Prereleases
+Modrinth categorizes version uploads into three channels:
+- **`alpha` (Development / Experimental):** Development snapshots and experimental mechanics. Hidden from default player downloads.
+- **`beta` (Prerelease / Public Testing):** Feature-complete builds undergoing human testing. Triggered automatically when a GitHub Release is marked as a **Pre-release** (or when the tag contains `-beta`, `-rc`, or `alpha`), or selected manually via workflow dispatch.
+- **`release` (Stable Production):** Official version 1+ production releases (e.g., `v1.0.0`). Automatically marked as **Featured** on Modrinth.
+
+### Publishing Methods
+1. **GitHub Release (Recommended):**
+   - In GitHub Releases, draft a new release with your desired tag (e.g. `v0.1.0-beta.1` or `v1.0.0`).
+   - For testing builds, check **"Set as a pre-release"**.
+   - When published, the workflow automatically compiles the mod JAR, exports `.mrpack` and `.zip` bundles, attaches assets, and uploads the version to Modrinth project `smpmod-rdiamondcreeper`.
+2. **Manual Workflow Dispatch (With Dry Run):**
+   - In GitHub Actions, navigate to **Publish Release to Modrinth & GitHub** and click **Run workflow**.
+   - Select your target channel (`release`, `beta`, `alpha`), enter an optional custom title/changelog, and toggle **`dry_run: true`** to build and inspect artifacts without uploading to Modrinth.

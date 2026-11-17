@@ -4,7 +4,8 @@
 [project]
 name = "SMP Mod Suite"
 mod_id = "smpmod"
-modrinth_id = "4IsC6f5v"
+modrinth_id = "smpmod-rdiamondcreeper"
+modrinth_slug = "smpmod-rdiamondcreeper"
 version = "0.1.0-alpha"
 mc_version = "1.21.1"
 loader = "NeoForge"

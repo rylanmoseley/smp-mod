@@ -28,7 +28,7 @@ usage() {
     echo ""
     echo "Required Environment Variables for --apply:"
     echo "  MODRINTH_TOKEN       Modrinth API authorization token"
-    echo "  MODRINTH_PROJECT_ID  Project slug or ID (e.g. 'smp-mod')"
+    echo "  MODRINTH_PROJECT_ID  Project slug or ID (default: 'smpmod-rdiamondcreeper')"
     exit 0
 }
 
@@ -56,8 +56,10 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+PROJECT_ID="${MODRINTH_PROJECT_ID:-smpmod-rdiamondcreeper}"
+
 echo "=============================================================================="
-echo " Modrinth Asset Sync (Mode: $MODE | Target: $TARGET_TYPE)"
+echo " Modrinth Asset Sync (Mode: $MODE | Target: $TARGET_TYPE | Project: $PROJECT_ID)"
 echo "=============================================================================="
 
 if [ "$MODE" = "apply" ]; then
@@ -65,13 +67,7 @@ if [ "$MODE" = "apply" ]; then
         echo "ERROR: MODRINTH_TOKEN environment variable is required for --apply mode." >&2
         exit 1
     fi
-    if [ -z "${MODRINTH_PROJECT_ID:-}" ]; then
-        echo "ERROR: MODRINTH_PROJECT_ID environment variable is required for --apply mode." >&2
-        exit 1
-    fi
 fi
-
-PROJECT_ID="${MODRINTH_PROJECT_ID:-sample-project-id}"
 
 # Select icon asset
 if [ "$TARGET_TYPE" = "pack" ]; then
