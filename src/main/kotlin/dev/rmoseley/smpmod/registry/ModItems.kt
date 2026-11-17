@@ -19,4 +19,7 @@ object ModItems {
 
     val RECOVERY_CATALYST: DeferredItem<Item> =
         REGISTRY.registerItem("recovery_catalyst", { properties -> Item(properties) }, Item.Properties().rarity(Rarity.UNCOMMON).stacksTo(16))
+
+    val ENCAPSULATED_VILLAGER: DeferredItem<Item> =
+        REGISTRY.registerItem("encapsulated_villager", { properties -> dev.rmoseley.smpmod.world.EncapsulatedVillagerItem(properties) }, Item.Properties().rarity(Rarity.EPIC).stacksTo(1))
 }

@@ -39,6 +39,10 @@ object PlaystyleXpTracker {
         return player.getData(ModAttachmentTypes.PLAYER_PLAYSTYLE_XP.get()).combatXp
     }
 
+    fun getExplorerXp(player: Player): Double {
+        return player.getData(ModAttachmentTypes.PLAYER_PLAYSTYLE_XP.get()).explorerXp
+    }
+
     // --- Backward Compatible Helper Methods ---
 
     fun awardCombatXp(player: Player, mobTier: Int, timeToKillSeconds: Double, wasCritical: Boolean) {

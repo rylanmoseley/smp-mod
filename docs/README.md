@@ -12,9 +12,9 @@ The documentation is organized into focused, user-facing guides covering every m
 
 | Guide | Core Systems Covered | Target Playstyles |
 | :--- | :--- | :--- |
-| **[Economy & Commerce](./economy-and-commerce.md)** | Digital off-inventory currency, one-time starter & repeatable milestone advancements, per-block natural harvest shop unlocks, server bulk store, and active anti-AFK resource channels. | Gatherers, Traders, Crafters |
+| **[Economy & Commerce](./economy-and-commerce.md)** | Digital off-inventory currency, one-time starter & repeatable milestone advancements, per-block natural harvest shop unlocks, server bulk store, living villager relocation & anti-1x1 mobility restocks, and active anti-AFK resource channels. | Gatherers, Traders, Crafters |
 | **[Death Recovery & Item Lore](./death-recovery-and-item-lore.md)** | Ownership-bound UUID buybacks, cumulative death cost escalation, ~30-day fee decay, 24-hour exclusive window $\rightarrow$ 1.25x public marketplace listing, anti-theft protections, and persistent provenance Item Lore (`Crafted by` / `Owned by`). | All Players, Combatants |
-| **[Land Claims & Building](./land-claims-and-building.md)** | Open Parties and Claims (OPAC) integration, noncontiguous claims across the world, contiguous settlement cluster partitioning, variety-weighted block scoring, pooled defensive buffs, and claim-locked temporary builder flight. | Builders, Town Founders, Architects |
+| **[Land Claims & Building](./land-claims-and-building.md)** | Open Parties and Claims (OPAC) integration, noncontiguous claims across the world, contiguous settlement cluster partitioning, variety-weighted block scoring, recurring construction dividends, nonresident settlement tourism, pooled defensive buffs, and claim-locked temporary builder flight. | Builders, Town Founders, Architects |
 | **[World Navigation & Survival](./world-navigation-and-survival.md)** | Tectonic Everest worldgen & alpine summits, dangerous Nether transit & roof lockout, Overworld biome mobility bonuses, Explorer-gated momentum glider Elytra (no mid-air rocket spam), spatial light avoidance AI, `destroys_light_on_aggro` mob traits, and repurposed safe-haven villages. | Explorers, Scouts, Navigators |
 | **[Emergent Roles & Combat](./emergent-roles-and-combat.md)** | Zero elective class selection, dynamic Playstyle XP tracking (Combat, Builder, Gatherer, Explorer), emergent role profile derivation (**DPS**, **Tank**, **Support**, **Scout**), Warded Light flares, and the cooperative Ender Dragon encounter. | Fighters, Dungeon Crawlers, Raid Teams |
 | **[Configuration & Tuning](./configuration-and-tuning.md)** | Server administration reference, configuration options, tuning matrix constants, and balance variables. | Server Admins, Modpack Authors |
@@ -66,7 +66,8 @@ Every system in the suite is built around three core pillars from the [Technical
 | **Check Digital Balance** | Run `/economy balance` or open your Player Status HUD. |
 | **Pay Another Player** | Run `/economy pay <player> <amount>` (applies configured server trade tax). |
 | **Browse Bounty Board** | Run `/bounty list` to browse objective contracts, `/bounty accept <id>`, and `/bounty claim <id>`. |
-| **Town Treasury & Upgrades** | Stand in your claim and run `/town balance`, `/town deposit <amount>`, `/town upgrades`, or `/town upgrade buy <id>`. |
+| **Town Treasury & Upgrades** | Stand in your claim and run `/town balance`, `/town tourism`, `/town deposit <amount>`, `/town upgrades`, or `/town upgrade buy <id>`. |
+| **Encapsulate Villager** | Sneak + Right-Click an adult villager as an Explorer (Scout role or 100+ Explorer XP) to package into a tradable spawn specimen. |
 | **Open Buyback Ledger** | Run `/buyback` or visit any designated Town Recovery Terminal. |
 | **Browse Public Market** | Run `/buyback public` to view items unclaimed after 24 hours (1.25x markup). |
 | **View Playstyle XP & Role** | Run `/role profile` to inspect your Combat, Builder, Gatherer, and Explorer affinities. |
