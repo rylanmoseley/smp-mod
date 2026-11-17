@@ -1,0 +1,31 @@
+[Unit]
+Description=SMP Mod Suite Minecraft Dedicated Server
+After=network.target
+
+[Service]
+Type=simple
+User=minecraft
+Group=minecraft
+WorkingDirectory=/opt/minecraft/server
+
+# Automatically verify configurations before launching
+ExecStartPre=-/opt/minecraft/scripts/sync-server.sh
+
+# Launch the dedicated server with Java 21
+ExecStart=/bin/bash /opt/minecraft/server/run.sh
+
+# Graceful stop sequence
+ExecStop=/usr/bin/mcrcon -H 127.0.0.1 -P 25575 -p "CHANGE_ME_IN_CONFIG" "say Server shutting down..." "save-all" "stop"
+TimeoutStopSec=60
+Restart=on-failure
+RestartSec=10
+
+# Security and resource hardening
+LimitNOFILE=65536
+LimitNPROC=4096
+PrivateTmp=true
+ProtectSystem=full
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

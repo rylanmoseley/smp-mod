@@ -143,7 +143,19 @@ The **Spark** profiler is pre-configured for live performance diagnostics:
 
 ---
 
-## 6. Directory File Index
+## 6. Proxmox VE Automated Configuration Synchronization
+
+If you are hosting the server on a **Proxmox VE** virtual machine or container, you can configure it to automatically track this repository for updates:
+
+- **Automated Sync Script ([sync-server.sh](file:///home/sandbox/smp-mod/server/proxmox/sync-server.sh)):** Pulls Git commits, updates configs, downloads the latest `smpmod-*.jar` from GitHub Releases, and safely restarts the server with in-game countdown alerts.
+- **Systemd Daemon & Daily Maintenance Timer:** Pre-configured [minecraft.service](file:///home/sandbox/smp-mod/server/proxmox/minecraft.service) and [minecraft-update.timer](file:///home/sandbox/smp-mod/server/proxmox/minecraft-update.timer) to run update checks automatically during off-peak hours (4:30 AM).
+- **Packwiz Bootstrap Alternative:** Point `packwiz-installer-bootstrap.jar` directly to GitHub to update all companion mods on every boot.
+
+See the complete deployment runbook in **[proxmox/README.md](file:///home/sandbox/smp-mod/server/proxmox/README.md)**.
+
+---
+
+## 7. Directory File Index
 
 The files in this `./server/` directory provide out-of-the-box configurations:
 
@@ -154,3 +166,4 @@ The files in this `./server/` directory provide out-of-the-box configurations:
 - [config/smpmod-common.toml](file:///home/sandbox/smp-mod/server/config/smpmod-common.toml): Production tuning matrix for economy, claims, sleep, roles, and Discord webhook.
 - [permissions/luckperms-smp.txt](file:///home/sandbox/smp-mod/server/permissions/luckperms-smp.txt): Ready-to-import LuckPerms group permissions hierarchy.
 - [maintenance/backup.sh](file:///home/sandbox/smp-mod/server/maintenance/backup.sh): Automated hot backup script with tar.gz compression and rotation.
+- [proxmox/](file:///home/sandbox/smp-mod/server/proxmox/README.md): Proxmox VE auto-sync script, systemd service, and update timer.

@@ -1,0 +1,15 @@
+[Unit]
+Description=Periodic Check for SMP Mod Suite Config & Binary Updates
+
+[Timer]
+# Run daily at 04:30 AM off-peak maintenance window
+OnCalendar=*-*-* 04:30:00
+
+# Also check 15 minutes after system boot
+OnBootSec=15min
+
+# Persistent timer catches up if the VM was stopped during the scheduled window
+Persistent=true
+
+[Install]
+WantedBy=timers.target
