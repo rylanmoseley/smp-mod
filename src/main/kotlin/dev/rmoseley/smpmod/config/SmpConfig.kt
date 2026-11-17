@@ -74,6 +74,21 @@ object SmpConfig {
         val grinderKillsDecayThreshold: ModConfigSpec.IntValue
         val gathererShopMaxDiscount: ModConfigSpec.DoubleValue
 
+        // --- 7. Multiplayer Sleep ---
+        val playersSleepingPercentage: ModConfigSpec.IntValue
+        val announceSunrise: ModConfigSpec.BooleanValue
+        val announceSleep: ModConfigSpec.BooleanValue
+        val enableSanctuaryRestBuffs: ModConfigSpec.BooleanValue
+
+        // --- 8. Discord Webhook Integration ---
+        val discordWebhookUrl: ModConfigSpec.ConfigValue<String>
+        val discordServerName: ModConfigSpec.ConfigValue<String>
+        val discordNotifyTownMilestones: ModConfigSpec.BooleanValue
+        val discordNotifyDragonVictories: ModConfigSpec.BooleanValue
+        val discordNotifyPublicSalvage: ModConfigSpec.BooleanValue
+        val discordNotifyVillagerCrimes: ModConfigSpec.BooleanValue
+        val discordNotifyAdvancements: ModConfigSpec.BooleanValue
+
         init {
             builder.push("Economy")
             starterAdvancementPayout = builder
@@ -226,6 +241,45 @@ object SmpConfig {
             gathererShopMaxDiscount = builder
                 .comment("Maximum shop discount ratio attainable through high Gatherer XP specialization (default 0.25 = 25%)")
                 .defineInRange("gathererShopMaxDiscount", 0.25, 0.0, 0.50)
+            builder.pop()
+
+            builder.push("MultiplayerSleep")
+            playersSleepingPercentage = builder
+                .comment("Percentage of players in bed required to pass the night (default 1 for 1-player sleep, 100 for vanilla)")
+                .defineInRange("playersSleepingPercentage", 1, 0, 100)
+            announceSunrise = builder
+                .comment("Broadcast sunrise announcement to the realm when morning arrives")
+                .define("announceSunrise", true)
+            announceSleep = builder
+                .comment("Broadcast sleep progress message when a player enters bed")
+                .define("announceSleep", true)
+            enableSanctuaryRestBuffs = builder
+                .comment("Award Well Rested regeneration and haste buffs when waking up in claimed towns or village sanctuaries")
+                .define("enableSanctuaryRestBuffs", true)
+            builder.pop()
+
+            builder.push("Discord")
+            discordWebhookUrl = builder
+                .comment("Discord Webhook URL for server event announcements (leave empty to disable)")
+                .define("discordWebhookUrl", "")
+            discordServerName = builder
+                .comment("Server name displayed on Discord embed footers")
+                .define("discordServerName", "SMP Realm")
+            discordNotifyTownMilestones = builder
+                .comment("Send Discord alerts for Fortified Town and Metropolis foundings")
+                .define("notifyTownMilestones", true)
+            discordNotifyDragonVictories = builder
+                .comment("Send Discord alerts for cooperative Ender Dragon victories")
+                .define("notifyDragonVictories", true)
+            discordNotifyPublicSalvage = builder
+                .comment("Send Discord alerts when 24h unclaimed salvage drops hit the public buyback market")
+                .define("notifyPublicSalvage", true)
+            discordNotifyVillagerCrimes = builder
+                .comment("Send Discord crime reports when a player murders a villager")
+                .define("notifyVillagerCrimes", true)
+            discordNotifyAdvancements = builder
+                .comment("Send Discord alerts for Master and Legendary advancement completions")
+                .define("notifyAdvancements", true)
             builder.pop()
         }
     }

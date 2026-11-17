@@ -109,6 +109,12 @@ object AdvancementRewardManager {
                 Component.literal("§6🏆 §b${player.gameProfile.name} §7has achieved $tierPrefix §6${reward.title}§7!"),
                 false
             )
+            dev.rmoseley.smpmod.server.DiscordWebhookDispatcher.notifyAdvancement(
+                player.gameProfile.name,
+                reward.title,
+                reward.tier.displayName,
+                rewardSummary
+            )
         }
     }
 }

@@ -23,6 +23,7 @@ import dev.rmoseley.smpmod.world.RepurposedVillageManager
 import dev.rmoseley.smpmod.world.SpatialLightAI
 import dev.rmoseley.smpmod.world.WardedLightManager
 import net.minecraft.network.chat.Component
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.Mob
@@ -102,6 +103,10 @@ object GameForgeEvents {
         val level = player.level()
         val chunkPos = ChunkPos(event.pos)
 
+        // Tool Statistics: track blocks mined on active tool
+        val toolStack = player.mainHandItem
+        dev.rmoseley.smpmod.server.ToolStatsManager.onBlockBroken(player, toolStack)
+
         // Inside claims: decrement cluster net blocks and Builder XP to prevent exploit
         if (ClaimManager.isChunkClaimed(level, chunkPos)) {
             val deductedXp = ClaimManager.recordBlockBreak(player, level, chunkPos, block)
@@ -152,6 +157,12 @@ object GameForgeEvents {
     fun onLivingDeath(event: LivingDeathEvent) {
         val entity = event.entity
         val killer = event.source.entity as? ServerPlayer
+
+        // Track weapon/tool statistics
+        if (killer != null) {
+            val weaponStack = killer.mainHandItem
+            dev.rmoseley.smpmod.server.ToolStatsManager.onEntityKilled(killer, weaponStack, entity)
+        }
 
         // Villager homicide penalty & curse branding
         if (entity is Villager && killer != null) {
@@ -211,6 +222,7 @@ object GameForgeEvents {
         RecoveryCommands.register(event.dispatcher)
         dev.rmoseley.smpmod.claims.TownCommands.register(event.dispatcher)
         dev.rmoseley.smpmod.economy.BountyCommands.register(event.dispatcher)
+        dev.rmoseley.smpmod.server.LeaderboardCommands.register(event.dispatcher)
     }
 
     @SubscribeEvent
@@ -285,6 +297,21 @@ object GameForgeEvents {
             } else {
                 dev.rmoseley.smpmod.claims.TownTreasuryManager.applyResidentTourismBuff(player, settlementCluster)
             }
+        }
+
+        // 16. Multiplayer Dynamic Sleep Check
+        val wasSleeping = player.persistentData.getBoolean("smpmod:is_sleeping")
+        val isSleeping = player.isSleeping
+        if (isSleeping && !wasSleeping) {
+            dev.rmoseley.smpmod.server.MultiplayerSleepManager.onPlayerEnterBed(player)
+        } else if (!isSleeping && wasSleeping) {
+            dev.rmoseley.smpmod.server.MultiplayerSleepManager.onPlayerLeaveBed(player)
+        }
+
+        // 17. Stat Leaderboards & Gamerule sync (every 5 seconds)
+        if (player.tickCount % 100 == 0) {
+            dev.rmoseley.smpmod.server.LeaderboardManager.updatePlayer(player)
+            dev.rmoseley.smpmod.server.MultiplayerSleepManager.syncGamerule(player.server)
         }
     }
 
@@ -486,5 +513,30 @@ object GameForgeEvents {
         if (milestone != null) {
             ProgressionFaucetManager.awardStarterMilestone(player, milestone)
         }
+    }
+
+    @SubscribeEvent
+    fun onItemTooltip(event: net.neoforged.neoforge.event.entity.player.ItemTooltipEvent) {
+        dev.rmoseley.smpmod.server.ToolStatsManager.appendTooltip(event.itemStack, event.toolTip)
+    }
+
+    @SubscribeEvent
+    fun onItemFished(event: net.neoforged.neoforge.event.entity.player.ItemFishedEvent) {
+        val player = event.entity as? ServerPlayer ?: return
+        val mainRod = player.mainHandItem
+        if (mainRod.item is net.minecraft.world.item.FishingRodItem) {
+            dev.rmoseley.smpmod.server.ToolStatsManager.onFishCaught(player, mainRod)
+        } else {
+            val offRod = player.offhandItem
+            if (offRod.item is net.minecraft.world.item.FishingRodItem) {
+                dev.rmoseley.smpmod.server.ToolStatsManager.onFishCaught(player, offRod)
+            }
+        }
+    }
+
+    @SubscribeEvent
+    fun onSleepFinished(event: net.neoforged.neoforge.event.level.SleepFinishedTimeEvent) {
+        val serverLevel = event.level as? ServerLevel ?: return
+        dev.rmoseley.smpmod.server.MultiplayerSleepManager.onSleepFinished(serverLevel)
     }
 }
