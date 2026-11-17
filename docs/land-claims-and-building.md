@@ -51,6 +51,11 @@ $$\text{Block Score} = \text{Base Weight} \times \frac{1.0}{1.0 + \ln(1.0 + \tex
 
 * **Aesthetic Incentive:** A build mixing polished stone, oak timber, glass panes, terracotta trim, and lanterns yields maximum Builder XP and accelerates cluster development leveling. In contrast, thousands of identical cobblestone blocks quickly hit a diminishing score floor.
 
+### Recurring Construction Dividends
+Active builders earn recurring digital coin bonuses directly through sustained construction:
+* **Milestone Payout:** Every **25 blocks placed** inside claimed territory awards **+25 to +50 digital coins** (scaled by block variety score) alongside bonus Builder XP.
+* **Anti-Laundering Guardrails:** Re-placing broken blocks or cycling temporary scaffolding does not contribute to construction totals; only genuine net placements inside registered claims qualify.
+
 ---
 
 ## 3. Builder Chunk Scaling & Individual XP Isolation
@@ -127,10 +132,25 @@ Settlement leaders (the claim founder/owner) can purchase permanent civic upgrad
 
 ### Town Management Commands
 * `/town balance`: View your town's current treasury funds and lifetime taxes collected.
+* `/town tourism`: View total nonresident visitor exploration time and current tourism prosperity status.
 * `/town deposit <amount>`: Donate digital currency into the communal treasury.
 * `/town withdraw <amount>`: Town leader withdrawal of municipal funds.
 * `/town upgrades`: Browse available and unlocked civic upgrades for your current settlement tier.
 * `/town upgrade buy <id>`: Purchase and activate a civic upgrade for the contiguous settlement.
+
+### Nonresident Settlement Tourism & Regional Prosperity
+Settlements thrive on commerce, visitors, and traveler foot traffic. The suite rewards towns that attract nonresident visitors:
+1. **Tourism Dividends for the Communal Treasury:**
+   * Whenever a **nonresident player** (a visitor not in the claim's party/membership) spends time exploring within town boundaries, the town accumulates visitor time.
+   * Every **1 minute (1,200 ticks)** of cumulative nonresident visitor presence automatically deposits a **+10 coin Tourism Dividend** into the Town Treasury.
+2. **Tourism Prosperity Buff:**
+   * When visitors explore the town, the settlement enters a **Prosperous State** that persists for **15 minutes** after the last visitor departs.
+   * While prosperous, all town residents inside town borders receive:
+     * **Speed I** (`MobEffects.MOVEMENT_SPEED`) and **Regeneration I** (`MobEffects.REGENERATION`).
+     * **+10% Bonus Builder XP** on all structural placements inside the town.
+     * **+5% Bonus Regional Shop Discount** at all community and vendor shops.
+3. **Guest Hospitality Buff:**
+   * Nonresident visitors themselves receive **Speed I** and **Saturation** while peacefully walking the streets, keeping them well-fed and mobile while window shopping.
 
 ---
 

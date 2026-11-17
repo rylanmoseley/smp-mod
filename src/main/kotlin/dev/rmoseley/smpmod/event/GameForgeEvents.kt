@@ -73,11 +73,12 @@ object GameForgeEvents {
 
         val chunkPos = ChunkPos(event.pos)
 
-        // 3. Sustain builder flight inside claims and track cluster leveling
+        // 3. Sustain builder flight inside claims, track cluster leveling, and award recurring construction dividends
         if (ClaimManager.isChunkClaimedBy(level, chunkPos, player)) {
             val xpScore = ClaimManager.recordBlockPlacement(player, level, chunkPos, event.placedBlock.block)
             BuilderFlightController.recordBlockPlacement(player, event.pos)
             PlaystyleXpTracker.awardBuilderXpDirect(player, xpScore)
+            ProgressionFaucetManager.onConstructionBlockPlaced(player, xpScore, event.placedBlock.block)
         }
 
         // 4. Register village sanctuary if placing landmark bell
@@ -148,8 +149,16 @@ object GameForgeEvents {
     }
 
     @SubscribeEvent
-    fun onPlayerDeath(event: LivingDeathEvent) {
-        val player = event.entity as? ServerPlayer ?: return
+    fun onLivingDeath(event: LivingDeathEvent) {
+        val entity = event.entity
+        val killer = event.source.entity as? ServerPlayer
+
+        // Villager homicide penalty & curse branding
+        if (entity is Villager && killer != null) {
+            dev.rmoseley.smpmod.world.VillagerLivingManager.onVillagerKilled(killer, entity)
+        }
+
+        val player = entity as? ServerPlayer ?: return
 
         var buybackCount = 0
         var bulkStoreCount = 0
@@ -263,6 +272,20 @@ object GameForgeEvents {
             dev.rmoseley.smpmod.advancements.WorldExplorationAdvancements.onSubterraneanVoyage(player)
             dev.rmoseley.smpmod.advancements.WorldExplorationAdvancements.onPlayerTravelCheck(player)
         }
+
+        // 14. Villager Slayer Curse Maintenance
+        dev.rmoseley.smpmod.world.VillagerLivingManager.onPlayerTick(player)
+
+        // 15. Contiguous Settlement Nonresident Tourism & Prosperity Buffs
+        val currentChunkPos = ChunkPos(player.blockPosition())
+        val settlementCluster = ClaimManager.getContiguousCluster(player.level(), currentChunkPos)
+        if (settlementCluster != null) {
+            if (!settlementCluster.isMember(player.uuid)) {
+                dev.rmoseley.smpmod.claims.TownTreasuryManager.recordVisitorPresence(settlementCluster, player)
+            } else {
+                dev.rmoseley.smpmod.claims.TownTreasuryManager.applyResidentTourismBuff(player, settlementCluster)
+            }
+        }
     }
 
     @SubscribeEvent
@@ -323,8 +346,12 @@ object GameForgeEvents {
             NetherHazardHandler.handleNetherMobAggro(entity)
         }
 
-        // 3. Repurposed Village villager anti-exploit regulation
+        // 3. Living Villager spawn filtering & exploit regulation
         if (entity is Villager) {
+            if (dev.rmoseley.smpmod.world.VillagerLivingManager.shouldCancelSpawn(entity)) {
+                event.isCanceled = true
+                return
+            }
             RepurposedVillageManager.regulateVillager(entity)
         }
     }
@@ -339,9 +366,30 @@ object GameForgeEvents {
             return
         }
 
-        // 2. Roll destroys_light_on_aggro trait for eligible hostile mobs
+        // 2. Villager spawn regulation: only spawn in natural villages
+        if (entity is Villager && dev.rmoseley.smpmod.world.VillagerLivingManager.shouldCancelSpawn(entity)) {
+            event.isCanceled = true
+            return
+        }
+
+        // 3. Roll destroys_light_on_aggro trait for eligible hostile mobs
         if (entity is Mob && entity is Monster) {
             LightMobAIHandler.evaluateSpawnTrait(entity)
+        }
+    }
+
+    @SubscribeEvent
+    fun onBabyEntitySpawn(event: net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent) {
+        if (dev.rmoseley.smpmod.world.VillagerLivingManager.shouldCancelBabySpawn(event.parentA, event.parentB, event.child)) {
+            event.isCanceled = true
+        }
+    }
+
+    @SubscribeEvent
+    fun onEntityTick(event: net.neoforged.neoforge.event.tick.EntityTickEvent.Post) {
+        val villager = event.entity as? Villager ?: return
+        if (!villager.level().isClientSide) {
+            dev.rmoseley.smpmod.world.VillagerLivingManager.onVillagerTick(villager)
         }
     }
 
@@ -409,13 +457,12 @@ object GameForgeEvents {
 
     @SubscribeEvent
     fun onVillagerInteract(event: PlayerInteractEvent.EntityInteract) {
-        val target = event.target
-        if (target is Villager) {
-            val res = AntiAfkSupplyManager.onVillagerInteract(event.entity, target, event.hand)
-            if (res == InteractionResult.SUCCESS) {
-                event.isCanceled = true
-                event.cancellationResult = InteractionResult.SUCCESS
-            }
+        val target = event.target as? Villager ?: return
+        val player = event.entity as? ServerPlayer ?: return
+        val res = dev.rmoseley.smpmod.world.VillagerLivingManager.onVillagerInteract(player, target, event.hand)
+        if (res == InteractionResult.SUCCESS) {
+            event.isCanceled = true
+            event.cancellationResult = InteractionResult.SUCCESS
         }
     }
 
