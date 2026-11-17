@@ -1,7 +1,8 @@
 // SMP Mod Suite - Subsystem Section Header Strip (1200x160)
-#import "../lib/theme.typ": px, bg-canvas, bg-surface, border-subtle, border-accent, text-primary, text-secondary, text-muted, font-sans, font-mono, pill, get-subsystem, tokens
-#import "../lib/icons.typ": get-subsystem-icon
-#import "../lib/backgrounds.typ": render-motif-bg
+// Cartographer's Field Guide Chapter Header Strip
+#import "../lib/theme.typ": *
+#import "../lib/icons.typ": render-subsystem-sprite
+#import "../lib/backgrounds.typ": paper-grain, survey-plot-map, topographic-atlas, expedition-border
 
 #let sub-id = sys.inputs.at("subsystem", default: "economy")
 #let sub = get-subsystem(sub-id)
@@ -11,42 +12,40 @@
   width: 1200 * px,
   height: 160 * px,
   margin: 0pt,
-  fill: bg-canvas
+  fill: parchment-base
 )
 
 #set text(
-  font: font-sans,
-  fill: text-primary
+  font: font-body,
+  fill: ink-primary
 )
 
-// Background canvas with subtle border frame
-#place(top + left,
-  rect(
-    width: 1200 * px,
-    height: 160 * px,
-    fill: bg-surface,
-    stroke: (top: 1pt + border-subtle, bottom: 1pt + border-subtle)
-  )
-)
+// 1. Paper grain base
+#place(top + left, paper-grain(1200, 160, seed: 3300 + int(sub.index) * 17))
 
-// Right-side procedural motif background (faded)
+// 2. Right-side subtle cartographic engraving (survey map or topographic atlas)
 #place(top + right,
   box(
-    width: 480 * px,
+    width: 440 * px,
     height: 160 * px,
     clip: true,
     [
-      #render-motif-bg(sub.motif, 480, 160, accent, seed: int(sub.index) * 111 + 42)
-      // Horizontal linear fade overlay
+      #if sub.id == "world-navigation" {
+        topographic-atlas(440, 160, seed: 777, accent: accent)
+      } else {
+        survey-plot-map(440, 160, seed: 500 + int(sub.index) * 99, accent: accent, cell-size: 26, cluster-target: 8)
+      }
+
+      // Smooth horizontal paper wash gradient fade
       #place(top + left,
         rect(
-          width: 480 * px,
+          width: 440 * px,
           height: 160 * px,
           fill: gradient.linear(
             angle: 0deg,
-            (bg-surface, 0%),
-            (bg-surface.transparentize(40%), 50%),
-            (bg-surface.transparentize(90%), 100%)
+            (parchment-base, 0%),
+            (parchment-base.transparentize(20%), 40%),
+            (parchment-base.transparentize(85%), 100%)
           )
         )
       )
@@ -54,52 +53,83 @@
   )
 )
 
-// Left Accent Vertical Bar
+// 3. Crisp outer 2pt iron-gall border + hairline inner border
 #place(top + left,
   rect(
-    width: 6 * px,
+    width: 1200 * px,
     height: 160 * px,
-    fill: accent
+    stroke: 2pt + ink-primary,
+    fill: none
+  )
+)
+#place(top + left, dx: 4 * px, dy: 4 * px,
+  rect(
+    width: (1200 - 8) * px,
+    height: (160 - 8) * px,
+    stroke: 0.75pt + rule-border,
+    fill: none
   )
 )
 
-// Main Header Content
-#place(top + left, dx: 36 * px, dy: 24 * px,
-  box(width: 800 * px, [
-    #stack(spacing: 8 * px,
-      // Metadata Tagline
-      stack(dir: ltr, spacing: 10 * px,
-        text(
-          font: font-mono,
-          size: 11 * px,
-          weight: "bold",
-          fill: accent,
-          tracking: 1.5pt,
-          [SUBSYSTEM #sub.index \/\/ #upper(sub.name)]
-        ),
-        box(
-          fill: accent.transparentize(85%),
-          stroke: 0.8pt + accent.transparentize(50%),
-          radius: 999pt,
-          inset: (x: 8pt, y: 3pt),
-          text(font: font-mono, size: 9 * px, weight: "bold", fill: accent, [ACTIVE])
-        )
-      ),
+// 4. Solid mineral pigment stripe on the far left edge
+#place(top + left,
+  rect(
+    width: 7 * px,
+    height: 160 * px,
+    fill: accent,
+    stroke: none
+  )
+)
 
-      // Icon + Subsystem Title
-      stack(dir: ltr, spacing: 14 * px,
-        get-subsystem-icon(sub.id, size: 36),
-        align(horizon, [
-          #text(size: 28 * px, weight: "bold", fill: white, sub.name)
-        ])
-      ),
-
-      // Subtitle / Features
-      text(
-        size: 13 * px,
-        fill: text-secondary,
-        sub.subtitle
+// 5. Left Stamp Box: 64x64 pixel sprite in square parchment stamp box
+#place(top + left, dx: 32 * px, dy: 36 * px,
+  box(
+    width: 88 * px,
+    height: 88 * px,
+    fill: parchment-inset,
+    stroke: 1.5pt + ink-primary,
+    [
+      #place(center + horizon,
+        render-subsystem-sprite(sub.id, size: 60pt)
       )
+    ]
+  )
+)
+
+// 6. Header Typography & Grounded Subsystem Copy
+#place(top + left, dx: 144 * px, dy: 28 * px,
+  box(width: 780 * px, height: 104 * px, [
+    // Roman numeral chapter label
+    #text(
+      font: font-heading,
+      size: 11 * px,
+      weight: "bold",
+      fill: ink-secondary,
+      tracking: 2pt,
+      [CHAPTER #sub.numeral   —   #upper(sub.name)]
+    )
+
+    #v(4 * px)
+
+    // Subsystem Grand Serif Title
+    #text(
+      font: font-display,
+      size: 28 * px,
+      weight: "bold",
+      fill: ink-primary,
+      tracking: -0.25pt,
+      sub.name
+    )
+
+    #v(4 * px)
+
+    // Field Guide Subtitle
+    #text(
+      font: font-body,
+      size: 13.5 * px,
+      weight: "regular",
+      fill: ink-secondary,
+      sub.subtitle
     )
   ])
 )

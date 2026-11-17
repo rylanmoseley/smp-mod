@@ -1,115 +1,128 @@
-# SMP Mod Suite - Design Tokens & Graphics Configuration
-# Single source of truth for colors, typography, subsystems, and roles.
+# SMP Mod Suite - Expedition Parchment Design Tokens
+# Single source of truth for surfaces, pigments, typography, subsystems, and roles.
 
 [project]
 name = "SMP Mod Suite"
 mod_id = "smpmod"
+modrinth_id = "4IsC6f5v"
 version = "0.1.0-alpha"
 mc_version = "1.21.1"
 loader = "NeoForge"
 license = "MIT"
-tagline = "Cooperative Survival Multiplayer Re-engineered"
+tagline = "Cohesive Systems for Cooperative Survival"
 pack_name = "SMP Survival Suite"
 pack_loader = "Packwiz"
 
 [colors]
-bg_canvas = "#0B0E14"
-bg_surface = "#121722"
-bg_elevated = "#1A2130"
-border_subtle = "#263044"
-border_accent = "#3B4863"
-text_primary = "#F1F5F9"
-text_secondary = "#94A3B8"
-text_muted = "#64748B"
+# Surfaces
+parchment_base    = "#F2EAD7"   # Warm aged vellum (primary background)
+parchment_inset   = "#E6DBC2"   # Recessed ledger / card paper
+parchment_edge    = "#D5C5A3"   # Aged margin / shadow wash
+leather_cover     = "#2C221B"   # Deep saddle-leather (used for modpack cover & plate framing)
 
-# Subsystem Accents
-amber = "#F59E0B"
-amethyst = "#A855F7"
-emerald = "#10B981"
-sky = "#0EA5E9"
-crimson = "#F43F5E"
-indigo = "#6366F1"
+# Ink & Rules
+ink_primary       = "#231F1B"   # Iron-gall charcoal ink
+ink_secondary     = "#5A4E42"   # Warm sepia / umber
+ink_faint         = "#8C7D6B"   # Survey grid lines, contours, paper flecks
+rule_border       = "#A69478"   # Printed ledger hairline border
+
+# Earth & Mineral Pigments (one per subsystem)
+pigment_ochre     = "#B47B2B"   # Economy & Commerce (tarnished gold)
+pigment_plum      = "#7A3E5D"   # Death Recovery & Item Lore (wax seal)
+pigment_moss      = "#3D6B48"   # Land Claims & Settlements (pine/territory)
+pigment_cobalt    = "#355E7E"   # World Navigation & Survival (cartographic blue)
+pigment_vermilion = "#A8382B"   # Emergent Roles & Combat (iron oxide)
+pigment_slate     = "#4D545E"   # Server Utilities & Moderation (wrought iron)
 
 [typography]
-font_sans = "Inter"
-font_mono = "JetBrains Mono"
+font_display = "Fraunces"
+font_heading = "Cinzel"
+font_body    = "Source Sans 3"
+font_pixel   = "Silkscreen"
+font_mono    = "JetBrains Mono"
 
 [[subsystems]]
 id = "economy"
 index = "01"
+numeral = "I"
 name = "Economy & Commerce"
-accent = "#F59E0B"
-motif = "dot-ledger"
+accent = "#B47B2B"
+motif = "survey-ledger"
 subtitle = "Digital Currency · Milestone Faucets · Villager Encapsulation · Bulk Store"
 
 [[subsystems]]
 id = "death-recovery"
 index = "02"
+numeral = "II"
 name = "Death Recovery & Item Lore"
-accent = "#A855F7"
-motif = "grid-pulse"
+accent = "#7A3E5D"
+motif = "sealed-ledger"
 subtitle = "UUID Buyback Ledgers · 24h Exclusive Window · 30d Decay · Item Provenance"
 
 [[subsystems]]
 id = "land-claims"
 index = "03"
+numeral = "III"
 name = "Land Claims & Settlements"
-accent = "#10B981"
-motif = "chunk-cluster"
-subtitle = "OPAC Integration · Contiguous Chunk Cluster BFS · Tiered Builder Flight"
+accent = "#3D6B48"
+motif = "survey-parcels"
+subtitle = "OPAC Integration · Contiguous Chunk Clusters · Tiered Builder Flight"
 
 [[subsystems]]
 id = "world-navigation"
 index = "04"
+numeral = "IV"
 name = "World Navigation & Survival"
-accent = "#0EA5E9"
-motif = "topographic"
+accent = "#355E7E"
+motif = "topographic-atlas"
 subtitle = "Tectonic Terrain · Road Caravans · Momentum Elytra · Light-Snuffing AI"
 
 [[subsystems]]
 id = "emergent-roles"
 index = "05"
+numeral = "V"
 name = "Emergent Roles & Combat"
-accent = "#F43F5E"
-motif = "quadrant-radar"
-subtitle = "Auto-Derived DPS / Tank / Support / Scout · Warded Light · Dragon Raid"
+accent = "#A8382B"
+motif = "field-bestiary"
+subtitle = "Emergent DPS, Tank, Support & Scout · Warded Light · Dragon Raid"
 
 [[subsystems]]
 id = "server-utilities"
 index = "06"
+numeral = "VI"
 name = "Server Utilities & Moderation"
-accent = "#6366F1"
-motif = "terminal-grid"
-subtitle = "/leaderboard · Tool Stats Lore · Dynamic Sleep · Discord Webhooks"
+accent = "#4D545E"
+motif = "wrought-ledger"
+subtitle = "/leaderboard · Tool Statistics Lore · Dynamic Sleep · Discord Webhooks"
 
 [[roles]]
 id = "dps"
 name = "DPS"
-color = "#F43F5E"
+color = "#A8382B"
 source = "Combat XP"
 archetype = "Striker"
-perk = "Execute punish windows & boss critical damage multipliers"
+perk = "Burst execution, armor piercing & dark-zone punishes"
 
 [[roles]]
 id = "tank"
 name = "Tank"
-color = "#F59E0B"
+color = "#B47B2B"
 source = "Builder XP"
 archetype = "Frontline"
-perk = "Threat taunt pulses, kinetic barriers & dragon stagger intercept"
+perk = "Frontline mitigation, damage absorption & light guard"
 
 [[roles]]
 id = "support"
 name = "Support"
-color = "#10B981"
+color = "#3D6B48"
 source = "Gatherer XP"
 archetype = "Sustain"
-perk = "Warded Light flares & sustained team health regeneration"
+perk = "Team sustain, resource efficiency & Warded Light flares"
 
 [[roles]]
 id = "scout"
 name = "Scout"
-color = "#0EA5E9"
+color = "#355E7E"
 source = "Explorer XP"
 archetype = "Recon"
-perk = "Paved road speed boosts, dark-zone trap detection & momentum Elytra"
+perk = "Road caravan velocity, terrain scouting & Elytra soaring"

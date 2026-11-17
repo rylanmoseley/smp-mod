@@ -1,23 +1,24 @@
-# Deterministic Brand & Documentation Graphics Pipeline (`tools/graphics`)
+# Expedition Parchment & Cartographer's Field Guide Graphics Pipeline (`tools/graphics`)
 
-A self-contained, **100% deterministic, rule-based graphics generation pipeline** for the **SMP Mod Suite** built using **Typst** and **CeTZ**, with **zero JavaScript, zero Node.js, and zero generative AI**.
+A self-contained, **100% deterministic, rule-based graphics generation pipeline** for the **SMP Mod Suite** (`smpmod`, Modrinth ID `4IsC6f5v`) built using **Typst** and **CeTZ**, with **zero JavaScript, zero Node.js, and zero generative AI**.
 
-This pipeline compiles all project branding, README hero banners, documentation section headers, architecture diagrams, and Modrinth listing cards directly from structured TOML design tokens and vector math.
+This pipeline compiles all project branding, README hero banners, documentation section headers, architecture diagrams, and Modrinth gallery cards directly from structured TOML design tokens, iron-gall pigment rules, integer pixel-art sprites, and cartographic vector math.
 
 ---
 
-## 1. Core Architectural Constraints
+## 1. Aesthetic Direction: The Cartographer's Field Guide
 
-- **Zero JS / Zero Headless Browsers:** No Puppeteer, no Chromium, no NPM dependencies.
-- **100% Deterministic Output:**
-  - Always invokes Typst with `--ignore-system-fonts --font-path tools/graphics/fonts` to ensure host-installed fonts never alter glyph layout or kerning.
-  - All procedural background patterns (chunk clusters, topographic contours, dot matrices, and radar grids) derive from a pure Typst seeded PRNG in `lib/prng.typ`.
-  - Running `./tools/graphics/build.sh` back-to-back produces **byte-for-byte identical PNGs** with matching SHA-256 checksums.
-- **Modrinth & GitHub Compliance:**
-  - Standard raster PNG export for crisp rendering across light/dark GitHub themes and Modrinth UI.
-  - `512x512` project icons strictly satisfy Modrinth's `<= 256 KiB` budget (current: ~38 KiB).
-  - `1280x720` gallery cards strictly satisfy Modrinth's `<= 5 MiB` budget (current: ~240-290 KiB).
-  - All embedded Markdown images require descriptive `alt` text.
+- **Authentic Aged Parchment:** Warm tactile vellum (`#F2EAD7`), recessed ledger paper (`#E6DBC2`), margin wash (`#D5C5A3`), and deep saddle leather (`#2C221B`).
+- **Iron-Gall Ink & Mineral Pigments:**
+  - Charcoal ink (`#231F1B`) and warm sepia umber (`#5A4E42`).
+  - Tarnished Ochre Gold (`#B47B2B`) — Chapter I: Economy & Commerce
+  - Imperial Plum Wax (`#7A3E5D`) — Chapter II: Death Recovery & Item Lore
+  - Pine Territory Moss (`#3D6B48`) — Chapter III: Land Claims & Settlements
+  - Cartographic Cobalt (`#355E7E`) — Chapter IV: World Navigation & Survival
+  - Iron Oxide Vermilion (`#A8382B`) — Chapter V: Emergent Roles & Combat
+  - Wrought Iron Slate (`#4D545E`) — Chapter VI: Server Utilities & Moderation
+- **Integer Pixel-Grid Sprites:** $16\times16$ and $24\times24$ Minecraft-native woodcut sprites rendered via pure CeTZ coordinate math with horizontal pixel run-merging (no anti-aliasing seams).
+- **100% Deterministic:** Pure Typst seeded PRNG (`lib/prng.typ`) driving parcel survey maps, topographic elevation curves, and paper fiber grain. Back-to-back `./tools/graphics/build.sh` runs produce **byte-for-byte identical PNGs** with matching SHA-256 hashes.
 
 ---
 
@@ -25,30 +26,36 @@ This pipeline compiles all project branding, README hero banners, documentation 
 
 ```
 tools/graphics/
-├── README.md                 # Pipeline documentation (this file)
+├── README.md                 # Pipeline and aesthetic documentation (this file)
 ├── build.sh                  # Compiles all 14 PNG targets via typst compile
 ├── verify.sh                 # Asserts dimensions, byte budgets, and SHA-256 determinism
 ├── sync-modrinth.sh          # Modrinth v2 API listing synchronizer (--dry-run by default)
 ├── tokens.toml               # Single source of truth for design tokens, colors, & roles
-├── fonts/                    # Bundled SIL OFL fonts (Inter & JetBrains Mono)
-│   ├── Inter-Regular.otf
-│   ├── Inter-Medium.otf
-│   ├── Inter-SemiBold.otf
-│   ├── Inter-Bold.otf
+├── fonts/                    # Bundled SIL OFL fonts
+│   ├── Cinzel.ttf
+│   ├── Fraunces.ttf
+│   ├── SourceSans3.ttf
+│   ├── Silkscreen-Regular.ttf
+│   ├── Silkscreen-Bold.ttf
 │   ├── JetBrainsMono-Regular.ttf
 │   ├── JetBrainsMono-Bold.ttf
 │   └── OFL.txt
+├── screenshots/              # Optional in-game screenshot drops (.gitkeep)
+│   ├── 01-overview.png
+│   ├── 02-settlements.png
+│   ├── 03-roles.png
+│   └── 04-death-lore.png
 ├── lib/
 │   ├── prng.typ              # Pure Typst LCG PRNG, FNV-1a hashing & 2D value noise
-│   ├── theme.typ             # Loads tokens.toml, defines px unit & shared UI components
-│   ├── backgrounds.typ       # CeTZ procedural generators (BFS chunk cluster, contours, radar)
-│   └── icons.typ             # Crisp vector icons & smpmod isometric emblems
+│   ├── theme.typ             # Loads tokens.toml, defines px unit & ledger framing
+│   ├── backgrounds.typ       # CeTZ procedural generators (paper grain, survey BFS, contours)
+│   └── icons.typ             # Integer pixel-art sprites & cartographer's compass rose
 └── templates/
-    ├── project-icon.typ      # 512x512 icon (mod & modpack variants via --input variant=...)
-    ├── hero-banner.typ       # 1280x360 README top hero banner
-    ├── gallery-card.typ      # 1280x720 (16:9) Modrinth showcase cards
-    ├── section-header.typ    # 1200x160 subsystem section headers
-    └── roles-diagram.typ     # 1200x420 4-quadrant Emergent Roles diagram
+    ├── project-icon.typ      # 512x512 icon (mod & modpack variants, zero text)
+    ├── hero-banner.typ       # 1280x360 field-guide title plate
+    ├── gallery-card.typ      # 1280x720 (16:9) Modrinth plates (screenshot-ready)
+    ├── section-header.typ    # 1200x160 subsystem chapter headers
+    └── roles-diagram.typ     # 1200x420 4-column bestiary & specialization ledger
 ```
 
 ---
@@ -67,24 +74,19 @@ By configuring every template with `#let px = 1pt` and compiling with **`--ppi 7
 
 ---
 
-## 4. Generated Asset Inventory (`docs/assets/generated/`)
+## 4. Screenshot Integration (How to Upgrade Gallery Cards)
 
-| Asset Path | Exact Resolution | Byte Budget | Actual Size | Description |
-| :--- | :--- | :--- | :--- | :--- |
-| `icon-mod.png` | `512 × 512` | `<= 256 KiB` | ~38.7 KiB | Standalone NeoForge mod project icon |
-| `icon-modpack.png` | `512 × 512` | `<= 256 KiB` | ~40.2 KiB | Packwiz modpack listing icon |
-| `hero-readme.png` | `1280 × 360` | `<= 1 MiB` | ~55.9 KiB | Main README and overview banner |
-| `gallery/01-overview.png` | `1280 × 720` | `<= 5 MiB` | ~289.1 KiB | **Featured** Modrinth 6-subsystem overview |
-| `gallery/02-settlements-economy.png`| `1280 × 720`| `<= 5 MiB` | ~233.2 KiB | Contiguous claims & digital economy showcase |
-| `gallery/03-emergent-roles.png` | `1280 × 720` | `<= 5 MiB` | ~230.0 KiB | Emergent roles & Playstyle XP progression |
-| `gallery/04-death-recovery-lore.png`| `1280 × 720`| `<= 5 MiB` | ~240.7 KiB | UUID buyback ledger & item lore showcase |
-| `headers/economy.png` | `1200 × 160` | `<= 512 KiB`| ~31.3 KiB | Economy & Commerce section header |
-| `headers/death-recovery.png` | `1200 × 160` | `<= 512 KiB`| ~28.6 KiB | Death Recovery & Item Lore header |
-| `headers/land-claims.png` | `1200 × 160` | `<= 512 KiB`| ~26.4 KiB | Land Claims & Settlements header |
-| `headers/world-navigation.png` | `1200 × 160` | `<= 512 KiB`| ~40.8 KiB | World Navigation & Survival header |
-| `headers/emergent-roles.png` | `1200 × 160` | `<= 512 KiB`| ~33.2 KiB | Emergent Roles & Combat header |
-| `headers/server-utilities.png` | `1200 × 160` | `<= 512 KiB`| ~27.6 KiB | Server Utilities & Moderation header |
-| `diagrams/emergent-roles-quadrant.png`| `1200 × 420`| `<= 1 MiB` | ~96.0 KiB | 4-Quadrant combat specialization matrix |
+The 4 Modrinth gallery cards (`1280 × 720`) support **real in-game Minecraft screenshots**.
+
+1. Capture crisp in-game screenshots (`F1` to hide HUD) showcasing survival gameplay:
+   - `01-overview.png`: Wide landscape or settlement overview
+   - `02-settlements.png`: Contiguous town build or village market
+   - `03-roles.png`: Combat raid or dungeon encounter
+   - `04-death-lore.png`: Recovery terminal or anvil/lore item inspect
+2. Place them into `tools/graphics/screenshots/`.
+3. Run `./tools/graphics/build.sh`.
+
+When a screenshot is present, `gallery-card.typ` automatically frames it on warm vellum as a pinned expedition photo plate with an authentic bottom caption bar. When no screenshot is present, it renders a structured cartographic/ledger schematic plate.
 
 ---
 
@@ -100,20 +102,7 @@ By configuring every template with `#let px = 1pt` and compiling with **`--ppi 7
 ./tools/graphics/verify.sh
 ```
 
-### Sync Assets to Modrinth
+### Dry-Run Modrinth Asset Synchronization
 ```bash
-# Preview API payloads without sending
 ./tools/graphics/sync-modrinth.sh --dry-run
-
-# Perform live upload (requires MODRINTH_TOKEN and MODRINTH_PROJECT_ID)
-MODRINTH_TOKEN="mrp_..." MODRINTH_PROJECT_ID="smp-mod" ./tools/graphics/sync-modrinth.sh --apply
 ```
-
----
-
-## 6. Bundled Fonts & Licensing
-
-All bundled fonts in `fonts/` are licensed under the **SIL Open Font License (OFL 1.1)**:
-- **Inter (Regular, Medium, SemiBold, Bold):** Designed by Rasmus Andersson (https://github.com/rsms/inter).
-- **JetBrains Mono (Regular, Bold):** Designed by JetBrains (https://github.com/JetBrains/JetBrainsMono).
-Full license text is preserved in [fonts/OFL.txt](./fonts/OFL.txt).

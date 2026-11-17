@@ -1,164 +1,190 @@
-// SMP Mod Suite - Emergent Roles 4-Quadrant Diagram (1200x420)
-#import "../lib/theme.typ": px, bg-canvas, bg-surface, bg-elevated, border-subtle, border-accent, text-primary, text-secondary, text-muted, color-emerald, color-amber, color-sky, color-crimson, font-sans, font-mono, pill, card-panel, tokens
-#import "../lib/icons.typ": get-role-icon
-#import "../lib/backgrounds.typ": quadrant-radar
+// SMP Mod Suite - Emergent Roles 4-Column Field Guide Bestiary (1200x420)
+// Cartographer's Survival Ledger & Role Specialization Matrix
+#import "../lib/theme.typ": *
+#import "../lib/icons.typ": render-role-sprite
+#import "../lib/backgrounds.typ": paper-grain, expedition-border
 
 #set page(
   width: 1200 * px,
   height: 420 * px,
   margin: 0pt,
-  fill: bg-canvas
+  fill: parchment-base
 )
 
 #set text(
-  font: font-sans,
-  fill: text-primary
+  font: font-body,
+  fill: ink-primary
 )
 
-// Background: subtle quadrant radar
-#place(top + left, quadrant-radar(1200, 420, seed: 888, accent: color-crimson))
+// 1. Paper grain base
+#place(top + left, paper-grain(1200, 420, seed: 888))
 
-// Vignette overlay
-#place(top + left,
-  rect(
-    width: 1200 * px,
-    height: 420 * px,
-    fill: gradient.radial(
-      center: (50%, 50%),
-      radius: 75%,
-      rgb("#0B0E1400"),
-      rgb("#0B0E14F4")
-    )
-  )
-)
+// 2. Double-rule cartographic border framing
+#place(top + left, expedition-border(1200, 420, inset: 10, outer-stroke: 2pt, inner-stroke: 0.75pt))
 
-// Header strip
-#place(top + left, dx: 48 * px, dy: 24 * px,
-  box(width: 1104 * px, [
-    #stack(dir: ltr, spacing: 16 * px,
-      align(horizon, [
-        #stack(spacing: 4 * px,
-          stack(dir: ltr, spacing: 8 * px,
-            pill("CLASSLESS SURVIVAL COMBAT", accent: color-crimson),
-            pill("PLAYSTYLE XP MATRIX", accent: color-sky),
-          ),
-          text(size: 24 * px, weight: "bold", fill: white, [Emergent Role Profiles & Specialization Ratios])
+// 3. Top Ledger Header Plate
+#place(top + left, dx: 44 * px, dy: 24 * px,
+  box(width: 1112 * px, [
+    #grid(
+      columns: (1fr, auto),
+      align: horizon,
+      [
+        #text(font: font-heading, size: 10.5 * px, weight: "bold", fill: pigment-vermilion, tracking: 2pt, [FIELD GUIDE · CHAPTER V — CLASSLESS DERIVATION])
+        #v(2 * px)
+        #text(font: font-display, size: 24 * px, weight: "bold", fill: ink-primary, [The Four Emergent Survival Roles])
+      ],
+      [
+        #box(
+          fill: parchment-inset,
+          stroke: 1pt + ink-primary,
+          inset: (x: 10pt, y: 5pt),
+          [
+            #text(font: font-heading, size: 8.5pt, weight: "bold", fill: ink-secondary, [DYNAMIC XP RATIO EQUILIBRIUM])
+          ]
         )
-      ]),
-      align(right + horizon, [
-        #text(font: font-mono, size: 11 * px, fill: text-muted, [
-          THRESHOLD: 40% PRIMARY AFFINITY · COOPERATIVE SYNERGY
-        ])
-      ])
+      ]
     )
+    #v(4 * px)
+    #text(font: font-body, size: 12.5 * px, fill: ink-secondary, [
+      Profiles derive organically from your continuous survival gameplay — zero elective class menus, arbitrary point grinding, or permanent lockouts.
+    ])
+    #v(6 * px)
+    #ledger-rule(length: 100%, stroke: 0.75pt + rule-border)
   ])
 )
 
-// 4 Role Columns Layout
-#place(top + left, dx: 48 * px, dy: 96 * px,
-  box(width: 1104 * px, height: 290 * px, [
+// 4. Four Bestiary Ledger Columns
+#place(top + left, dx: 44 * px, dy: 106 * px,
+  box(width: 1112 * px, height: 286 * px, [
     #grid(
       columns: (1fr, 1fr, 1fr, 1fr),
-      gutter: 16 * px,
+      gutter: 0 * px,
 
-      // 1. DPS
-      card-panel(
-        height: 290 * px,
-        fill: bg-surface,
-        stroke: color-crimson.transparentize(50%),
-        stack(spacing: 10 * px,
-          stack(dir: ltr, spacing: 10 * px,
-            get-role-icon("dps", size: 36),
-            align(horizon, [
-              #text(size: 20 * px, weight: "bold", fill: color-crimson, [DPS])
-              #linebreak()
-              #text(font: font-mono, size: 10 * px, fill: text-muted, [Striker])
-            ])
-          ),
-          pill("COMBAT XP RATIO", accent: color-crimson),
-          line(length: 100%, stroke: 0.8pt + border-subtle),
-          text(size: 11 * px, font: font-mono, fill: text-secondary, [PRIMARY FOCUS: SPEED & CRITS]),
-          text(size: 11 * px, fill: text-muted, [
-            • 1.8x Execute Punish on targets < 35% HP
-            • Fast Time-to-Kill XP scaling
-            • Boss armor perforation multipliers
+      // --- 1. DPS ---
+      box(
+        width: 100%,
+        height: 286 * px,
+        inset: (x: 18pt, y: 8pt),
+        stroke: (right: 1pt + rule-border),
+        [
+          #grid(
+            columns: (48 * px, 1fr),
+            gutter: 12 * px,
+            align: horizon,
+            render-role-sprite("dps", size: 44pt),
+            [
+              #text(font: font-display, size: 20 * px, weight: "bold", fill: pigment-vermilion, [DPS])
+              #v(-3 * px)
+              #text(font: font-heading, size: 8.5 * px, weight: "bold", fill: ink-secondary, tracking: 1.5pt, [COMBAT XP])
+            ]
+          )
+          #v(8 * px)
+          #line(length: 100%, stroke: 1.5pt + pigment-vermilion)
+          #v(8 * px)
+          #text(font: font-body, size: 11.5 * px, weight: "semibold", fill: ink-primary, [Archetype: Precision Striker])
+          #v(6 * px)
+          #text(font: font-body, size: 11 * px, fill: ink-secondary, [
+            • Execute punish windows on low-HP monsters\
+            • Armor-piercing burst multipliers\
+            • Fast Time-to-Kill XP feedback loops\
+            • Endgame Dragon damage scaling
           ])
-        )
+        ]
       ),
 
-      // 2. TANK
-      card-panel(
-        height: 290 * px,
-        fill: bg-surface,
-        stroke: color-amber.transparentize(50%),
-        stack(spacing: 10 * px,
-          stack(dir: ltr, spacing: 10 * px,
-            get-role-icon("tank", size: 36),
-            align(horizon, [
-              #text(size: 20 * px, weight: "bold", fill: color-amber, [TANK])
-              #linebreak()
-              #text(font: font-mono, size: 10 * px, fill: text-muted, [Frontline Anchor])
-            ])
-          ),
-          pill("BUILDER XP RATIO", accent: color-amber),
-          line(length: 100%, stroke: 0.8pt + border-subtle),
-          text(size: 11 * px, font: font-mono, fill: text-secondary, [PRIMARY FOCUS: MITIGATION]),
-          text(size: 11 * px, fill: text-muted, [
-            • 16m Threat Taunt pulse
-            • 75% Kinetic Barrier projectile shielding
-            • 6s Ender Dragon dive stagger intercept
+      // --- 2. TANK ---
+      box(
+        width: 100%,
+        height: 286 * px,
+        inset: (x: 18pt, y: 8pt),
+        stroke: (right: 1pt + rule-border),
+        [
+          #grid(
+            columns: (48 * px, 1fr),
+            gutter: 12 * px,
+            align: horizon,
+            render-role-sprite("tank", size: 44pt),
+            [
+              #text(font: font-display, size: 20 * px, weight: "bold", fill: pigment-ochre, [TANK])
+              #v(-3 * px)
+              #text(font: font-heading, size: 8.5 * px, weight: "bold", fill: ink-secondary, tracking: 1.5pt, [BUILDER XP])
+            ]
+          )
+          #v(8 * px)
+          #line(length: 100%, stroke: 1.5pt + pigment-ochre)
+          #v(8 * px)
+          #text(font: font-body, size: 11.5 * px, weight: "semibold", fill: ink-primary, [Archetype: Frontline Anchor])
+          #v(6 * px)
+          #text(font: font-body, size: 11 * px, fill: ink-secondary, [
+            • Threat taunts & kinetic damage absorption\
+            • Claim-locked builder defense synergy\
+            • Portable cover & team light guarding\
+            • Boss stagger & sweep interception
           ])
-        )
+        ]
       ),
 
-      // 3. SUPPORT
-      card-panel(
-        height: 290 * px,
-        fill: bg-surface,
-        stroke: color-emerald.transparentize(50%),
-        stack(spacing: 10 * px,
-          stack(dir: ltr, spacing: 10 * px,
-            get-role-icon("support", size: 36),
-            align(horizon, [
-              #text(size: 20 * px, weight: "bold", fill: color-emerald, [SUPPORT])
-              #linebreak()
-              #text(font: font-mono, size: 10 * px, fill: text-muted, [Team Sustain])
-            ])
-          ),
-          pill("GATHERER XP RATIO", accent: color-emerald),
-          line(length: 100%, stroke: 0.8pt + border-subtle),
-          text(size: 11 * px, font: font-mono, fill: text-secondary, [PRIMARY FOCUS: SANCTUARY]),
-          text(size: 11 * px, fill: text-muted, [
-            • 300s Warded Light mob-proof flares
-            • 8m radius team health pulse (+1.5 HP)
-            • High-tier harvest shop discount scaling
+      // --- 3. SUPPORT ---
+      box(
+        width: 100%,
+        height: 286 * px,
+        inset: (x: 18pt, y: 8pt),
+        stroke: (right: 1pt + rule-border),
+        [
+          #grid(
+            columns: (48 * px, 1fr),
+            gutter: 12 * px,
+            align: horizon,
+            render-role-sprite("support", size: 44pt),
+            [
+              #text(font: font-display, size: 20 * px, weight: "bold", fill: pigment-moss, [SUPPORT])
+              #v(-3 * px)
+              #text(font: font-heading, size: 8.5 * px, weight: "bold", fill: ink-secondary, tracking: 1.5pt, [GATHERER XP])
+            ]
+          )
+          #v(8 * px)
+          #line(length: 100%, stroke: 1.5pt + pigment-moss)
+          #v(8 * px)
+          #text(font: font-body, size: 11.5 * px, weight: "semibold", fill: ink-primary, [Archetype: Sustain Keeper])
+          #v(6 * px)
+          #text(font: font-body, size: 11 * px, fill: ink-secondary, [
+            • Warded Light illumination flares\
+            • Team health sustain & regeneration auras\
+            • Potion & consumable conservation\
+            • Crop & resource yield dividends
           ])
-        )
+        ]
       ),
 
-      // 4. SCOUT
-      card-panel(
-        height: 290 * px,
-        fill: bg-surface,
-        stroke: color-sky.transparentize(50%),
-        stack(spacing: 10 * px,
-          stack(dir: ltr, spacing: 10 * px,
-            get-role-icon("scout", size: 36),
-            align(horizon, [
-              #text(size: 20 * px, weight: "bold", fill: color-sky, [SCOUT])
-              #linebreak()
-              #text(font: font-mono, size: 10 * px, fill: text-muted, [Recon & Transit])
-            ])
-          ),
-          pill("EXPLORER XP RATIO", accent: color-sky),
-          line(length: 100%, stroke: 0.8pt + border-subtle),
-          text(size: 11 * px, font: font-mono, fill: text-secondary, [PRIMARY FOCUS: RECON & TRANSIT]),
-          text(size: 11 * px, fill: text-muted, [
-            • 24m Dark-Zone trap radar
-            • +20% Biome & +10% Road speed bonus
-            • Gated momentum Elytra glider flight
+      // --- 4. SCOUT ---
+      box(
+        width: 100%,
+        height: 286 * px,
+        inset: (x: 18pt, y: 8pt),
+        [
+          #grid(
+            columns: (48 * px, 1fr),
+            gutter: 12 * px,
+            align: horizon,
+            render-role-sprite("scout", size: 44pt),
+            [
+              #text(font: font-display, size: 20 * px, weight: "bold", fill: pigment-cobalt, [SCOUT])
+              #v(-3 * px)
+              #text(font: font-heading, size: 8.5 * px, weight: "bold", fill: ink-secondary, tracking: 1.5pt, [EXPLORER XP])
+            ]
+          )
+          #v(8 * px)
+          #line(length: 100%, stroke: 1.5pt + pigment-cobalt)
+          #v(8 * px)
+          #text(font: font-body, size: 11.5 * px, weight: "semibold", fill: ink-primary, [Archetype: Trail Vanguard])
+          #v(6 * px)
+          #text(font: font-body, size: 11 * px, fill: ink-secondary, [
+            • Paved highway & rail convoy speed\
+            • Dark-zone trap & ambush detection\
+            • Momentum Elytra thermal soaring\
+            • Living villager relocation expertise
           ])
-        )
+        ]
       )
     )
   ])

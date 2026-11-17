@@ -1,7 +1,8 @@
 // SMP Mod Suite - Project Icon Template (512x512)
-#import "../lib/theme.typ": px, bg-canvas, bg-surface, border-subtle, text-primary, text-secondary, color-emerald, color-amethyst, font-sans, font-mono
-#import "../lib/icons.typ": project-emblem
-#import "../lib/backgrounds.typ": chunk-cluster-grid
+// Parchment / Cartographer's Expedition Field-Guide Icon
+#import "../lib/theme.typ": *
+#import "../lib/icons.typ": render-emblem, draw-pixel-sprite, emblem-24, sprite-palette
+#import "../lib/backgrounds.typ": paper-grain, expedition-border
 
 #let variant = sys.inputs.at("variant", default: "mod")
 
@@ -9,66 +10,61 @@
   width: 512 * px,
   height: 512 * px,
   margin: 0pt,
-  fill: bg-canvas
+  fill: if variant == "modpack" { leather-cover } else { parchment-base }
 )
 
-#set text(
-  font: font-sans,
-  fill: text-primary
-)
+#if variant == "mod" {
+  // -------------------------------------------------------------------------
+  // Mod Icon: Warm Parchment Atlas Plate (Zero Text)
+  // -------------------------------------------------------------------------
+  // 1. Paper grain texture & margin wash
+  place(top + left, paper-grain(512, 512, seed: 101))
 
-// Background: subtle chunk grid
-#place(top + left, chunk-cluster-grid(512, 512, seed: 991, accent: if variant == "modpack" { color-amethyst } else { color-emerald }, cell-size: 32, cluster-size: 18, secondary-cluster: false))
+  // 2. Double-rule cartographic margin framing with corner registration ticks (+)
+  place(top + left, expedition-border(512, 512, inset: 22, outer-stroke: 1.75pt, inner-stroke: 0.75pt))
 
-// Vignette overlay
-#place(top + left,
-  rect(
-    width: 512 * px,
-    height: 512 * px,
-    fill: gradient.radial(
-      center: (50%, 50%),
-      radius: 65%,
-      rgb("#0B0E1400"),
-      rgb("#0B0E14EE")
+  // 3. Centered 24x24 pixel-art emblem (~320pt x 320pt, ~62% of canvas)
+  place(center + horizon,
+    render-emblem(size: 320pt)
+  )
+} else {
+  // -------------------------------------------------------------------------
+  // Modpack Icon: Bound Saddle-Leather Tome with Inset Bookplate
+  // -------------------------------------------------------------------------
+  // 1. Leather cover base with stitched gold/ochre border
+  place(top + left,
+    rect(
+      width: 512 * px,
+      height: 512 * px,
+      fill: leather-cover,
+      stroke: (paint: pigment-ochre, thickness: 2.5pt)
     )
   )
-)
 
-// Inner safe boundary box (512 - 2*32 = 448)
-#place(center + horizon,
-  box(
-    width: 440 * px,
-    height: 440 * px,
-    stroke: 1.5pt + if variant == "modpack" { color-amethyst.transparentize(60%) } else { color-emerald.transparentize(60%) },
-    radius: 36pt,
-    fill: bg-surface.transparentize(25%),
-    [
-      #align(center + horizon, [
-        #v(10 * px)
-        #text(
-          font: font-mono,
-          size: 13 * px,
-          weight: "bold",
-          fill: if variant == "modpack" { color-amethyst } else { color-emerald },
-          tracking: 2pt,
-          if variant == "modpack" { "SMP SURVIVAL SUITE" } else { "SMP MOD SUITE" }
-        )
-        
-        #v(12 * px)
-        #project-emblem(size: 230, variant: variant)
-        #v(16 * px)
-
-        #box(
-          fill: if variant == "modpack" { color-amethyst.transparentize(80%) } else { color-emerald.transparentize(80%) },
-          stroke: 1.2pt + if variant == "modpack" { color-amethyst } else { color-emerald },
-          radius: 999pt,
-          inset: (x: 16pt, y: 7pt),
-          [
-            #set text(font: font-mono, size: 12pt, weight: "bold", fill: white)
-            #if variant == "modpack" { "PACKWIZ MODPACK" } else { "NEOFORGE 1.21.1" }
-          ]
-        )
-      ])
-    ]
+  // Stitched hairline perimeter
+  place(top + left, dx: 12 * px, dy: 12 * px,
+    rect(
+      width: (512 - 24) * px,
+      height: (512 - 24) * px,
+      fill: none,
+      stroke: (paint: pigment-ochre.transparentize(40%), thickness: 1pt, dash: "dashed")
+    )
   )
-)
+
+  // 2. Inset aged parchment bookplate (380pt x 380pt)
+  place(center + horizon,
+    box(
+      width: 380 * px,
+      height: 380 * px,
+      fill: parchment-base,
+      stroke: 2pt + ink-primary,
+      [
+        #place(top + left, paper-grain(380, 380, seed: 202))
+        #place(top + left, expedition-border(380, 380, inset: 14, outer-stroke: 1pt, inner-stroke: 0.5pt))
+        #place(center + horizon,
+          render-emblem(size: 260pt)
+        )
+      ]
+    )
+  )
+}
