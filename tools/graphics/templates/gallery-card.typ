@@ -80,7 +80,7 @@
               chapter-stamp("PLATE " + plate-numeral, pigment: plate-accent, size: 11pt),
               [
                 #text(font: font-display, size: 26 * px, weight: "bold", fill: ink-primary, plate-title)
-                #v(-2 * px)
+                #v(6 * px)
                 #text(font: font-body, size: 16.5 * px, weight: "medium", fill: ink-secondary, plate-summary)
               ]
             )
@@ -111,9 +111,9 @@
           render-emblem(size: 76pt),
           [
             #text(font: font-heading, size: 13.5 * px, weight: "bold", fill: pigment-ochre, tracking: 2pt, [FIELD GUIDE · EXPEDITION MANUAL])
-            #v(2 * px)
+            #v(6 * px)
             #text(font: font-display, size: 38 * px, weight: "bold", fill: ink-primary, [SMP Mod Suite: Complete Architecture])
-            #v(2 * px)
+            #v(6 * px)
             #text(font: font-body, size: 17 * px, weight: "medium", fill: ink-secondary, [Six cohesive, balanced survival multiplayer subsystems built on NeoForge 1.21.1])
           ],
           [
@@ -141,12 +141,14 @@
               text(font: font-display, size: 20 * px, weight: "bold", fill: ink-primary, [Economy & Coin]),
               chapter-stamp("I", pigment: pigment-ochre, size: 9.5pt)
             )
-            #v(8 * px)
-            #line(length: 100%, stroke: 1.5pt + pigment-ochre)
             #v(10 * px)
-            #text(font: font-body, size: 15 * px, fill: ink-secondary, [
-              Non-material digital wallet, milestone faucets, villager encapsulation spawn trades, and server bulk store.
-            ])
+            #line(length: 100%, stroke: 1.5pt + pigment-ochre)
+            #v(12 * px)
+            #par(leading: 8pt)[
+              #text(font: font-body, size: 15 * px, fill: ink-secondary, [
+                Non-material digital wallet, milestone faucets, villager encapsulation spawn trades, and server bulk store.
+              ])
+            ]
           ]),
 
           // 2. Recovery
@@ -159,12 +161,14 @@
               text(font: font-display, size: 20 * px, weight: "bold", fill: ink-primary, [Death Recovery]),
               chapter-stamp("II", pigment: pigment-plum, size: 9.5pt)
             )
-            #v(8 * px)
-            #line(length: 100%, stroke: 1.5pt + pigment-plum)
             #v(10 * px)
-            #text(font: font-body, size: 15 * px, fill: ink-secondary, [
-              UUID buyback ledgers, 24h exclusive window, escalating wall-clock decay, and persistent historical item lore.
-            ])
+            #line(length: 100%, stroke: 1.5pt + pigment-plum)
+            #v(12 * px)
+            #par(leading: 8pt)[
+              #text(font: font-body, size: 15 * px, fill: ink-secondary, [
+                UUID buyback ledgers, 24h exclusive window, escalating wall-clock decay, and persistent historical item lore.
+              ])
+            ]
           ]),
 
           // 3. Claims
@@ -177,12 +181,14 @@
               text(font: font-display, size: 20 * px, weight: "bold", fill: ink-primary, [Land Claims]),
               chapter-stamp("III", pigment: pigment-moss, size: 9.5pt)
             )
-            #v(8 * px)
-            #line(length: 100%, stroke: 1.5pt + pigment-moss)
             #v(10 * px)
-            #text(font: font-body, size: 15 * px, fill: ink-secondary, [
-              OPAC integration, contiguous chunk cluster BFS, variety-based construction dividends, and builder flight.
-            ])
+            #line(length: 100%, stroke: 1.5pt + pigment-moss)
+            #v(12 * px)
+            #par(leading: 8pt)[
+              #text(font: font-body, size: 15 * px, fill: ink-secondary, [
+                OPAC integration, contiguous chunk cluster BFS, variety-based construction dividends, and builder flight.
+              ])
+            ]
           ]),
 
           // 4. World Nav
@@ -195,12 +201,14 @@
               text(font: font-display, size: 20 * px, weight: "bold", fill: ink-primary, [Navigation]),
               chapter-stamp("IV", pigment: pigment-cobalt, size: 9.5pt)
             )
-            #v(8 * px)
-            #line(length: 100%, stroke: 1.5pt + pigment-cobalt)
             #v(10 * px)
-            #text(font: font-body, size: 15 * px, fill: ink-secondary, [
-              Tectonic worldgen, Nether roof lockout, road convoy speed bonuses, momentum Elytra, and light-snuffing mobs.
-            ])
+            #line(length: 100%, stroke: 1.5pt + pigment-cobalt)
+            #v(12 * px)
+            #par(leading: 8pt)[
+              #text(font: font-body, size: 15 * px, fill: ink-secondary, [
+                Tectonic worldgen, Nether roof lockout, road convoy speed bonuses, momentum Elytra, and light-snuffing mobs.
+              ])
+            ]
           ]),
 
           // 5. Roles
@@ -213,12 +221,14 @@
               text(font: font-display, size: 20 * px, weight: "bold", fill: ink-primary, [Emergent Roles]),
               chapter-stamp("V", pigment: pigment-vermilion, size: 9.5pt)
             )
-            #v(8 * px)
-            #line(length: 100%, stroke: 1.5pt + pigment-vermilion)
             #v(10 * px)
-            #text(font: font-body, size: 15 * px, fill: ink-secondary, [
-              Classless combat profiles (DPS, Tank, Support, Scout) continuously derived from your Playstyle XP actions.
-            ])
+            #line(length: 100%, stroke: 1.5pt + pigment-vermilion)
+            #v(12 * px)
+            #par(leading: 8pt)[
+              #text(font: font-body, size: 15 * px, fill: ink-secondary, [
+                Classless combat profiles (DPS, Tank, Support, Scout) continuously derived from your Playstyle XP actions.
+              ])
+            ]
           ]),
 
           // 6. Server Utils
@@ -231,12 +241,14 @@
               text(font: font-display, size: 20 * px, weight: "bold", fill: ink-primary, [Server Utilities]),
               chapter-stamp("VI", pigment: pigment-slate, size: 9.5pt)
             )
-            #v(8 * px)
-            #line(length: 100%, stroke: 1.5pt + pigment-slate)
             #v(10 * px)
-            #text(font: font-body, size: 15 * px, fill: ink-secondary, [
-              Native /leaderboard rankings across 9 metrics, Vanilla Tweaks tool stats lore, multiplayer sleep, and Discord bot.
-            ])
+            #line(length: 100%, stroke: 1.5pt + pigment-slate)
+            #v(12 * px)
+            #par(leading: 8pt)[
+              #text(font: font-body, size: 15 * px, fill: ink-secondary, [
+                Native /leaderboard rankings across 9 metrics, Vanilla Tweaks tool stats lore, multiplayer sleep, and Discord bot.
+              ])
+            ]
           ])
         )
       ] else if card == "settlements" [
@@ -248,14 +260,14 @@
           align: horizon,
           [
             #text(font: font-heading, size: 13.5 * px, weight: "bold", fill: pigment-moss, tracking: 2pt, [FIELD GUIDE · CHAPTER III — SETTLEMENTS & ECONOMY])
-            #v(2 * px)
+            #v(6 * px)
             #text(font: font-display, size: 36 * px, weight: "bold", fill: ink-primary, [Contiguous Claims & Sound Coinage])
           ],
           [
             #chapter-stamp([SURVEY PLATE II], pigment: pigment-moss, size: 10.5pt)
           ]
         )
-        #v(4 * px)
+        #v(6 * px)
         #ledger-rule(length: 100%, stroke: 0.75pt + rule-border)
         #v(14 * px)
 
@@ -288,24 +300,30 @@
           stack(spacing: 16 * px,
             ledger-panel(width: 100%, height: 156 * px, inset: 16pt, [
               #text(font: font-display, size: 21 * px, weight: "bold", fill: ink-primary, [Contiguous Settlement Scaling])
-              #v(6 * px)
-              #text(font: font-body, size: 15 * px, fill: ink-secondary, [
-                Claims must connect contiguously to share defense perks, builder flight, and town tier bonuses. Disconnected outposts function independently.
-              ])
+              #v(10 * px)
+              #par(leading: 8pt)[
+                #text(font: font-body, size: 15 * px, fill: ink-secondary, [
+                  Claims must connect contiguously to share defense perks, builder flight, and town tier bonuses. Disconnected outposts function independently.
+                ])
+              ]
             ]),
             ledger-panel(width: 100%, height: 156 * px, inset: 16pt, [
               #text(font: font-display, size: 21 * px, weight: "bold", fill: ink-primary, [Construction Dividends])
-              #v(6 * px)
-              #text(font: font-body, size: 15 * px, fill: ink-secondary, [
-                Earn currency bonuses for structural diversity. Combining stone masonry, timber framing, and glass earns recurring construction payouts.
-              ])
+              #v(10 * px)
+              #par(leading: 8pt)[
+                #text(font: font-body, size: 15 * px, fill: ink-secondary, [
+                  Earn currency bonuses for structural diversity. Combining stone masonry, timber framing, and glass earns recurring construction payouts.
+                ])
+              ]
             ]),
             ledger-panel(width: 100%, height: 156 * px, inset: 16pt, [
               #text(font: font-display, size: 21 * px, weight: "bold", fill: ink-primary, [Villager Trade Relocation])
-              #v(6 * px)
-              #text(font: font-body, size: 15 * px, fill: ink-secondary, [
-                Sneak-click adult villagers to encapsulate them into tradable specimens with discount levels and master trade offers intact.
-              ])
+              #v(10 * px)
+              #par(leading: 8pt)[
+                #text(font: font-body, size: 15 * px, fill: ink-secondary, [
+                  Sneak-click adult villagers to encapsulate them into tradable specimens with discount levels and master trade offers intact.
+                ])
+              ]
             ])
           )
         )
@@ -318,14 +336,14 @@
           align: horizon,
           [
             #text(font: font-heading, size: 13.5 * px, weight: "bold", fill: pigment-vermilion, tracking: 2pt, [FIELD GUIDE · CHAPTER V — SPECIALIZATION BESTIARY])
-            #v(2 * px)
+            #v(6 * px)
             #text(font: font-display, size: 36 * px, weight: "bold", fill: ink-primary, [Dynamic Playstyle Derivation])
           ],
           [
             #chapter-stamp([BESTIARY PLATE III], pigment: pigment-vermilion, size: 10.5pt)
           ]
         )
-        #v(4 * px)
+        #v(6 * px)
         #ledger-rule(length: 100%, stroke: 0.75pt + rule-border)
         #v(14 * px)
 
@@ -338,21 +356,21 @@
             #align(center, render-role-sprite("dps", size: 68pt))
             #v(10 * px)
             #text(font: font-display, size: 26 * px, weight: "bold", fill: pigment-vermilion, [DPS])
-            #v(-2 * px)
+            #v(6 * px)
             #text(font: font-heading, size: 11 * px, weight: "bold", fill: ink-secondary, tracking: 1.5pt, [COMBAT XP])
-            #v(8 * px)
+            #v(10 * px)
             #line(length: 100%, stroke: 1.5pt + pigment-vermilion)
             #v(12 * px)
             #text(font: font-body, size: 14.5 * px, weight: "bold", fill: ink-primary, [Precision Striker])
-            #v(10 * px)
+            #v(12 * px)
             #text(font: font-body, size: 13.5 * px, fill: ink-secondary, [
-              • Execute low-HP monsters\
-              #v(5 * px)
-              • Armor-piercing burst crits\
-              #v(5 * px)
-              • Fast Time-to-Kill XP loops\
-              #v(5 * px)
-              • Endgame Dragon scaling
+              #stack(
+                spacing: 8 * px,
+                [• Execute low-HP monsters],
+                [• Armor-piercing burst crits],
+                [• Fast Time-to-Kill XP loops],
+                [• Endgame Dragon scaling]
+              )
             ])
           ]),
 
@@ -360,21 +378,21 @@
             #align(center, render-role-sprite("tank", size: 68pt))
             #v(10 * px)
             #text(font: font-display, size: 26 * px, weight: "bold", fill: pigment-ochre, [TANK])
-            #v(-2 * px)
+            #v(6 * px)
             #text(font: font-heading, size: 11 * px, weight: "bold", fill: ink-secondary, tracking: 1.5pt, [BUILDER XP])
-            #v(8 * px)
+            #v(10 * px)
             #line(length: 100%, stroke: 1.5pt + pigment-ochre)
             #v(12 * px)
             #text(font: font-body, size: 14.5 * px, weight: "bold", fill: ink-primary, [Frontline Anchor])
-            #v(10 * px)
+            #v(12 * px)
             #text(font: font-body, size: 13.5 * px, fill: ink-secondary, [
-              • Threat taunts & kinetic soak\
-              #v(5 * px)
-              • Claim builder defense perks\
-              #v(5 * px)
-              • Portable team cover shield\
-              #v(5 * px)
-              • Boss stagger interception
+              #stack(
+                spacing: 8 * px,
+                [• Threat taunts & kinetic soak],
+                [• Claim builder defense perks],
+                [• Portable team cover shield],
+                [• Boss stagger interception]
+              )
             ])
           ]),
 
@@ -382,21 +400,21 @@
             #align(center, render-role-sprite("support", size: 68pt))
             #v(10 * px)
             #text(font: font-display, size: 26 * px, weight: "bold", fill: pigment-moss, [SUPPORT])
-            #v(-2 * px)
+            #v(6 * px)
             #text(font: font-heading, size: 11 * px, weight: "bold", fill: ink-secondary, tracking: 1.5pt, [GATHERER XP])
-            #v(8 * px)
+            #v(10 * px)
             #line(length: 100%, stroke: 1.5pt + pigment-moss)
             #v(12 * px)
             #text(font: font-body, size: 14.5 * px, weight: "bold", fill: ink-primary, [Sustain Keeper])
-            #v(10 * px)
+            #v(12 * px)
             #text(font: font-body, size: 13.5 * px, fill: ink-secondary, [
-              • Warded Light flare radius\
-              #v(5 * px)
-              • Team health sustain auras\
-              #v(5 * px)
-              • Consumable conservation\
-              #v(5 * px)
-              • Harvest dividend bonuses
+              #stack(
+                spacing: 8 * px,
+                [• Warded Light flare radius],
+                [• Team health sustain auras],
+                [• Consumable conservation],
+                [• Harvest dividend bonuses]
+              )
             ])
           ]),
 
@@ -404,21 +422,21 @@
             #align(center, render-role-sprite("scout", size: 68pt))
             #v(10 * px)
             #text(font: font-display, size: 26 * px, weight: "bold", fill: pigment-cobalt, [SCOUT])
-            #v(-2 * px)
+            #v(6 * px)
             #text(font: font-heading, size: 11 * px, weight: "bold", fill: ink-secondary, tracking: 1.5pt, [EXPLORER XP])
-            #v(8 * px)
+            #v(10 * px)
             #line(length: 100%, stroke: 1.5pt + pigment-cobalt)
             #v(12 * px)
             #text(font: font-body, size: 14.5 * px, weight: "bold", fill: ink-primary, [Trail Vanguard])
-            #v(10 * px)
+            #v(12 * px)
             #text(font: font-body, size: 13.5 * px, fill: ink-secondary, [
-              • Paved road convoy speed\
-              #v(5 * px)
-              • Dark-zone ambush detection\
-              #v(5 * px)
-              • Momentum Elytra soaring\
-              #v(5 * px)
-              • Villager relocation perks
+              #stack(
+                spacing: 8 * px,
+                [• Paved road convoy speed],
+                [• Dark-zone ambush detection],
+                [• Momentum Elytra soaring],
+                [• Villager relocation perks]
+              )
             ])
           ])
         )
@@ -431,14 +449,14 @@
           align: horizon,
           [
             #text(font: font-heading, size: 13.5 * px, weight: "bold", fill: pigment-plum, tracking: 2pt, [FIELD GUIDE · CHAPTER II — DEATH RECOVERY & PROVENANCE])
-            #v(2 * px)
+            #v(6 * px)
             #text(font: font-display, size: 36 * px, weight: "bold", fill: ink-primary, [UUID Buyback Ledgers & Item Provenance])
           ],
           [
             #chapter-stamp([LEDGER PLATE IV], pigment: pigment-plum, size: 10.5pt)
           ]
         )
-        #v(4 * px)
+        #v(6 * px)
         #ledger-rule(length: 100%, stroke: 0.75pt + rule-border)
         #v(14 * px)
 
@@ -449,7 +467,7 @@
           // Left: Death Buyback Ledger Page
           ledger-panel(height: 500 * px, inset: 16pt, [
             #text(font: font-heading, size: 13.5 * px, weight: "bold", fill: ink-primary, tracking: 1.5pt, [RECOVERY TERMINAL · OFFICIAL REGISTER])
-            #v(8 * px)
+            #v(10 * px)
             #line(length: 100%, stroke: 1.5pt + ink-primary)
             #v(12 * px)
 
@@ -458,7 +476,7 @@
               columns: (1.5fr, 1.2fr, 1fr, 1.2fr),
               stroke: 0.5pt + rule-border,
               fill: (col, row) => if row == 0 { parchment-base } else { none },
-              inset: 9pt,
+              inset: (x: 8pt, y: 11pt),
               align: (col, row) => if col == 0 { left } else { center },
               table.header(
                 [*Item Name*], [*Provenance*], [*Buyback*], [*Status*]
@@ -471,18 +489,20 @@
 
             #v(16 * px)
             #text(font: font-heading, size: 12.5 * px, weight: "bold", fill: ink-secondary, [PERSISTENT ITEM PROVENANCE])
-            #v(6 * px)
+            #v(8 * px)
             #box(
               fill: parchment-base,
               stroke: 1pt + ink-secondary,
-              inset: 10pt,
+              inset: 12pt,
               width: 100%,
               [
-                #text(font: font-mono, size: 12.5 * px, fill: pigment-plum, weight: "bold", [
-                  Crafted by: Alice_99\
-                  Owned by: Bob_The_Builder\
-                  UUID: 7a3e5d10-4bc2-4f1a-b89e-001a4e8d3c22
-                ])
+                #par(leading: 8pt)[
+                  #text(font: font-mono, size: 12.5 * px, fill: pigment-plum, weight: "bold", [
+                    Crafted by: Alice_99\
+                    Owned by: Bob_The_Builder\
+                    UUID: 7a3e5d10-4bc2-4f1a-b89e-001a4e8d3c22
+                  ])
+                ]
               ]
             )
           ]),
@@ -491,24 +511,30 @@
           stack(spacing: 16 * px,
             ledger-panel(width: 100%, height: 156 * px, inset: 16pt, [
               #text(font: font-display, size: 21 * px, weight: "bold", fill: ink-primary, [Zero-Loss Recovery Loop])
-              #v(6 * px)
-              #text(font: font-body, size: 15 * px, fill: ink-secondary, [
-                Prized equipment never despawns in lava or the void. Items are automatically registered to your recovery ledger upon death.
-              ])
+              #v(10 * px)
+              #par(leading: 8pt)[
+                #text(font: font-body, size: 15 * px, fill: ink-secondary, [
+                  Prized equipment never despawns in lava or the void. Items are automatically registered to your recovery ledger upon death.
+                ])
+              ]
             ]),
             ledger-panel(width: 100%, height: 156 * px, inset: 16pt, [
               #text(font: font-display, size: 21 * px, weight: "bold", fill: ink-primary, [Exclusive Owner Window])
-              #v(6 * px)
-              #text(font: font-body, size: 15 * px, fill: ink-secondary, [
-                You retain an exclusive 24-hour window to buy back your dropped equipment. After 24 hours, items enter the public marketplace with a 1.25x fee.
-              ])
+              #v(10 * px)
+              #par(leading: 8pt)[
+                #text(font: font-body, size: 15 * px, fill: ink-secondary, [
+                  You retain an exclusive 24-hour window to buy back your dropped equipment. After 24 hours, items enter the public marketplace with a 1.25x fee.
+                ])
+              ]
             ]),
             ledger-panel(width: 100%, height: 156 * px, inset: 16pt, [
               #text(font: font-display, size: 21 * px, weight: "bold", fill: ink-primary, [30-Day Wall-Clock Decay])
-              #v(6 * px)
-              #text(font: font-body, size: 15 * px, fill: ink-secondary, [
-                Reckless death fees decay smoothly over 30 days of real time, rewarding safe play while preventing permanent bankruptcy.
-              ])
+              #v(10 * px)
+              #par(leading: 8pt)[
+                #text(font: font-body, size: 15 * px, fill: ink-secondary, [
+                  Reckless death fees decay smoothly over 30 days of real time, rewarding safe play while preventing permanent bankruptcy.
+                ])
+              ]
             ])
           )
         )
