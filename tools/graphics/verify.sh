@@ -101,14 +101,30 @@ COMMON_ARGS=(
     --ppi 72
 )
 
+get_screenshot_input() {
+    local card_name="$1"
+    local shot_file=""
+    case "$card_name" in
+        overview)    shot_file="$SCRIPT_DIR/screenshots/01-overview.png" ;;
+        settlements) shot_file="$SCRIPT_DIR/screenshots/02-settlements.png" ;;
+        roles)       shot_file="$SCRIPT_DIR/screenshots/03-roles.png" ;;
+        death-lore)  shot_file="$SCRIPT_DIR/screenshots/04-death-lore.png" ;;
+    esac
+    if [ -n "$shot_file" ] && [ -f "$shot_file" ]; then
+        echo "--input screenshot=$shot_file"
+    else
+        echo "--input screenshot="
+    fi
+}
+
 # Recompile all 14 assets into the temporary directory
 typst compile "${COMMON_ARGS[@]}" --input variant=mod "$SCRIPT_DIR/templates/project-icon.typ" "$TMP_GEN/icon-mod.png"
 typst compile "${COMMON_ARGS[@]}" --input variant=modpack "$SCRIPT_DIR/templates/project-icon.typ" "$TMP_GEN/icon-modpack.png"
 typst compile "${COMMON_ARGS[@]}" "$SCRIPT_DIR/templates/hero-banner.typ" "$TMP_GEN/hero-readme.png"
-typst compile "${COMMON_ARGS[@]}" --input card=overview "$SCRIPT_DIR/templates/gallery-card.typ" "$TMP_GEN/gallery/01-overview.png"
-typst compile "${COMMON_ARGS[@]}" --input card=settlements "$SCRIPT_DIR/templates/gallery-card.typ" "$TMP_GEN/gallery/02-settlements-economy.png"
-typst compile "${COMMON_ARGS[@]}" --input card=roles "$SCRIPT_DIR/templates/gallery-card.typ" "$TMP_GEN/gallery/03-emergent-roles.png"
-typst compile "${COMMON_ARGS[@]}" --input card=death-lore "$SCRIPT_DIR/templates/gallery-card.typ" "$TMP_GEN/gallery/04-death-recovery-lore.png"
+typst compile "${COMMON_ARGS[@]}" --input card=overview $(get_screenshot_input overview) "$SCRIPT_DIR/templates/gallery-card.typ" "$TMP_GEN/gallery/01-overview.png"
+typst compile "${COMMON_ARGS[@]}" --input card=settlements $(get_screenshot_input settlements) "$SCRIPT_DIR/templates/gallery-card.typ" "$TMP_GEN/gallery/02-settlements-economy.png"
+typst compile "${COMMON_ARGS[@]}" --input card=roles $(get_screenshot_input roles) "$SCRIPT_DIR/templates/gallery-card.typ" "$TMP_GEN/gallery/03-emergent-roles.png"
+typst compile "${COMMON_ARGS[@]}" --input card=death-lore $(get_screenshot_input death-lore) "$SCRIPT_DIR/templates/gallery-card.typ" "$TMP_GEN/gallery/04-death-recovery-lore.png"
 typst compile "${COMMON_ARGS[@]}" --input subsystem=economy "$SCRIPT_DIR/templates/section-header.typ" "$TMP_GEN/headers/economy.png"
 typst compile "${COMMON_ARGS[@]}" --input subsystem=death-recovery "$SCRIPT_DIR/templates/section-header.typ" "$TMP_GEN/headers/death-recovery.png"
 typst compile "${COMMON_ARGS[@]}" --input subsystem=land-claims "$SCRIPT_DIR/templates/section-header.typ" "$TMP_GEN/headers/land-claims.png"

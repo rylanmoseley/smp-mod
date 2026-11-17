@@ -39,8 +39,11 @@
 
 /// Deterministic 2D coordinate hash.
 #let hash2d(x, y, seed) = {
-  let n = x * 374761393 + y * 668265263 + seed * 1274126177
-  n = calc.rem((n * n * 60493 + 19990303), lcg-m)
+  let xi = int(calc.floor(x))
+  let yi = int(calc.floor(y))
+  let n = calc.rem(xi * 374761393 + yi * 668265263 + seed * 1274126177, lcg-m)
+  if n < 0 { n = n + lcg-m }
+  n = calc.rem(n * 1103515245 + 12345, lcg-m)
   if n < 0 { n = n + lcg-m }
   float(n) / float(lcg-m)
 }
