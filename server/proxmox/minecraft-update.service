@@ -1,0 +1,11 @@
+[Unit]
+Description=Synchronize SMP Server Configs with GitHub Repository
+After=network.target
+
+[Service]
+Type=oneshot
+User=minecraft
+Group=minecraft
+ExecStart=/opt/minecraft/scripts/sync-server.sh
+StandardOutput=journal
+StandardError=journal
