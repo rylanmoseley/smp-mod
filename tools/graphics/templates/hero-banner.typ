@@ -23,21 +23,21 @@
 #place(top + left, expedition-border(1280, 360, inset: 10, outer-stroke: 2pt, inner-stroke: 0.75pt))
 
 // 3. Left Content Area: Title, Emblem, Subtitle, & Classic Hairline Rules
-#place(top + left, dx: 48 * px, dy: 36 * px,
-  box(width: 710 * px, height: 288 * px, [
+#place(top + left, dx: 44 * px, dy: 36 * px,
+  box(width: 716 * px, height: 288 * px, [
     // Top Plate Category & Roman Numeral Header
     #text(
       font: font-heading,
-      size: 11 * px,
+      size: 10.5 * px,
       weight: "bold",
       fill: pigment-ochre,
-      tracking: 2.5pt,
+      tracking: 2pt,
       [FIELD GUIDE & SURVIVAL ATLAS · VOL. I]
     )
 
-    #v(6 * px)
+    #v(8 * px)
     #ledger-rule(length: 100%, stroke: 0.75pt + rule-border)
-    #v(14 * px)
+    #v(18 * px)
 
     // Title Row: Pixel Emblem + Grand Serif Typography
     #grid(
@@ -54,10 +54,10 @@
           tracking: -0.5pt,
           [SMP Mod Suite]
         )
-        #v(-4 * px)
+        #v(-3 * px)
         #text(
           font: font-body,
-          size: 17 * px,
+          size: 16.5 * px,
           weight: "medium",
           fill: ink-secondary,
           [Cohesive NeoForge 1.21.1 Systems for Cooperative Survival]
@@ -65,9 +65,9 @@
       ]
     )
 
-    #v(14 * px)
+    #v(18 * px)
     #ledger-rule(length: 100%, stroke: 0.75pt + rule-border)
-    #v(12 * px)
+    #v(16 * px)
 
     // Grounded Typographic Metadata Line (No pill capsules)
     #grid(
@@ -76,7 +76,7 @@
       [
         #text(
           font: font-heading,
-          size: 10.5 * px,
+          size: 10 * px,
           weight: "bold",
           fill: ink-secondary,
           tracking: 1.5pt,
@@ -88,7 +88,7 @@
       ]
     )
 
-    #v(10 * px)
+    #v(12 * px)
     #text(
       font: font-body,
       size: 12.5 * px,
@@ -99,7 +99,7 @@
 )
 
 // 4. Right Visual Illustration: Framed Surveyor's Parcel Map with Compass Rose
-#place(top + right, dx: -38 * px, dy: 36 * px,
+#place(top + right, dx: -44 * px, dy: 36 * px,
   box(
     width: 440 * px,
     height: 288 * px,
