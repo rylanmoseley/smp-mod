@@ -1,5 +1,7 @@
 # Death Recovery & Item Lore System
 
+![Death Recovery & Item Lore Subsystem Header](assets/generated/headers/death-recovery.png)
+
 In traditional Minecraft, death often results in catastrophic, unrecoverable loss—valuable gear burns in lava, falls into the void, or despawns during a frantic corpse run. 
 
 The SMP Mod Suite replaces this punitive loop with an **Ownership-Bound UUID Buyback Ledger** paired with **Persistent Item Lore**. You will never permanently lose your prized equipment, but reckless deaths carry meaningful economic consequences and real market tension.

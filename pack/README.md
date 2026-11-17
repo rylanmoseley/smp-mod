@@ -1,5 +1,7 @@
 # SMP Survival Suite - Packwiz & Modrinth Modpack
 
+![SMP Survival Suite Modpack Icon](../docs/assets/generated/icon-modpack.png)
+
 This directory contains the **[Packwiz](https://packwiz.github.io/)** modpack definition and configuration overrides for the **SMP Survival Suite**.
 
 Packwiz manages client and server mods as human-readable TOML metadata files committed directly into Git, allowing seamless team collaboration, automated dependency resolution, and one-command export to **Modrinth (`.mrpack`)** and **CurseForge (`.zip`)**.
