@@ -213,6 +213,214 @@
   })
 }
 
+/// Cartographer's Double-Entry Survey Ledger Background.
+/// Renders authentic horizontal accounting rules, vertical debit/credit ledger columns,
+/// and subtle mineral tally wash.
+#let survey-ledger(w, h, seed: 100, accent: pigment-ochre) = {
+  let row-h = 16
+  let rows = calc.floor(h / row-h)
+
+  cetz.canvas(length: 1pt, {
+    import cetz.draw: *
+
+    // Paper background
+    rect((0, 0), (w, h), fill: parchment-base, stroke: none)
+
+    // Vertical column wash (balance column)
+    rect((w * 0.58, 0), (w * 0.82, h), fill: accent.transparentize(92%), stroke: none)
+
+    // Horizontal ledger rules
+    for r in range(1, rows + 1) {
+      let y = r * row-h
+      line((0, y), (w, y), stroke: 0.5pt + ink-faint.transparentize(70%))
+    }
+
+    // Top ledger header double line
+    let top-y = h - 22
+    line((0, top-y), (w, top-y), stroke: 0.85pt + ink-secondary.transparentize(40%))
+    line((0, top-y + 3), (w, top-y + 3), stroke: 0.5pt + ink-faint.transparentize(60%))
+
+    // Vertical column divider rules
+    let col-xs = (w * 0.28, w * 0.58, w * 0.82, w * 0.94)
+    for cx in col-xs {
+      line((cx, 0), (cx, h), stroke: 0.6pt + ink-secondary.transparentize(60%))
+    }
+
+    // Double rule on primary total column
+    line((w * 0.58 - 2.5, 0), (w * 0.58 - 2.5, h), stroke: 0.6pt + accent.transparentize(55%))
+
+    // Tally marks / balance registration ticks
+    for r in range(2, rows - 1, step: 2) {
+      let y = r * row-h + row-h * 0.5
+      // Small currency registration hash
+      line((w * 0.87, y - 3), (w * 0.89, y + 3), stroke: 0.75pt + accent.transparentize(50%))
+      line((w * 0.90, y - 3), (w * 0.92, y + 3), stroke: 0.75pt + accent.transparentize(50%))
+    }
+  })
+}
+
+/// Archival Testament & Notary Wax Seal Register Background.
+/// Renders an engraved notary seal, radiating sunburst rays, and delicate certificate border lines.
+#let sealed-ledger(w, h, seed: 200, accent: pigment-plum) = {
+  let cx = w * 0.68
+  let cy = h * 0.50
+
+  cetz.canvas(length: 1pt, {
+    import cetz.draw: *
+
+    // Paper background
+    rect((0, 0), (w, h), fill: parchment-base, stroke: none)
+
+    // Faint diagonal security watermark waves
+    for d in range(-6, 12, step: 2) {
+      let offset = d * 35
+      line((offset, 0), (offset + h * 0.7, h), stroke: 0.4pt + accent.transparentize(90%))
+    }
+
+    // Outer notched certificate seal frame
+    circle((cx, cy), radius: 54, stroke: 1.25pt + accent.transparentize(40%), fill: accent.transparentize(95%))
+    circle((cx, cy), radius: 48, stroke: (paint: accent.transparentize(50%), thickness: 0.6pt, dash: "dashed"))
+    circle((cx, cy), radius: 40, stroke: 0.75pt + ink-secondary.transparentize(45%))
+    circle((cx, cy), radius: 26, stroke: 0.5pt + accent.transparentize(60%))
+
+    // 16 Radiating sunburst ticks along seal perimeter
+    for i in range(16) {
+      let angle = i * 22.5 * 3.14159 / 180.0
+      let r0 = 48.0
+      let r1 = 54.0
+      let x0 = cx + calc.cos(angle) * r0
+      let y0 = cy + calc.sin(angle) * r0
+      let x1 = cx + calc.cos(angle) * r1
+      let y1 = cy + calc.sin(angle) * r1
+      line((x0, y0), (x1, y1), stroke: 0.75pt + accent.transparentize(45%))
+    }
+
+    // Provenance registration corner stamps
+    line((cx - 68, cy - 50), (cx - 68, cy - 38), stroke: 0.75pt + ink-secondary)
+    line((cx - 68, cy - 50), (cx - 56, cy - 50), stroke: 0.75pt + ink-secondary)
+    line((cx + 68, cy + 50), (cx + 68, cy + 38), stroke: 0.75pt + ink-secondary)
+    line((cx + 68, cy + 50), (cx + 56, cy + 50), stroke: 0.75pt + ink-secondary)
+  })
+}
+
+/// Naturalist's Specialization Bestiary & Combat Chart Background.
+/// Renders 4-quadrant combat crosshairs, concentric target rings, and quadrant node markers.
+#let field-bestiary(w, h, seed: 500, accent: pigment-vermilion) = {
+  let cx = w * 0.65
+  let cy = h * 0.50
+
+  cetz.canvas(length: 1pt, {
+    import cetz.draw: *
+
+    // Paper background
+    rect((0, 0), (w, h), fill: parchment-base, stroke: none)
+
+    // Concentric range rings
+    circle((cx, cy), radius: 22, stroke: 0.75pt + accent.transparentize(60%))
+    circle((cx, cy), radius: 44, stroke: (paint: accent.transparentize(45%), thickness: 0.85pt, dash: "dashed"))
+    circle((cx, cy), radius: 64, stroke: 0.6pt + ink-secondary.transparentize(65%))
+
+    // 4-Quadrant crosshair axes
+    line((cx - 85, cy), (cx + 85, cy), stroke: 0.85pt + ink-secondary.transparentize(45%))
+    line((cx, cy - 65), (cx, cy + 65), stroke: 0.85pt + ink-secondary.transparentize(45%))
+
+    // Diagonal navigation diagonals
+    let d = 52.0 * 0.707
+    line((cx - d, cy - d), (cx + d, cy + d), stroke: (paint: ink-faint.transparentize(65%), thickness: 0.5pt, dash: "dotted"))
+    line((cx - d, cy + d), (cx + d, cy - d), stroke: (paint: ink-faint.transparentize(65%), thickness: 0.5pt, dash: "dotted"))
+
+    // Diamond target nodes for the four roles (DPS, Tank, Support, Scout)
+    let nodes = (
+      (cx + 34, cy + 28), // Top-Right (DPS)
+      (cx - 34, cy + 28), // Top-Left (Tank)
+      (cx - 34, cy - 28), // Bottom-Left (Support)
+      (cx + 34, cy - 28), // Bottom-Right (Scout)
+    )
+    for n in nodes {
+      let (nx, ny) = n
+      line((nx - 4, ny), (nx, ny + 4), stroke: 1pt + accent)
+      line((nx, ny + 4), (nx + 4, ny), stroke: 1pt + accent)
+      line((nx + 4, ny), (nx, ny - 4), stroke: 1pt + accent)
+      line((nx, ny - 4), (nx - 4, ny), stroke: 1pt + accent)
+    }
+
+    // Degree margin ticks along the outer ring
+    for deg in (0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330) {
+      let rad = deg * 3.14159 / 180.0
+      let x0 = cx + calc.cos(rad) * 61
+      let y0 = cy + calc.sin(rad) * 61
+      let x1 = cx + calc.cos(rad) * 67
+      let y1 = cy + calc.sin(rad) * 67
+      line((x0, y0), (x1, y1), stroke: 0.65pt + ink-secondary.transparentize(50%))
+    }
+  })
+}
+
+/// Artisan Technical Drafting & Surveyor Benchmark Scale Background.
+/// Renders precision drafting ruler ticks, technical crosshairs, and slate telemetry rules.
+#let wrought-ledger(w, h, seed: 600, accent: pigment-slate) = {
+  let cell = 24
+  let cols = calc.floor(w / cell)
+  let rows = calc.floor(h / cell)
+
+  cetz.canvas(length: 1pt, {
+    import cetz.draw: *
+
+    // Paper background
+    rect((0, 0), (w, h), fill: parchment-base, stroke: none)
+
+    // Horizontal benchmark scan bands
+    rect((0, h * 0.35), (w, h * 0.65), fill: accent.transparentize(94%), stroke: none)
+    line((0, h * 0.35), (w, h * 0.35), stroke: 0.6pt + accent.transparentize(65%))
+    line((0, h * 0.65), (w, h * 0.65), stroke: 0.6pt + accent.transparentize(65%))
+
+    // Precision drafting ruler scale along top edge
+    for x in range(10, int(w), step: 6) {
+      let is-major = calc.rem(x - 10, 30) == 0
+      let tick-h = if is-major { 8 } else { 4 }
+      let s-thick = if is-major { 0.85pt } else { 0.5pt }
+      line((x, h), (x, h - tick-h), stroke: s-thick + ink-secondary.transparentize(40%))
+    }
+
+    // Precision drafting ruler scale along bottom edge
+    for x in range(10, int(w), step: 6) {
+      let is-major = calc.rem(x - 10, 30) == 0
+      let tick-h = if is-major { 8 } else { 4 }
+      let s-thick = if is-major { 0.85pt } else { 0.5pt }
+      line((x, 0), (x, tick-h), stroke: s-thick + ink-secondary.transparentize(40%))
+    }
+
+    // Surveyor grid crosshairs (+) across the canvas
+    for c in range(1, cols) {
+      for r in range(1, rows) {
+        let x = c * cell
+        let y = r * cell
+        line((x - 2.5, y), (x + 2.5, y), stroke: 0.55pt + ink-secondary.transparentize(60%))
+        line((x, y - 2.5), (x, y + 2.5), stroke: 0.55pt + ink-secondary.transparentize(60%))
+      }
+    }
+  })
+}
+
+/// Central procedural cartographic motif dispatcher for subsystem backgrounds.
+#let render-cartographic-motif(motif, w, h, accent: pigment-moss, seed: 100) = {
+  if motif == "survey-ledger" {
+    survey-ledger(w, h, seed: seed, accent: accent)
+  } else if motif == "sealed-ledger" {
+    sealed-ledger(w, h, seed: seed, accent: accent)
+  } else if motif == "survey-parcels" {
+    survey-plot-map(w, h, seed: seed, accent: accent, cell-size: 26, cluster-target: 8)
+  } else if motif == "topographic-atlas" {
+    topographic-atlas(w, h, seed: seed, accent: accent)
+  } else if motif == "field-bestiary" {
+    field-bestiary(w, h, seed: seed, accent: accent)
+  } else if motif == "wrought-ledger" {
+    wrought-ledger(w, h, seed: seed, accent: accent)
+  } else {
+    survey-plot-map(w, h, seed: seed, accent: accent, cell-size: 26, cluster-target: 8)
+  }
+}
+
 /// Authentic field-guide plate framing: double rules and corner registration ticks (+).
 #let expedition-border(w, h, inset: 12, outer-stroke: 2pt, inner-stroke: 0.75pt) = {
   cetz.canvas(length: 1pt, {

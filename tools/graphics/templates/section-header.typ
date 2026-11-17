@@ -2,7 +2,7 @@
 // Cartographer's Field Guide Chapter Header Strip
 #import "../lib/theme.typ": *
 #import "../lib/icons.typ": render-subsystem-sprite
-#import "../lib/backgrounds.typ": paper-grain, survey-plot-map, topographic-atlas, expedition-border
+#import "../lib/backgrounds.typ": paper-grain, render-cartographic-motif, expedition-border
 
 #let sub-id = sys.inputs.at("subsystem", default: "economy")
 #let sub = get-subsystem(sub-id)
@@ -23,18 +23,14 @@
 // 1. Paper grain base
 #place(top + left, paper-grain(1200, 160, seed: 3300 + int(sub.index) * 17))
 
-// 2. Right-side subtle cartographic engraving (survey map or topographic atlas)
+// 2. Right-side subtle cartographic engraving matching subsystem motif
 #place(top + right,
   box(
     width: 440 * px,
     height: 160 * px,
     clip: true,
     [
-      #if sub.id == "world-navigation" {
-        topographic-atlas(440, 160, seed: 777, accent: accent)
-      } else {
-        survey-plot-map(440, 160, seed: 500 + int(sub.index) * 99, accent: accent, cell-size: 26, cluster-target: 8)
-      }
+      #render-cartographic-motif(sub.motif, 440, 160, accent: accent, seed: 500 + int(sub.index) * 99)
 
       // Smooth horizontal paper wash gradient fade
       #place(top + left,
@@ -107,7 +103,7 @@
         weight: "bold",
         fill: accent,
         tracking: 2pt,
-        [CHAPTER #sub.numeral   —   #upper(sub.name)]
+        [CHAPTER #sub.numeral   —   #upper(sub.at("kicker", default: sub.name))]
       ),
       text(
         font: font-display,
