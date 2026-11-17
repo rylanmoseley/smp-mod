@@ -4,6 +4,7 @@ import dev.rmoseley.smpmod.SmpMod
 import dev.rmoseley.smpmod.claims.ClaimManager
 import dev.rmoseley.smpmod.claims.CivicUpgrade
 import dev.rmoseley.smpmod.claims.ContiguousCluster
+import dev.rmoseley.smpmod.claims.SettlementTier
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 
@@ -54,7 +55,7 @@ object SettlementAdvancements {
             advancementId = CONTIGUOUS_HAMLET,
             category = AdvancementCategory.SETTLEMENT,
             title = "Hamlet Emergence",
-            description = "Establish a contiguous settlement cluster of 2 to 3 claimed chunks",
+            description = "Establish a contiguous settlement cluster of 4 to 8 claimed chunks",
             tier = AdvancementTier.NOVICE,
             currencyPayout = 100L,
             builderXp = 50.0,
@@ -109,7 +110,7 @@ object SettlementAdvancements {
             advancementId = TOWN_STATUS,
             category = AdvancementCategory.SETTLEMENT,
             title = "Fortified Town",
-            description = "Expand a contiguous settlement to 9 or more chunks, reaching Town tier",
+            description = "Expand a contiguous settlement to 19 or more chunks, reaching Town tier",
             tier = AdvancementTier.MASTER,
             currencyPayout = 400L,
             builderXp = 150.0,
@@ -153,7 +154,7 @@ object SettlementAdvancements {
             advancementId = GRAND_METROPOLIS,
             category = AdvancementCategory.SETTLEMENT,
             title = "Regional Metropolis",
-            description = "Expand a contiguous settlement to 16 or more chunks reaching Metropolis tier with rich palette variety",
+            description = "Expand a contiguous settlement to 37 or more chunks reaching Metropolis tier with rich palette variety",
             tier = AdvancementTier.LEGENDARY,
             currencyPayout = 1000L,
             builderXp = 350.0,
@@ -202,7 +203,7 @@ object SettlementAdvancements {
      */
     fun checkClusterProgression(player: ServerPlayer, cluster: ContiguousCluster) {
         val size = cluster.chunks.size
-        if (size >= 2) {
+        if (size >= SettlementTier.HAMLET.minChunks) {
             award(player, CONTIGUOUS_HAMLET)
         }
         if (cluster.blockCountsByType.size >= 5) {
@@ -211,10 +212,10 @@ object SettlementAdvancements {
         if (cluster.blockCountsByType.size >= 12) {
             award(player, PALETTE_VIRTUOSO)
         }
-        if (size >= 9) {
+        if (size >= SettlementTier.TOWN.minChunks) {
             award(player, TOWN_STATUS)
         }
-        if (size >= 16 && cluster.blockCountsByType.size >= 5) {
+        if (size >= SettlementTier.METROPOLIS.minChunks && cluster.blockCountsByType.size >= 5) {
             award(player, GRAND_METROPOLIS)
         }
         val residentCount = cluster.members.size + 1

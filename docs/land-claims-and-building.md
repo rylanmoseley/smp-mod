@@ -30,12 +30,12 @@ Unlike traditional land claim systems that either force rigid contiguous shapes 
 ### Contiguous Cluster Development Leveling
 * **The Rule:** While claims can be scattered noncontiguously across the map, **only contiguous chunks** sharing orthogonal borders (North, South, East, West) are referenced for a given claim's **development leveling**, **pooled defensive buffs**, and **temporary builder flight**!
 * **Connected Component Analysis:** The server automatically analyzes the topology of your claims and groups adjacent chunks into independent **Settlement Clusters**:
-  * **Outpost:** 1 chunk (Base development)
-  * **Hamlet:** 2–3 contiguous chunks
-  * **Settlement:** 4–8 contiguous chunks
-  * **Town:** 9–15 contiguous chunks
-  * **Metropolis:** 16+ contiguous chunks
-* **Why this matters:** Dropping a single 1x1 chunk outpost in the wilderness will not inherit the high-level defense buffs or flight privileges of your 16-chunk capital city. Every settlement must earn its development through local constructive investment.
+  * **Outpost:** 1–3 contiguous chunks (Base frontier claim)
+  * **Hamlet:** 4–8 contiguous chunks (Homestead / farmstead)
+  * **Settlement:** 9–18 contiguous chunks (Developing community)
+  * **Town:** 19–36 contiguous chunks (Fortified regional settlement)
+  * **Metropolis:** 37+ contiguous chunks (Major regional capital)
+* **Why this matters:** Dropping a single 1x1 chunk outpost in the wilderness will not inherit the high-level defense buffs or flight privileges of your 37-chunk capital city. Every settlement must earn its development through local constructive investment.
 
 ---
 
@@ -53,7 +53,7 @@ $$\text{Block Score} = \text{Base Weight} \times \frac{1.0}{1.0 + \ln(1.0 + \tex
 
 ### Recurring Construction Dividends
 Active builders earn recurring digital coin bonuses directly through sustained construction:
-* **Milestone Payout:** Every **25 blocks placed** inside claimed territory awards **+25 to +50 digital coins** (scaled by block variety score) alongside bonus Builder XP.
+* **Milestone Payout:** Every **100 blocks placed** inside claimed territory awards **+25 to +40 digital coins** (scaled by block variety score) alongside bonus Builder XP.
 * **Anti-Laundering Guardrails:** Re-placing broken blocks or cycling temporary scaffolding does not contribute to construction totals; only genuine net placements inside registered claims qualify.
 
 ---
@@ -62,7 +62,7 @@ Active builders earn recurring digital coin bonuses directly through sustained c
 
 * **Individual Chunk Caps:** A player's maximum claimable chunk limit scales upward as they level up their individual **Builder Playstyle Level**:
 
-$$\text{Max Chunks} = \text{Base Cap (4)} + (\text{Builder Level} \times 2)$$
+$$\text{Max Chunks} = \text{Base Cap (9)} + (\text{Builder Level} \times 3)$$
 
 * **Individual XP Isolation:** Builder XP is awarded strictly to the player who actually places the qualifying construction blocks. Teammates who stand AFK in a massive town do not passively leech Builder XP—each builder's personal level reflects their genuine physical contribution to the settlement.
 
@@ -182,15 +182,15 @@ graph TD
 | `settlement/root` | **Towns & Architecture** | Novice | Task | Root tab (auto-unlock on join/tick) | — | — | — | No |
 | `settlement/first_homestead` | **Claiming the Frontier** | Novice | Task | Stake claim on first chunk via `/claims claim` | +100 coins | +40 XP | — | No |
 | `settlement/highway_engineer` | **Artery of Civilization** | Journeyman | Goal | Lay down 64+ paved road or rail blocks connecting claimed territory | +200 coins | +80 XP | — | No |
-| `settlement/contiguous_hamlet` | **Hamlet Emergence** | Novice | Task | Establish contiguous cluster of 2–3 chunks | +100 coins | +50 XP | — | No |
+| `settlement/contiguous_hamlet` | **Hamlet Emergence** | Novice | Task | Establish contiguous cluster of 4–8 chunks | +100 coins | +50 XP | — | No |
 | `settlement/cooperative_cluster` | **Commonwealth Assembly** | Journeyman | Goal | Establish contiguous cluster shared/co-developed by 3+ town residents | +200 coins | +90 XP | — | No |
 | `settlement/palette_diversity` | **Master Mason** | Journeyman | Task | Construct using 5+ distinct block palettes | +150 coins | +80 XP | — | No |
 | `settlement/palette_virtuoso` | **Architectural Polymath** | Master | Challenge | Construct a cluster utilizing 12+ unique structural block palettes | +350 coins | +150 XP | +1 | No |
 | `settlement/builder_flight_cadence` | **Aerial Architect** | Journeyman | Goal | Maintain cadence flight for >60 continuous seconds | +200 coins | +100 XP | — | No |
-| `settlement/town_status` | **Fortified Town** | Master | Goal | Expand contiguous settlement to 9+ chunks (Town tier) | +400 coins | +150 XP | +1 | **Yes** |
+| `settlement/town_status` | **Fortified Town** | Master | Goal | Expand contiguous settlement to 19+ chunks (Town tier) | +400 coins | +150 XP | +1 | **Yes** |
 | `settlement/civic_renaissance` | **Municipal Renaissance** | Master | Goal | Unlock 2+ municipal civic upgrades | +500 coins | +200 XP | +2 | No |
 | `settlement/warded_bastion` | **Fortress of Sanctuary** | Master | Challenge | Fortify town with both Warded Streetlights and Municipal Quarantine | +400 coins | +160 XP | +1 | **Yes** |
-| `settlement/grand_metropolis` | **Regional Metropolis** | Legendary | Challenge | Expand to 16+ contiguous chunks with high palette diversity | +1,000 coins | +350 XP | +3 | **Yes** |
+| `settlement/grand_metropolis` | **Regional Metropolis** | Legendary | Challenge | Expand to 37+ contiguous chunks with high palette diversity | +1,000 coins | +350 XP | +3 | **Yes** |
 
 ### Mechanical Milestones in Detail
 
@@ -201,7 +201,7 @@ graph TD
 
 2. **Hamlet Emergence (`contiguous_hamlet`)**:
    - Incentivizes contiguous territorial expansion over disconnected outposts.
-   - Unlocked when a cluster of 2 to 3 orthogonally adjacent chunks is claimed.
+   - Unlocked when a cluster of 4 to 8 orthogonally adjacent chunks is claimed.
    - Provides +100 coins and +50 Builder XP, teaching players the topological clustering rule.
 
 3. **Master Mason (`palette_diversity`)**:
@@ -213,7 +213,7 @@ graph TD
    - Builders must maintain continuous flight within claim boundaries for over 60 seconds without falling, leaving the cluster, or entering combat.
 
 5. **Fortified Town (`town_status`)**:
-   - Awarded when a contiguous cluster reaches **Town tier** (9+ contiguous chunks).
+   - Awarded when a contiguous cluster reaches **Town tier** (19+ contiguous chunks).
    - Grants a substantial treasury booster of +400 coins, +150 Builder XP, and **1 Recovery Catalyst**.
    - Triggers a server-wide broadcast celebrating the establishment of a fortified regional hub.
 
@@ -224,7 +224,7 @@ graph TD
 
 7. **Regional Metropolis (`grand_metropolis`)**:
    - The pinnacle architectural milestone of the SMP Mod Suite.
-   - Requires reaching **Metropolis tier** (16+ contiguous chunks) paired with high palette variety.
+   - Requires reaching **Metropolis tier** (37+ contiguous chunks) paired with high palette variety.
    - Celebrated with a server-wide announcement, +1,000 coins, +350 Builder XP, and **3 Recovery Catalysts**.
 
 ### Lifetime Claim Guardrails & Anti-Exploit Mechanics

@@ -8,7 +8,7 @@
       "text": "Fortified Town"
     },
     "description": {
-      "text": "Expand a contiguous settlement to 9 or more chunks, reaching Town tier."
+      "text": "Expand a contiguous settlement to 19 or more chunks, reaching Town tier."
     },
     "frame": "goal",
     "show_toast": true,

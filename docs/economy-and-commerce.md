@@ -37,7 +37,8 @@ Rather than printing money through passive AFK mob grinders or automated farms, 
    Essential onboarding advancements that inject early capital into new players (e.g., establishing a home claim, crafting first tool sets, mapping regional landmarks).
 2. **Repeatable Active Play Cycles:**  
    Tiered, repeatable milestones that continuously reward active gameplay:
-   * Every $Y$ naturally harvested blocks (e.g., 500 logs, ores, or crops).
+   * Every $Y$ naturally harvested blocks (default 200 logs, ores, or crops awards **+35 coins**).
+   * Every $Z$ verified construction blocks placed inside claims (default 100 blocks awards **+25 to +40 coins**).
    * Clearing dangerous dungeons or defeating elite dark-zone threats.
    * Sustained, non-AFK active exploration blocks.
 3. **Player-to-Player (P2P) Commerce:**  

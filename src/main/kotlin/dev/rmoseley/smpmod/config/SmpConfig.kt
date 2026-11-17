@@ -21,6 +21,8 @@ object SmpConfig {
         val starterAdvancementPayout: ModConfigSpec.IntValue
         val repeatableHarvestThreshold: ModConfigSpec.IntValue
         val repeatableHarvestPayout: ModConfigSpec.IntValue
+        val constructionDividendThreshold: ModConfigSpec.IntValue
+        val constructionDividendPayout: ModConfigSpec.IntValue
         val p2pTradeTaxPercent: ModConfigSpec.DoubleValue
 
         // --- 2. Death Recovery & UUID Buyback ---
@@ -79,10 +81,16 @@ object SmpConfig {
                 .defineInRange("starterAdvancementPayout", 100, 0, 100000)
             repeatableHarvestThreshold = builder
                 .comment("Number of natural block harvests required per repeatable currency payout")
-                .defineInRange("repeatableHarvestThreshold", 500, 50, 10000)
+                .defineInRange("repeatableHarvestThreshold", 200, 25, 10000)
             repeatableHarvestPayout = builder
                 .comment("Currency awarded per repeatable harvest cycle completion")
-                .defineInRange("repeatableHarvestPayout", 25, 1, 10000)
+                .defineInRange("repeatableHarvestPayout", 35, 1, 10000)
+            constructionDividendThreshold = builder
+                .comment("Number of verified placed blocks within claimed territory per construction dividend")
+                .defineInRange("constructionDividendThreshold", 100, 10, 10000)
+            constructionDividendPayout = builder
+                .comment("Base currency awarded per construction dividend milestone")
+                .defineInRange("constructionDividendPayout", 25, 1, 10000)
             p2pTradeTaxPercent = builder
                 .comment("Transaction fee percentage applied to formal P2P shop transfers (0.0 to 1.0)")
                 .defineInRange("p2pTradeTaxPercent", 0.05, 0.0, 1.0)
@@ -124,10 +132,10 @@ object SmpConfig {
             builder.push("ClaimsAndBuilding")
             chunksPerBuilderLevel = builder
                 .comment("Max claimable contiguous chunks unlocked per Builder Playstyle level")
-                .defineInRange("chunksPerBuilderLevel", 2, 1, 10)
+                .defineInRange("chunksPerBuilderLevel", 3, 1, 10)
             maxBaseClaimChunks = builder
                 .comment("Base claimable chunks awarded to any new player")
-                .defineInRange("maxBaseClaimChunks", 4, 1, 64)
+                .defineInRange("maxBaseClaimChunks", 9, 1, 64)
             varietyPaletteWeightBase = builder
                 .comment("Base multiplier for variety-weighted block placement diversity")
                 .defineInRange("varietyPaletteWeightBase", 1.0, 0.1, 10.0)
