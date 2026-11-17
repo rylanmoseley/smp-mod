@@ -29,9 +29,11 @@
       columns: (1fr, auto),
       align: horizon,
       [
-        #text(font: font-heading, size: 13.5 * px, weight: "bold", fill: pigment-vermilion, tracking: 2pt, [FIELD GUIDE · CHAPTER V — CLASSLESS DERIVATION])
-        #v(3 * px)
-        #text(font: font-display, size: 28 * px, weight: "bold", fill: ink-primary, [The Four Emergent Survival Roles])
+        #stack(
+          spacing: 6 * px,
+          text(font: font-heading, size: 13.5 * px, weight: "bold", fill: pigment-vermilion, tracking: 2pt, [FIELD GUIDE · CHAPTER V — CLASSLESS DERIVATION]),
+          text(font: font-display, size: 28 * px, weight: "bold", fill: ink-primary, [The Four Emergent Survival Roles])
+        )
       ],
       [
         #box(
@@ -44,18 +46,18 @@
         )
       ]
     )
-    #v(6 * px)
+    #v(8 * px)
     #text(font: font-body, size: 15.5 * px, fill: ink-secondary, [
       Profiles derive organically from your continuous survival gameplay — zero elective class menus, arbitrary point grinding, or permanent lockouts.
     ])
-    #v(8 * px)
+    #v(10 * px)
     #ledger-rule(length: 100%, stroke: 0.75pt + rule-border)
   ])
 )
 
 // 4. Four Bestiary Ledger Columns
-#place(top + left, dx: 44 * px, dy: 136 * px,
-  box(width: 1112 * px, height: 256 * px, [
+#place(top + left, dx: 44 * px, dy: 134 * px,
+  box(width: 1112 * px, height: 260 * px, [
     #grid(
       columns: (1fr, 1fr, 1fr, 1fr),
       gutter: 0 * px,
@@ -63,7 +65,7 @@
       // --- 1. DPS ---
       box(
         width: 100%,
-        height: 256 * px,
+        height: 260 * px,
         inset: (x: 18pt, y: 10pt),
         stroke: (right: 1pt + rule-border),
         [
@@ -74,23 +76,23 @@
             render-role-sprite("dps", size: 52pt),
             [
               #text(font: font-display, size: 25 * px, weight: "bold", fill: pigment-vermilion, [DPS])
-              #v(-2 * px)
+              #v(6 * px)
               #text(font: font-heading, size: 10.5 * px, weight: "bold", fill: ink-secondary, tracking: 1.5pt, [COMBAT XP])
             ]
           )
-          #v(8 * px)
+          #v(10 * px)
           #line(length: 100%, stroke: 1.5pt + pigment-vermilion)
           #v(10 * px)
           #text(font: font-body, size: 13.5 * px, weight: "bold", fill: ink-primary, [Archetype: Precision Striker])
-          #v(8 * px)
+          #v(10 * px)
           #text(font: font-body, size: 13 * px, fill: ink-secondary, [
-            • Execute low-HP monsters\
-            #v(4 * px)
-            • Armor-piercing burst crits\
-            #v(4 * px)
-            • Fast Time-to-Kill XP loops\
-            #v(4 * px)
-            • Endgame Dragon scaling
+            #stack(
+              spacing: 6 * px,
+              [• Execute low-HP monsters],
+              [• Armor-piercing burst crits],
+              [• Fast Time-to-Kill XP loops],
+              [• Endgame Dragon scaling]
+            )
           ])
         ]
       ),
@@ -98,7 +100,7 @@
       // --- 2. TANK ---
       box(
         width: 100%,
-        height: 256 * px,
+        height: 260 * px,
         inset: (x: 18pt, y: 10pt),
         stroke: (right: 1pt + rule-border),
         [
@@ -109,23 +111,23 @@
             render-role-sprite("tank", size: 52pt),
             [
               #text(font: font-display, size: 25 * px, weight: "bold", fill: pigment-ochre, [TANK])
-              #v(-2 * px)
+              #v(6 * px)
               #text(font: font-heading, size: 10.5 * px, weight: "bold", fill: ink-secondary, tracking: 1.5pt, [BUILDER XP])
             ]
           )
-          #v(8 * px)
+          #v(10 * px)
           #line(length: 100%, stroke: 1.5pt + pigment-ochre)
           #v(10 * px)
           #text(font: font-body, size: 13.5 * px, weight: "bold", fill: ink-primary, [Archetype: Frontline Anchor])
-          #v(8 * px)
+          #v(10 * px)
           #text(font: font-body, size: 13 * px, fill: ink-secondary, [
-            • Threat taunts & kinetic soak\
-            #v(4 * px)
-            • Claim builder defense perks\
-            #v(4 * px)
-            • Portable team cover shield\
-            #v(4 * px)
-            • Boss stagger interception
+            #stack(
+              spacing: 6 * px,
+              [• Threat taunts & kinetic soak],
+              [• Claim builder defense perks],
+              [• Portable team cover shield],
+              [• Boss stagger interception]
+            )
           ])
         ]
       ),
@@ -133,7 +135,7 @@
       // --- 3. SUPPORT ---
       box(
         width: 100%,
-        height: 256 * px,
+        height: 260 * px,
         inset: (x: 18pt, y: 10pt),
         stroke: (right: 1pt + rule-border),
         [
@@ -144,23 +146,23 @@
             render-role-sprite("support", size: 52pt),
             [
               #text(font: font-display, size: 25 * px, weight: "bold", fill: pigment-moss, [SUPPORT])
-              #v(-2 * px)
+              #v(6 * px)
               #text(font: font-heading, size: 10.5 * px, weight: "bold", fill: ink-secondary, tracking: 1.5pt, [GATHERER XP])
             ]
           )
-          #v(8 * px)
+          #v(10 * px)
           #line(length: 100%, stroke: 1.5pt + pigment-moss)
           #v(10 * px)
           #text(font: font-body, size: 13.5 * px, weight: "bold", fill: ink-primary, [Archetype: Sustain Keeper])
-          #v(8 * px)
+          #v(10 * px)
           #text(font: font-body, size: 13 * px, fill: ink-secondary, [
-            • Warded Light flare radius\
-            #v(4 * px)
-            • Team health sustain auras\
-            #v(4 * px)
-            • Consumable conservation\
-            #v(4 * px)
-            • Harvest dividend bonuses
+            #stack(
+              spacing: 6 * px,
+              [• Warded Light flare radius],
+              [• Team health sustain auras],
+              [• Consumable conservation],
+              [• Harvest dividend bonuses]
+            )
           ])
         ]
       ),
@@ -168,7 +170,7 @@
       // --- 4. SCOUT ---
       box(
         width: 100%,
-        height: 256 * px,
+        height: 260 * px,
         inset: (x: 18pt, y: 10pt),
         [
           #grid(
@@ -178,23 +180,23 @@
             render-role-sprite("scout", size: 52pt),
             [
               #text(font: font-display, size: 25 * px, weight: "bold", fill: pigment-cobalt, [SCOUT])
-              #v(-2 * px)
+              #v(6 * px)
               #text(font: font-heading, size: 10.5 * px, weight: "bold", fill: ink-secondary, tracking: 1.5pt, [EXPLORER XP])
             ]
           )
-          #v(8 * px)
+          #v(10 * px)
           #line(length: 100%, stroke: 1.5pt + pigment-cobalt)
           #v(10 * px)
           #text(font: font-body, size: 13.5 * px, weight: "bold", fill: ink-primary, [Archetype: Trail Vanguard])
-          #v(8 * px)
+          #v(10 * px)
           #text(font: font-body, size: 13 * px, fill: ink-secondary, [
-            • Paved road convoy speed\
-            #v(4 * px)
-            • Dark-zone ambush detection\
-            #v(4 * px)
-            • Momentum Elytra soaring\
-            #v(4 * px)
-            • Villager relocation perks
+            #stack(
+              spacing: 6 * px,
+              [• Paved road convoy speed],
+              [• Dark-zone ambush detection],
+              [• Momentum Elytra soaring],
+              [• Villager relocation perks]
+            )
           ])
         ]
       )

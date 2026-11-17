@@ -97,10 +97,10 @@
 )
 
 // 6. Header Typography & Grounded Subsystem Copy
-#place(top + left, dx: 150 * px, dy: 34 * px,
+#place(top + left, dx: 150 * px, dy: 36 * px,
   box(width: 820 * px, [
     #stack(
-      spacing: 5 * px,
+      spacing: 10 * px,
       text(
         font: font-heading,
         size: 14 * px,
