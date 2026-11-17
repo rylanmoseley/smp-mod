@@ -1,5 +1,7 @@
 # World Navigation & Survival Mechanics
 
+![World Navigation & Survival Subsystem Header](assets/generated/headers/world-navigation.png)
+
 Exploring and traversing the world has been fundamentally re-engineered. Safe transit corridors must be earned, Nether highways carry real environmental danger, and endgame flight functions as an aerodynamic glider rather than infinite rocket-propelled creative flight.
 
 ---

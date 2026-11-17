@@ -1,0 +1,49 @@
+name: Graphics Pipeline & Determinism Verification
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+    paths:
+      - 'tools/graphics/**'
+      - 'docs/assets/generated/**'
+      - '.github/workflows/graphics.yml'
+  pull_request:
+    branches: [ "main", "develop" ]
+    paths:
+      - 'tools/graphics/**'
+      - 'docs/assets/generated/**'
+      - '.github/workflows/graphics.yml'
+  workflow_dispatch:
+
+jobs:
+  verify-graphics:
+    name: Build & Verify Deterministic Assets
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Typst CLI
+        uses: typst-community/setup-typst@v5
+        with:
+          typst-version: '>=0.15.0'
+
+      - name: Verify Typst Installation
+        run: typst --version
+
+      - name: Compile All Graphics Assets
+        run: ./tools/graphics/build.sh
+
+      - name: Verify Dimensions, Budgets & Determinism
+        run: ./tools/graphics/verify.sh
+
+      - name: Assert No Uncommitted Asset Drift
+        run: |
+          git diff --exit-code docs/assets/generated/ || {
+            echo "ERROR: Generated assets in docs/assets/generated/ are out-of-date with templates." >&2
+            echo "Please run ./tools/graphics/build.sh and commit the resulting PNGs." >&2
+            exit 1
+          }

@@ -1,5 +1,7 @@
 # SMP Mod Suite: Player Survival Handbook & Systems Documentation
 
+![SMP Mod Suite Hero Banner - Minecraft 1.21.1 NeoForge](assets/generated/hero-readme.png)
+
 Welcome to the comprehensive player and administrator guide for the **SMP Mod Suite**. 
 
 This mod suite reimagines standard survival multiplayer into a deeply cooperative, constructive, and fair survival experience. It removes low-reward repetitive grinding and unrecoverable catastrophic loss, while rebalancing building, gathering, exploring, and combat so every playstyle carries direct strategic value into the endgame.

@@ -1,5 +1,7 @@
 # Emergent Roles & Combat Progression
 
+![Emergent Roles & Combat Subsystem Header](assets/generated/headers/emergent-roles.png)
+
 The combat system breaks away from traditional RPG mods. There are **zero elective class menus**, no arbitrary stat-point grinding, and no permanent lockouts. Instead, your combat role profile flows naturally and continuously from how you actually spend your time playing survival.
 
 ---
@@ -23,6 +25,8 @@ $$\text{Role Affinity}_i = f\!\left(\frac{\text{XP}_i}{\text{XP}_{\text{Combat}}
  • Armor penetration          • Portable cover & shielding  • Consumable efficiency       • Trap & threat detection
  • Dark-zone punishes         • Threat taunt & light guard  • Warded Light flares         • Crystal navigation
 ```
+
+![Emergent Roles 4-Quadrant Specialization Matrix - DPS, Tank, Support, Scout](assets/generated/diagrams/emergent-roles-quadrant.png)
 
 * **Natural Specialization:** Spend hundreds of hours building intricate stone fortresses? You naturally emerge as a heavily fortified **Tank**. Spend your time caving, gathering resources, and farming? You become a vital **Support** sustain anchor.
 * **Organic Hybrid Flexibility:** If your focus shifts over time—say, an architect who takes up adventuring—your ratios adjust smoothly. There are no penalty fees or altar respec rituals required.

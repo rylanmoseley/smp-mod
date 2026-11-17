@@ -1,0 +1,115 @@
+# SMP Mod Suite - Design Tokens & Graphics Configuration
+# Single source of truth for colors, typography, subsystems, and roles.
+
+[project]
+name = "SMP Mod Suite"
+mod_id = "smpmod"
+version = "0.1.0-alpha"
+mc_version = "1.21.1"
+loader = "NeoForge"
+license = "MIT"
+tagline = "Cooperative Survival Multiplayer Re-engineered"
+pack_name = "SMP Survival Suite"
+pack_loader = "Packwiz"
+
+[colors]
+bg_canvas = "#0B0E14"
+bg_surface = "#121722"
+bg_elevated = "#1A2130"
+border_subtle = "#263044"
+border_accent = "#3B4863"
+text_primary = "#F1F5F9"
+text_secondary = "#94A3B8"
+text_muted = "#64748B"
+
+# Subsystem Accents
+amber = "#F59E0B"
+amethyst = "#A855F7"
+emerald = "#10B981"
+sky = "#0EA5E9"
+crimson = "#F43F5E"
+indigo = "#6366F1"
+
+[typography]
+font_sans = "Inter"
+font_mono = "JetBrains Mono"
+
+[[subsystems]]
+id = "economy"
+index = "01"
+name = "Economy & Commerce"
+accent = "#F59E0B"
+motif = "dot-ledger"
+subtitle = "Digital Currency · Milestone Faucets · Villager Encapsulation · Bulk Store"
+
+[[subsystems]]
+id = "death-recovery"
+index = "02"
+name = "Death Recovery & Item Lore"
+accent = "#A855F7"
+motif = "grid-pulse"
+subtitle = "UUID Buyback Ledgers · 24h Exclusive Window · 30d Decay · Item Provenance"
+
+[[subsystems]]
+id = "land-claims"
+index = "03"
+name = "Land Claims & Settlements"
+accent = "#10B981"
+motif = "chunk-cluster"
+subtitle = "OPAC Integration · Contiguous Chunk Cluster BFS · Tiered Builder Flight"
+
+[[subsystems]]
+id = "world-navigation"
+index = "04"
+name = "World Navigation & Survival"
+accent = "#0EA5E9"
+motif = "topographic"
+subtitle = "Tectonic Terrain · Road Caravans · Momentum Elytra · Light-Snuffing AI"
+
+[[subsystems]]
+id = "emergent-roles"
+index = "05"
+name = "Emergent Roles & Combat"
+accent = "#F43F5E"
+motif = "quadrant-radar"
+subtitle = "Auto-Derived DPS / Tank / Support / Scout · Warded Light · Dragon Raid"
+
+[[subsystems]]
+id = "server-utilities"
+index = "06"
+name = "Server Utilities & Moderation"
+accent = "#6366F1"
+motif = "terminal-grid"
+subtitle = "/leaderboard · Tool Stats Lore · Dynamic Sleep · Discord Webhooks"
+
+[[roles]]
+id = "dps"
+name = "DPS"
+color = "#F43F5E"
+source = "Combat XP"
+archetype = "Striker"
+perk = "Execute punish windows & boss critical damage multipliers"
+
+[[roles]]
+id = "tank"
+name = "Tank"
+color = "#F59E0B"
+source = "Builder XP"
+archetype = "Frontline"
+perk = "Threat taunt pulses, kinetic barriers & dragon stagger intercept"
+
+[[roles]]
+id = "support"
+name = "Support"
+color = "#10B981"
+source = "Gatherer XP"
+archetype = "Sustain"
+perk = "Warded Light flares & sustained team health regeneration"
+
+[[roles]]
+id = "scout"
+name = "Scout"
+color = "#0EA5E9"
+source = "Explorer XP"
+archetype = "Recon"
+perk = "Paved road speed boosts, dark-zone trap detection & momentum Elytra"
