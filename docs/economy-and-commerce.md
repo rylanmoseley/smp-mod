@@ -1,5 +1,7 @@
 # Economy & Commerce System
 
+![Economy & Commerce Subsystem Header](assets/generated/headers/economy.png)
+
 The economy operates strictly on a **non-material, digital balance** designed to eliminate physical coin clutter, prevent loss on death, and foster an active player-to-player market while preventing AFK inflation.
 
 ---

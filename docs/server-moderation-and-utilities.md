@@ -1,5 +1,7 @@
 # Server Moderation, Utilities & Companion Administration Guide
 
+![Server Utilities & Moderation Subsystem Header](assets/generated/headers/server-utilities.png)
+
 The **SMP Mod Suite** includes a comprehensive suite of native server moderation, player utility, and telemetry tools designed to elevate community survival play. Built natively on NeoForge 1.21.1 without heavy external dependencies, these systems reference established survival community favorites—such as Vanilla Tweaks and the popular "Tool Stats" datapacks—while integrating directly into the mod's economy, land claims, role tracking, and recovery ledgers.
 
 ---

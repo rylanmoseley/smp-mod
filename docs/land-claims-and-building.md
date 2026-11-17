@@ -1,5 +1,7 @@
 # Land Claims & Construction System
 
+![Land Claims & Settlements Subsystem Header](assets/generated/headers/land-claims.png)
+
 The land claiming and construction system empowers cooperative town building, fortified settlements, and aesthetic construction without the risk of passive leeching or disconnected outpost stat-farming.
 
 ---
