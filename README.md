@@ -16,36 +16,36 @@ Based on the [Technical Architecture and Systems Overview (v2.0)](./design-v2.md
 
 ## Subsystems & Architecture Overview
 
-The SMP Mod Suite is structured into six cohesive subsystems that work together to replace repetitive grinding with cooperative survival gameplay:
+The SMP Mod Suite is structured into six cohesive chapters that work together to replace repetitive grinding with cooperative survival gameplay:
 
-### 01 // Economy & Commerce
+### Chapter I: Economy & Commerce
 ![Economy & Commerce Subsystem Header](docs/assets/generated/headers/economy.png)
 Non-material digital currency safe from death drops. Fed by repeatable milestone advancements, natural block harvest faucets, variety-based construction dividends, P2P commerce, living villager encapsulation, anti-1x1 mobility restocks, and a server bulk store.  
 *Read the [Economy & Commerce Guide](./docs/economy-and-commerce.md).*
 
-### 02 // Death Recovery & Item Lore
+### Chapter II: Death Recovery & Item Lore
 ![Death Recovery & Item Lore Subsystem Header](docs/assets/generated/headers/death-recovery.png)
 Named, enchanted, and high-tier items receive persistent UUIDs and track `Crafted by` / `Owned by` lore. On death, items route to a buyback ledger with escalating fees, a 24-hour exclusive owner window, and ~30-day fee decay before entering the public marketplace.  
 *Read the [Death Recovery & Item Lore Guide](./docs/death-recovery-and-item-lore.md).*
 
-### 03 // Land Claims & Settlements
+### Chapter III: Land Claims & Settlements
 ![Land Claims & Settlements Subsystem Header](docs/assets/generated/headers/land-claims.png)
 Integrated with **Open Parties and Claims (OPAC)**. Allows noncontiguous claim parcels across the world, while strictly evaluating settlement tiers, pooled defensive buffs, and temporary builder flight per **contiguous chunk cluster** via BFS analysis.  
 *Read the [Land Claims & Building Guide](./docs/land-claims-and-building.md).*
 
-### 04 // World Navigation & Survival
+### Chapter IV: World Navigation & Survival
 ![World Navigation & Survival Subsystem Header](docs/assets/generated/headers/world-navigation.png)
 Integrates with **Tectonic** alpine terrain and underground rivers. Blocks Nether roof transit, adds road convoy speed bonuses, gates Elytra behind exploration milestones with momentum gliding, and introduces dynamic light-snuffing mob AI.  
 *Read the [World Navigation & Survival Guide](./docs/world-navigation-and-survival.md).*
 
-### 05 // Emergent Roles & Combat
+### Chapter V: Emergent Roles & Combat
 ![Emergent Roles & Combat Subsystem Header](docs/assets/generated/headers/emergent-roles.png)
 Dynamic Playstyle XP tracking ($\text{Combat}$, $\text{Builder}$, $\text{Gatherer}$, $\text{Explorer}$) continuously calculates role specializations (**DPS**, **Tank**, **Support**, **Scout**). Features support Warded Light flares and a multi-phase cooperative Ender Dragon raid.  
 *Read the [Emergent Roles & Combat Guide](./docs/emergent-roles-and-combat.md).*
 
-![Emergent Roles 4-Quadrant Specialization Matrix - DPS, Tank, Support, Scout](docs/assets/generated/diagrams/emergent-roles-quadrant.png)
+![Emergent Roles 4-Column Specialization Bestiary - DPS, Tank, Support, Scout](docs/assets/generated/diagrams/emergent-roles-quadrant.png)
 
-### 06 // Server Utilities & Moderation
+### Chapter VI: Server Utilities & Moderation
 ![Server Utilities & Moderation Subsystem Header](docs/assets/generated/headers/server-utilities.png)
 Real-time stat leaderboards (`/leaderboard` across 9 categories), Vanilla Tweaks tool stats lore counters, multiplayer dynamic percentage sleep with sunrise announcements, and an asynchronous Java 21 Discord webhook dispatcher.  
 *Read the [Server Moderation & Utilities Guide](./docs/server-moderation-and-utilities.md).*

@@ -1,29 +1,35 @@
-// SMP Mod Suite - Design Theme & Reusable UI Components
+// SMP Mod Suite - Expedition Parchment Theme & Visual System
+// Pure Typst layout tokens, color definitions, and cartographic field-guide frames.
 #let tokens = toml("../tokens.toml")
 
 #let px = 1pt
 
-// Color Definitions
-#let bg-canvas = rgb(tokens.colors.bg_canvas)
-#let bg-surface = rgb(tokens.colors.bg_surface)
-#let bg-elevated = rgb(tokens.colors.bg_elevated)
-#let border-subtle = rgb(tokens.colors.border_subtle)
-#let border-accent = rgb(tokens.colors.border_accent)
-#let text-primary = rgb(tokens.colors.text_primary)
-#let text-secondary = rgb(tokens.colors.text_secondary)
-#let text-muted = rgb(tokens.colors.text_muted)
+// Surfaces
+#let parchment-base    = rgb(tokens.colors.parchment_base)
+#let parchment-inset   = rgb(tokens.colors.parchment_inset)
+#let parchment-edge    = rgb(tokens.colors.parchment_edge)
+#let leather-cover     = rgb(tokens.colors.leather_cover)
 
-// Accent Palette
-#let color-amber = rgb(tokens.colors.amber)
-#let color-amethyst = rgb(tokens.colors.amethyst)
-#let color-emerald = rgb(tokens.colors.emerald)
-#let color-sky = rgb(tokens.colors.sky)
-#let color-crimson = rgb(tokens.colors.crimson)
-#let color-indigo = rgb(tokens.colors.indigo)
+// Ink & Rules
+#let ink-primary       = rgb(tokens.colors.ink_primary)
+#let ink-secondary     = rgb(tokens.colors.ink_secondary)
+#let ink-faint         = rgb(tokens.colors.ink_faint)
+#let rule-border       = rgb(tokens.colors.rule_border)
+
+// Earth & Mineral Pigments
+#let pigment-ochre     = rgb(tokens.colors.pigment_ochre)
+#let pigment-plum      = rgb(tokens.colors.pigment_plum)
+#let pigment-moss      = rgb(tokens.colors.pigment_moss)
+#let pigment-cobalt    = rgb(tokens.colors.pigment_cobalt)
+#let pigment-vermilion = rgb(tokens.colors.pigment_vermilion)
+#let pigment-slate     = rgb(tokens.colors.pigment_slate)
 
 // Typography
-#let font-sans = tokens.typography.font_sans
-#let font-mono = tokens.typography.font_mono
+#let font-display = tokens.typography.font_display
+#let font-heading = tokens.typography.font_heading
+#let font-body    = tokens.typography.font_body
+#let font-pixel   = tokens.typography.font_pixel
+#let font-mono    = tokens.typography.font_mono
 
 /// Look up a subsystem by string ID from tokens.toml
 #let get-subsystem(id) = {
@@ -41,40 +47,58 @@
   tokens.roles.at(0)
 }
 
-/// Crisp metadata pill tag
-#let pill(text-label, accent: color-emerald, fill-color: none, text-color: none) = {
-  let bg = if fill-color != none { fill-color } else { accent.transparentize(85%) }
-  let fg = if text-color != none { text-color } else { accent }
-  box(
-    fill: bg,
-    stroke: 1pt + accent.transparentize(60%),
-    radius: 999pt,
-    inset: (x: 10pt, y: 5pt),
-    outset: 0pt,
-    [
-      #set text(font: font-mono, size: 10pt, weight: "bold", fill: fg)
-      #text-label
-    ]
-  )
-}
-
-/// Elevated glass/obsidian card frame
-#let card-panel(
+/// Recessed ledger card panel (crisp 0pt corners, hairline ink border)
+#let ledger-panel(
   body,
   width: auto,
   height: auto,
-  fill: bg-surface,
-  stroke: border-subtle,
-  radius: 8pt,
-  inset: 16pt
+  fill: parchment-inset,
+  stroke: rule-border,
+  thickness: 1pt,
+  inset: 12pt
 ) = {
   box(
     width: width,
     height: height,
     fill: fill,
-    stroke: 1pt + stroke,
-    radius: radius,
+    stroke: thickness + stroke,
+    radius: 0pt,
     inset: inset,
+    outset: 0pt,
     body
   )
+}
+
+/// Square mineral pigment chapter tab / wax badge
+#let chapter-stamp(label, pigment: pigment-ochre, text-color: parchment-base, size: 9pt) = {
+  box(
+    fill: pigment,
+    stroke: 1pt + ink-primary,
+    radius: 0pt,
+    inset: (x: 7pt, y: 3pt),
+    outset: 0pt,
+    [
+      #set text(font: font-heading, size: size, weight: "bold", fill: text-color)
+      #label
+    ]
+  )
+}
+
+/// Typographic metadata stamp (classic letterspaced uppercase)
+#let meta-stamp(label, text-color: ink-secondary, size: 8pt) = {
+  box(
+    fill: parchment-inset,
+    stroke: 0.75pt + rule-border,
+    radius: 0pt,
+    inset: (x: 6pt, y: 2.5pt),
+    [
+      #set text(font: font-heading, size: size, weight: "medium", fill: text-color)
+      #label
+    ]
+  )
+}
+
+/// Field-guide horizontal hairline separator
+#let ledger-rule(length: 100%, stroke: 0.75pt + rule-border) = {
+  line(length: length, stroke: stroke)
 }

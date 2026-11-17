@@ -47,6 +47,22 @@ compile_asset() {
     echo "DONE (${size} bytes)"
 }
 
+get_screenshot_input() {
+    local card_name="$1"
+    local shot_file=""
+    case "$card_name" in
+        overview)    shot_file="$SCRIPT_DIR/screenshots/01-overview.png" ;;
+        settlements) shot_file="$SCRIPT_DIR/screenshots/02-settlements.png" ;;
+        roles)       shot_file="$SCRIPT_DIR/screenshots/03-roles.png" ;;
+        death-lore)  shot_file="$SCRIPT_DIR/screenshots/04-death-lore.png" ;;
+    esac
+    if [ -n "$shot_file" ] && [ -f "$shot_file" ]; then
+        echo "--input screenshot=$shot_file"
+    else
+        echo "--input screenshot="
+    fi
+}
+
 # 1. Project Icons (512x512)
 compile_asset "$SCRIPT_DIR/templates/project-icon.typ" "$OUT_DIR/icon-mod.png" --input variant=mod
 compile_asset "$SCRIPT_DIR/templates/project-icon.typ" "$OUT_DIR/icon-modpack.png" --input variant=modpack
@@ -55,10 +71,10 @@ compile_asset "$SCRIPT_DIR/templates/project-icon.typ" "$OUT_DIR/icon-modpack.pn
 compile_asset "$SCRIPT_DIR/templates/hero-banner.typ" "$OUT_DIR/hero-readme.png"
 
 # 3. Modrinth Gallery Cards (1280x720, 16:9)
-compile_asset "$SCRIPT_DIR/templates/gallery-card.typ" "$OUT_DIR/gallery/01-overview.png" --input card=overview
-compile_asset "$SCRIPT_DIR/templates/gallery-card.typ" "$OUT_DIR/gallery/02-settlements-economy.png" --input card=settlements
-compile_asset "$SCRIPT_DIR/templates/gallery-card.typ" "$OUT_DIR/gallery/03-emergent-roles.png" --input card=roles
-compile_asset "$SCRIPT_DIR/templates/gallery-card.typ" "$OUT_DIR/gallery/04-death-recovery-lore.png" --input card=death-lore
+compile_asset "$SCRIPT_DIR/templates/gallery-card.typ" "$OUT_DIR/gallery/01-overview.png" --input card=overview $(get_screenshot_input overview)
+compile_asset "$SCRIPT_DIR/templates/gallery-card.typ" "$OUT_DIR/gallery/02-settlements-economy.png" --input card=settlements $(get_screenshot_input settlements)
+compile_asset "$SCRIPT_DIR/templates/gallery-card.typ" "$OUT_DIR/gallery/03-emergent-roles.png" --input card=roles $(get_screenshot_input roles)
+compile_asset "$SCRIPT_DIR/templates/gallery-card.typ" "$OUT_DIR/gallery/04-death-recovery-lore.png" --input card=death-lore $(get_screenshot_input death-lore)
 
 # 4. Subsystem Section Headers (1200x160)
 compile_asset "$SCRIPT_DIR/templates/section-header.typ" "$OUT_DIR/headers/economy.png" --input subsystem=economy
