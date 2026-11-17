@@ -156,11 +156,63 @@ Tuning parameters for Combat XP formulas and emergent role ratios.
 
 ---
 
+### `[MultiplayerSleep]`
+Controls single-player/percentage sleeping rules, announcements, and settlement rest buffs.
+
+```toml
+[MultiplayerSleep]
+    # Percentage of players in bed required to pass the night (default 1 for 1-player sleep, 100 for vanilla)
+    # Range: 0 to 100 | Default: 1
+    playersSleepingPercentage = 1
+
+    # Broadcast sunrise announcement to the realm when morning arrives
+    announceSunrise = true
+
+    # Broadcast sleep progress message when a player enters bed
+    announceSleep = true
+
+    # Award Well Rested regeneration, haste, and saturation buffs when waking up in claimed towns or village sanctuaries
+    enableSanctuaryRestBuffs = true
+```
+
+---
+
+### `[Discord]`
+Configures asynchronous event broadcasts to a Discord webhook channel.
+
+```toml
+[Discord]
+    # Discord Webhook URL for server event announcements (leave empty to disable)
+    discordWebhookUrl = ""
+
+    # Server name displayed on Discord embed footers
+    discordServerName = "SMP Realm"
+
+    # Send Discord alerts for Fortified Town and Metropolis foundings
+    notifyTownMilestones = true
+
+    # Send Discord alerts for cooperative Ender Dragon victories
+    notifyDragonVictories = true
+
+    # Send Discord alerts when 24h unclaimed salvage drops hit the public buyback market
+    notifyPublicSalvage = true
+
+    # Send Discord crime reports when a player murders a villager
+    notifyVillagerCrimes = true
+
+    # Send Discord alerts for Master and Legendary advancement completions
+    notifyAdvancements = true
+```
+
+---
+
 ## 2. In-Game Commands Reference
 
 ### Player Commands
 | Command | Permission | Description |
 | :--- | :--- | :--- |
+| `/leaderboard <category> [page]` | All | Displays ranked server leaderboards for wealth, combat, building, gathering, exploration, playtime, dungeons, construction, or harvest. |
+| `/top <category> [page]` | All | Shortcut alias for `/leaderboard`. |
 | `/economy balance` | All | Displays your current digital non-material balance. |
 | `/economy pay <player> <amount>` | All | Transfers digital funds to another online player (subject to server tax). |
 | `/bounty list` | All | Displays available community contracts on the Bounty Board. |

@@ -289,6 +289,8 @@ object VillagerLivingManager {
         killer.sendSystemMessage(
             Component.literal("§cYou are branded a Villager Slayer across the entire realm. All villager trades permanently cost +$totalMarkup emeralds, and you are cursed with Unluck!")
         )
+
+        dev.rmoseley.smpmod.server.DiscordWebhookDispatcher.notifyVillagerCrime(killer.gameProfile.name, updatedKills)
     }
 
     /**
