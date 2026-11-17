@@ -13,11 +13,11 @@ enum class SettlementTier(
     val shopDiscountPercent: Double,
     val description: String
 ) {
-    OUTPOST(1, "Outpost", 0.0, "Isolated frontier claim (1 chunk)"),
-    HAMLET(2, "Hamlet", 0.05, "Small gathering of contiguous claims (2-3 chunks)"),
-    SETTLEMENT(4, "Settlement", 0.10, "Developing community (4-8 contiguous chunks)"),
-    TOWN(9, "Town", 0.15, "Fortified settlement (9-15 contiguous chunks)"),
-    METROPOLIS(16, "Metropolis", 0.20, "Major regional capital (16+ contiguous chunks)");
+    OUTPOST(1, "Outpost", 0.0, "Isolated frontier claim (1-3 contiguous chunks)"),
+    HAMLET(4, "Hamlet", 0.05, "Small gathering of contiguous claims (4-8 contiguous chunks)"),
+    SETTLEMENT(9, "Settlement", 0.10, "Developing community (9-18 contiguous chunks)"),
+    TOWN(19, "Town", 0.15, "Fortified settlement (19-36 contiguous chunks)"),
+    METROPOLIS(37, "Metropolis", 0.20, "Major regional capital (37+ contiguous chunks)");
 
     companion object {
         fun fromChunkCount(count: Int): SettlementTier = when {
