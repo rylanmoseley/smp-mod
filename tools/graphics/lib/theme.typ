@@ -70,12 +70,12 @@
 }
 
 /// Square mineral pigment chapter tab / wax badge
-#let chapter-stamp(label, pigment: pigment-ochre, text-color: parchment-base, size: 9pt) = {
+#let chapter-stamp(label, pigment: pigment-ochre, text-color: parchment-base, size: 10.5pt) = {
   box(
     fill: pigment,
     stroke: 1pt + ink-primary,
     radius: 0pt,
-    inset: (x: 7pt, y: 3pt),
+    inset: (x: 8pt, y: 3.5pt),
     outset: 0pt,
     [
       #set text(font: font-heading, size: size, weight: "bold", fill: text-color)
@@ -85,14 +85,14 @@
 }
 
 /// Typographic metadata stamp (classic letterspaced uppercase)
-#let meta-stamp(label, text-color: ink-secondary, size: 8pt) = {
+#let meta-stamp(label, text-color: ink-secondary, size: 9.5pt) = {
   box(
     fill: parchment-inset,
     stroke: 0.75pt + rule-border,
     radius: 0pt,
-    inset: (x: 6pt, y: 2.5pt),
+    inset: (x: 7pt, y: 3pt),
     [
-      #set text(font: font-heading, size: size, weight: "medium", fill: text-color)
+      #set text(font: font-heading, size: size, weight: "bold", fill: text-color)
       #label
     ]
   )
