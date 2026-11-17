@@ -17,6 +17,7 @@ The documentation is organized into focused, user-facing guides covering every m
 | **[Land Claims & Building](./land-claims-and-building.md)** | Open Parties and Claims (OPAC) integration, noncontiguous claims across the world, contiguous settlement cluster partitioning, variety-weighted block scoring, recurring construction dividends, nonresident settlement tourism, pooled defensive buffs, and claim-locked temporary builder flight. | Builders, Town Founders, Architects |
 | **[World Navigation & Survival](./world-navigation-and-survival.md)** | Tectonic Everest worldgen & alpine summits, dangerous Nether transit & roof lockout, Overworld biome mobility bonuses, Explorer-gated momentum glider Elytra (no mid-air rocket spam), spatial light avoidance AI, `destroys_light_on_aggro` mob traits, and repurposed safe-haven villages. | Explorers, Scouts, Navigators |
 | **[Emergent Roles & Combat](./emergent-roles-and-combat.md)** | Zero elective class selection, dynamic Playstyle XP tracking (Combat, Builder, Gatherer, Explorer), emergent role profile derivation (**DPS**, **Tank**, **Support**, **Scout**), Warded Light flares, and the cooperative Ender Dragon encounter. | Fighters, Dungeon Crawlers, Raid Teams |
+| **[Server Moderation & Utilities](./server-moderation-and-utilities.md)** | Real-time stat leaderboards (`/leaderboard`), Vanilla Tweaks tool stats lore counters, multiplayer dynamic sleep with sanctuary buffs, async Java 21 Discord webhook dispatcher, and production companion stack guide. | All Players, Server Admins, Community Leads |
 | **[Configuration & Tuning](./configuration-and-tuning.md)** | Server administration reference, configuration options, tuning matrix constants, and balance variables. | Server Admins, Modpack Authors |
 
 ---
@@ -71,6 +72,7 @@ Every system in the suite is built around three core pillars from the [Technical
 | **Open Buyback Ledger** | Run `/buyback` or visit any designated Town Recovery Terminal. |
 | **Browse Public Market** | Run `/buyback public` to view items unclaimed after 24 hours (1.25x markup). |
 | **View Playstyle XP & Role** | Run `/role profile` to inspect your Combat, Builder, Gatherer, and Explorer affinities. |
+| **Check Stat Leaderboards** | Run `/leaderboard <category> [page]` or `/top <category>` to view server rankings across 9 survival metrics. |
 | **Claim Land** | Open the Open Parties and Claims (OPAC) map screen (`'` key by default) or run `/claims claim`. |
 | **Inspect Claim Level** | Stand inside a claim and run `/claims cluster` to view the contiguous settlement tier and pooled buffs. |
 | **Activate Builder Flight** | Place blocks continuously within an owned or shared contiguous claim cluster (~5s grace window). |

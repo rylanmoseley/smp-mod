@@ -250,6 +250,9 @@ object CooperativeDragonEncounter {
         )
         playersInEnd.forEach { it.sendSystemMessage(victoryBanner) }
 
+        // Dispatch Discord Webhook announcement
+        dev.rmoseley.smpmod.server.DiscordWebhookDispatcher.notifyDragonDefeated(playersInEnd.map { it.gameProfile.name })
+
         for (player in playersInEnd) {
             val profile = RoleCalculator.calculateProfile(player)
             val heldItem = player.mainHandItem
