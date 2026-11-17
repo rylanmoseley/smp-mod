@@ -54,8 +54,8 @@
 )
 
 // 4. Four Bestiary Ledger Columns
-#place(top + left, dx: 44 * px, dy: 106 * px,
-  box(width: 1112 * px, height: 286 * px, [
+#place(top + left, dx: 44 * px, dy: 136 * px,
+  box(width: 1112 * px, height: 256 * px, [
     #grid(
       columns: (1fr, 1fr, 1fr, 1fr),
       gutter: 0 * px,
@@ -63,30 +63,33 @@
       // --- 1. DPS ---
       box(
         width: 100%,
-        height: 286 * px,
-        inset: (x: 18pt, y: 8pt),
+        height: 256 * px,
+        inset: (x: 18pt, y: 10pt),
         stroke: (right: 1pt + rule-border),
         [
           #grid(
             columns: (48 * px, 1fr),
             gutter: 12 * px,
             align: horizon,
-            render-role-sprite("dps", size: 44pt),
+            render-role-sprite("dps", size: 48pt),
             [
               #text(font: font-display, size: 20 * px, weight: "bold", fill: pigment-vermilion, [DPS])
-              #v(-3 * px)
+              #v(-2 * px)
               #text(font: font-heading, size: 8.5 * px, weight: "bold", fill: ink-secondary, tracking: 1.5pt, [COMBAT XP])
             ]
           )
           #v(8 * px)
           #line(length: 100%, stroke: 1.5pt + pigment-vermilion)
+          #v(10 * px)
+          #text(font: font-body, size: 12 * px, weight: "semibold", fill: ink-primary, [Archetype: Precision Striker])
           #v(8 * px)
-          #text(font: font-body, size: 11.5 * px, weight: "semibold", fill: ink-primary, [Archetype: Precision Striker])
-          #v(6 * px)
           #text(font: font-body, size: 11 * px, fill: ink-secondary, [
             • Execute punish windows on low-HP monsters\
+            #v(4 * px)
             • Armor-piercing burst multipliers\
+            #v(4 * px)
             • Fast Time-to-Kill XP feedback loops\
+            #v(4 * px)
             • Endgame Dragon damage scaling
           ])
         ]
@@ -95,30 +98,33 @@
       // --- 2. TANK ---
       box(
         width: 100%,
-        height: 286 * px,
-        inset: (x: 18pt, y: 8pt),
+        height: 256 * px,
+        inset: (x: 18pt, y: 10pt),
         stroke: (right: 1pt + rule-border),
         [
           #grid(
             columns: (48 * px, 1fr),
             gutter: 12 * px,
             align: horizon,
-            render-role-sprite("tank", size: 44pt),
+            render-role-sprite("tank", size: 48pt),
             [
               #text(font: font-display, size: 20 * px, weight: "bold", fill: pigment-ochre, [TANK])
-              #v(-3 * px)
+              #v(-2 * px)
               #text(font: font-heading, size: 8.5 * px, weight: "bold", fill: ink-secondary, tracking: 1.5pt, [BUILDER XP])
             ]
           )
           #v(8 * px)
           #line(length: 100%, stroke: 1.5pt + pigment-ochre)
+          #v(10 * px)
+          #text(font: font-body, size: 12 * px, weight: "semibold", fill: ink-primary, [Archetype: Frontline Anchor])
           #v(8 * px)
-          #text(font: font-body, size: 11.5 * px, weight: "semibold", fill: ink-primary, [Archetype: Frontline Anchor])
-          #v(6 * px)
           #text(font: font-body, size: 11 * px, fill: ink-secondary, [
             • Threat taunts & kinetic damage absorption\
+            #v(4 * px)
             • Claim-locked builder defense synergy\
+            #v(4 * px)
             • Portable cover & team light guarding\
+            #v(4 * px)
             • Boss stagger & sweep interception
           ])
         ]
@@ -127,30 +133,33 @@
       // --- 3. SUPPORT ---
       box(
         width: 100%,
-        height: 286 * px,
-        inset: (x: 18pt, y: 8pt),
+        height: 256 * px,
+        inset: (x: 18pt, y: 10pt),
         stroke: (right: 1pt + rule-border),
         [
           #grid(
             columns: (48 * px, 1fr),
             gutter: 12 * px,
             align: horizon,
-            render-role-sprite("support", size: 44pt),
+            render-role-sprite("support", size: 48pt),
             [
               #text(font: font-display, size: 20 * px, weight: "bold", fill: pigment-moss, [SUPPORT])
-              #v(-3 * px)
+              #v(-2 * px)
               #text(font: font-heading, size: 8.5 * px, weight: "bold", fill: ink-secondary, tracking: 1.5pt, [GATHERER XP])
             ]
           )
           #v(8 * px)
           #line(length: 100%, stroke: 1.5pt + pigment-moss)
+          #v(10 * px)
+          #text(font: font-body, size: 12 * px, weight: "semibold", fill: ink-primary, [Archetype: Sustain Keeper])
           #v(8 * px)
-          #text(font: font-body, size: 11.5 * px, weight: "semibold", fill: ink-primary, [Archetype: Sustain Keeper])
-          #v(6 * px)
           #text(font: font-body, size: 11 * px, fill: ink-secondary, [
             • Warded Light illumination flares\
+            #v(4 * px)
             • Team health sustain & regeneration auras\
+            #v(4 * px)
             • Potion & consumable conservation\
+            #v(4 * px)
             • Crop & resource yield dividends
           ])
         ]
@@ -159,29 +168,32 @@
       // --- 4. SCOUT ---
       box(
         width: 100%,
-        height: 286 * px,
-        inset: (x: 18pt, y: 8pt),
+        height: 256 * px,
+        inset: (x: 18pt, y: 10pt),
         [
           #grid(
             columns: (48 * px, 1fr),
             gutter: 12 * px,
             align: horizon,
-            render-role-sprite("scout", size: 44pt),
+            render-role-sprite("scout", size: 48pt),
             [
               #text(font: font-display, size: 20 * px, weight: "bold", fill: pigment-cobalt, [SCOUT])
-              #v(-3 * px)
+              #v(-2 * px)
               #text(font: font-heading, size: 8.5 * px, weight: "bold", fill: ink-secondary, tracking: 1.5pt, [EXPLORER XP])
             ]
           )
           #v(8 * px)
           #line(length: 100%, stroke: 1.5pt + pigment-cobalt)
+          #v(10 * px)
+          #text(font: font-body, size: 12 * px, weight: "semibold", fill: ink-primary, [Archetype: Trail Vanguard])
           #v(8 * px)
-          #text(font: font-body, size: 11.5 * px, weight: "semibold", fill: ink-primary, [Archetype: Trail Vanguard])
-          #v(6 * px)
           #text(font: font-body, size: 11 * px, fill: ink-secondary, [
             • Paved highway & rail convoy speed\
+            #v(4 * px)
             • Dark-zone trap & ambush detection\
+            #v(4 * px)
             • Momentum Elytra thermal soaring\
+            #v(4 * px)
             • Living villager relocation expertise
           ])
         ]

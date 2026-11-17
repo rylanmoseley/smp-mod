@@ -97,39 +97,33 @@
 )
 
 // 6. Header Typography & Grounded Subsystem Copy
-#place(top + left, dx: 144 * px, dy: 28 * px,
-  box(width: 780 * px, height: 104 * px, [
-    // Roman numeral chapter label
-    #text(
-      font: font-heading,
-      size: 11 * px,
-      weight: "bold",
-      fill: ink-secondary,
-      tracking: 2pt,
-      [CHAPTER #sub.numeral   —   #upper(sub.name)]
-    )
-
-    #v(4 * px)
-
-    // Subsystem Grand Serif Title
-    #text(
-      font: font-display,
-      size: 28 * px,
-      weight: "bold",
-      fill: ink-primary,
-      tracking: -0.25pt,
-      sub.name
-    )
-
-    #v(4 * px)
-
-    // Field Guide Subtitle
-    #text(
-      font: font-body,
-      size: 13.5 * px,
-      weight: "regular",
-      fill: ink-secondary,
-      sub.subtitle
+#place(top + left, dx: 144 * px, dy: 44 * px,
+  box(width: 780 * px, [
+    #stack(
+      spacing: 7 * px,
+      text(
+        font: font-heading,
+        size: 10.5 * px,
+        weight: "bold",
+        fill: ink-secondary,
+        tracking: 2pt,
+        [CHAPTER #sub.numeral   —   #upper(sub.name)]
+      ),
+      text(
+        font: font-display,
+        size: 28 * px,
+        weight: "bold",
+        fill: ink-primary,
+        tracking: -0.25pt,
+        sub.name
+      ),
+      text(
+        font: font-body,
+        size: 13.5 * px,
+        weight: "regular",
+        fill: ink-secondary,
+        sub.subtitle
+      )
     )
   ])
 )
