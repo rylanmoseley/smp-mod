@@ -128,3 +128,24 @@ Modrinth categorizes version uploads into three channels:
 2. **Manual Workflow Dispatch (With Dry Run):**
    - In GitHub Actions, navigate to **Publish Release to Modrinth & GitHub** and click **Run workflow**.
    - Select your target channel (`release`, `beta`, `alpha`), enter an optional custom title/changelog, and toggle **`dry_run: true`** to build and inspect artifacts without uploading to Modrinth.
+
+---
+
+## 6. World Data Integrity & Forward Compatibility
+
+> [!CAUTION]
+> **Preventing World & Data Corruption:**
+> Changes to persistent data storage, item components, player attachments, or volatile mod components must be avoided wherever they would corrupt, reset, or invalidate existing user data upon mod update. In long-running SMP worlds and automated server deployments, world backward compatibility is a critical requirement.
+
+### Guidelines for Persistent Data:
+1. **Never Break Serialization / Deserialization:**
+   - Any modifications to NeoForge `AttachmentType` or Mojang `Codec` structures (such as `EconomyBalance`, `RoleLoadout`, or `ToolStats`) must provide safe default fallbacks for missing fields using `Codec.optionalFieldOf()` or `Codec.withAlternative()`.
+   - Never remove or rename existing serialized keys without an explicit, backwards-compatible migration layer.
+2. **Resilient Registry & Item Deserialization:**
+   - For item data components (`ItemLoreComponent`) and world `SavedData` (such as `BuybackSavedData`), always use registry-safe serialization (`HolderLookup.Provider`, `ItemStack.parseOptional`).
+   - If an item, block, or companion mod entity referenced in saved data is removed, deserialization must fail gracefully (e.g., yielding `ItemStack.EMPTY` or skipping the record) instead of crashing server initialization or bricking player saves.
+3. **Avoid Volatile World Components:**
+   - Avoid attaching complex custom state to volatile block entities or chunk NBT unless strictly necessary. Favor centralized Overworld `SavedData`, vanilla block tags, and decoupled player attachments.
+4. **Pre-Release World Migration Testing:**
+   - Any pull request touching data attachments, serialization codecs, or `SavedData` structures must verify that existing world saves from previous versions boot and load cleanly without warnings, exceptions, or loss of player progression.
+
