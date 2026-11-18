@@ -9,6 +9,7 @@ import dev.rmoseley.smpmod.economy.ProgressionFaucetManager
 import dev.rmoseley.smpmod.economy.ShopUnlockManager
 import dev.rmoseley.smpmod.economy.StarterMilestone
 import dev.rmoseley.smpmod.recovery.BuybackLedgerManager
+import dev.rmoseley.smpmod.recovery.BuybackSavedData
 import dev.rmoseley.smpmod.recovery.ItemProvenance
 import dev.rmoseley.smpmod.recovery.RecoveryCommands
 import dev.rmoseley.smpmod.recovery.RecoveryItemClassifier
@@ -35,6 +36,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.ChunkPos
+import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.neoforged.bus.api.SubscribeEvent
@@ -48,6 +50,9 @@ import net.neoforged.neoforge.event.entity.living.LivingDropsEvent
 import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent
 import net.neoforged.neoforge.event.entity.player.AdvancementEvent
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
+import net.neoforged.neoforge.event.level.LevelEvent
+import net.neoforged.neoforge.event.server.ServerStartingEvent
+import net.neoforged.neoforge.event.server.ServerStoppingEvent
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
 import net.neoforged.neoforge.event.level.BlockEvent
 import net.neoforged.neoforge.event.tick.PlayerTickEvent
@@ -538,5 +543,25 @@ object GameForgeEvents {
     fun onSleepFinished(event: net.neoforged.neoforge.event.level.SleepFinishedTimeEvent) {
         val serverLevel = event.level as? ServerLevel ?: return
         dev.rmoseley.smpmod.server.MultiplayerSleepManager.onSleepFinished(serverLevel)
+    }
+
+    @SubscribeEvent
+    fun onServerStarting(event: ServerStartingEvent) {
+        // Initialize and deserialize persistent Buyback Ledger SavedData
+        BuybackSavedData.init(event.server.overworld())
+    }
+
+    @SubscribeEvent
+    fun onServerStopping(event: ServerStoppingEvent) {
+        // Ensure final dirty state is marked for disk flush on shutdown
+        BuybackSavedData.markDirty()
+    }
+
+    @SubscribeEvent
+    fun onLevelSave(event: LevelEvent.Save) {
+        val serverLevel = event.level as? ServerLevel ?: return
+        if (serverLevel.dimension() == Level.OVERWORLD) {
+            BuybackSavedData.markDirty()
+        }
     }
 }

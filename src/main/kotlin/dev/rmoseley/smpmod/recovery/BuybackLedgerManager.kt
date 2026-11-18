@@ -126,6 +126,7 @@ object BuybackLedgerManager {
         )
 
         ledger[existingUuid] = entry
+        BuybackSavedData.markDirty()
         return entry
     }
 
@@ -238,6 +239,7 @@ object BuybackLedgerManager {
 
         // Remove from ledger
         ledger.remove(itemUuid)
+        BuybackSavedData.markDirty()
         val recoveredStack = entry.itemStack.copy()
 
         // If purchased by a public buyer, formally transfer registered ownership
@@ -282,7 +284,21 @@ object BuybackLedgerManager {
         return ledger.values.filter { isPubliclyListed(it, currentTimeEpochSeconds) }
     }
 
+    fun getAllEntries(): List<BuybackEntry> = ledger.values.toList()
+
+    fun loadEntries(entries: List<BuybackEntry>) {
+        ledger.clear()
+        for (entry in entries) {
+            ledger[entry.itemUuid] = entry
+        }
+    }
+
+    fun markDirty() {
+        BuybackSavedData.markDirty()
+    }
+
     fun clearLedger() {
         ledger.clear()
+        BuybackSavedData.markDirty()
     }
 }

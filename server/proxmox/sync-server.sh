@@ -190,6 +190,18 @@ fi
 if [ "$UPDATES_APPLIED" -eq 1 ]; then
     log "[Service] Changes detected. Checking if Minecraft service is running..."
 
+    # Create rolling pre-update world snapshot if world directory exists
+    if [ -d "$SERVER_DIR/world" ]; then
+        BACKUP_DIR="$SERVER_DIR/backups/pre-update"
+        mkdir -p "$BACKUP_DIR"
+        BACKUP_FILE="$BACKUP_DIR/world-$(date +%Y%m%d-%H%M%S).tar.gz"
+        log "[Backup] Creating pre-update world snapshot at $BACKUP_FILE..."
+        tar --exclude="world/session.lock" -czf "$BACKUP_FILE" -C "$SERVER_DIR" world || log "[Backup] Warning: Snapshot completed with non-fatal warnings."
+        # Retain last 5 rolling snapshots to prevent disk exhaustion
+        ls -dt "$BACKUP_DIR/"*.tar.gz 2>/dev/null | tail -n +6 | xargs -r rm -f || true
+        log "[Backup] Pre-update snapshot saved successfully."
+    fi
+
     if command -v systemctl >/dev/null 2>&1 && systemctl is-active --quiet minecraft; then
         log "[Service] Active server detected. Initiating countdown..."
 
