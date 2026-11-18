@@ -52,15 +52,43 @@ Rather than printing money through passive AFK mob grinders or automated farms, 
 
 ## 2. Building-Material Shop & Natural Harvest Unlocks
 
-To eliminate the mindless grind of quarrying tens of thousands of basic structural blocks for massive towns without bypassing survival progression, the server provides a centralized **Building-Material Shop**.
+To eliminate the mindless grind of quarrying tens of thousands of basic structural blocks for massive towns without bypassing survival progression, the server provides a centralized **Building-Material Shop** managed by `ShopUnlockManager`.
 
 ### Per-Block Natural Harvest Unlocks
-* Common building blocks (smooth stone, deepslate tiles, quartz blocks, terracotta, glass, stripped wood) are locked by default.
-* To unlock purchasing eligibility for a specific block, a player must naturally harvest a set threshold quantity (default 100 blocks) of that material in the wild.
-* Once unlocked, builders can purchase bulk quantities at fair server rates using their earned digital currency.
+* **Locked by Default:** All non-precious structural blocks start in a **Locked** state.
+* **Harvest Threshold:** To unlock purchasing eligibility for a specific block, a player must naturally harvest **100 blocks** of that material in the wild.
+* **Fair Server Rates:** Once unlocked, builders can purchase bulk quantities using earned digital currency without stripping local landscapes.
 
-> [!IMPORTANT]
-> **Precious Materials Excluded:** Precious resource ores (diamonds, ancient debris, emeralds), top-tier gear, and rare boss catalysts are strictly **excluded** from the building shop. They can only be acquired through active caving, dungeons, or player trading.
+### Natural Harvest Mastery Tiers & Escalating Discounts
+As a player continues to naturally harvest an unlocked material, their per-block discount scales automatically:
+
+| Unlock Tier | Natural Harvests Required | Multiplier | Discount Applied | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| **Locked** | `< 100` | — | — | Block cannot be purchased from the catalog |
+| **Tier 1 (Unlocked)** | `100` | `1.0x` | **0%** | Standard catalog baseline price |
+| **Tier 2 (Journeyman)**| `500` | `5.0x` | **10% off** | Experienced quarry / harvest specialist rate |
+| **Tier 3 (Master)** | `2,000` | `20.0x` | **25% off** | Master artisan / industrial architect rate |
+
+### Cross-Subsystem Discount Stacking (Capped at 50% Max)
+Discounts across complementary systems stack cumulatively up to a hard **50% maximum discount ceiling**:
+1. **Natural Harvest Mastery Tier:** Up to **-25%** based on lifetime wild harvest count.
+2. **Contiguous Town Settlement Tier:** Up to **-20%** for active residents of developed settlements (Outpost: 0%, Hamlet: -5%, Settlement: -10%, Town: -15%, Metropolis: -20%).
+3. **Support Role Efficiency Affinity:** Up to **-15%** scaling with the player's Support role attribute (`ROLE_SUPPORT_EFFICIENCY`).
+4. **Gatherer Specialization XP:** Up to **-25%** proportional to the continuous Gatherer playstyle XP ratio.
+
+$$\text{Final Unit Price} = \max\left(1, \text{Base Price} \times \left(1.0 - \min\left(0.50, \sum \text{Discounts}\right)\right)\right)$$
+
+### Catalog Scope & Strict Exclusions
+* **Approved Building Catalog (40+ Materials):**
+  * *Stone & Deepslate Variants:* Stone, Cobblestone, Smooth Stone, Stone Bricks, Mossy Bricks, Andesite/Polished, Diorite/Polished, Granite/Polished, Deepslate, Cobbled Deepslate, Deepslate Bricks/Tiles/Chiseled, Tuff/Polished/Bricks.
+  * *Sandstones & Bricks:* Sandstone (Cut/Smooth), Red Sandstone (Cut/Smooth), Bricks, Mud Bricks.
+  * *Timbers & Planks:* Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Mangrove, Cherry, Bamboo, Crimson, Warped (both Planks and Logs).
+  * *Architectural & Glass:* Terracotta (White, Orange, Light Gray, Brown, Red, Natural), Glass, Tinted Glass.
+  * *Dimension & Monument Stones:* Blackstone (Polished/Bricks), Basalt/Smooth Basalt, Quartz/Smooth Quartz, Prismarine/Bricks/Dark Prismarine, End Stone/Bricks, Purpur Blocks/Pillars.
+* **Strictly Excluded Items (`isPreciousOrExcluded`):**
+  * All precious resource ores (`ore`, `raw_`) including diamonds, netherite, ancient debris, emeralds, and gold/iron blocks.
+  * Spawners, beacons, conduits, dragon eggs, bedrock, end portal frames, and barrier blocks.
+  * High-tier tools, weapons, armor, and rare catalysts. These can only be acquired through survival exploration, caving, combat, or P2P commerce.
 
 ---
 
@@ -77,13 +105,38 @@ To prevent players from buying blocks from the shop or placing and re-mining Sil
 
 ---
 
-## 4. Server Bulk Store Routing
+## 4. Server Bulk Store: Routing, Dynamic Market & Liquidation
 
-When a player dies, standard mundane stackable items do not clutter the individual UUID Buyback Ledger:
+The **Server Bulk Store** ([BulkStoreManager.kt](file:///home/sandbox/smp-mod/src/main/kotlin/dev/rmoseley/smpmod/economy/BulkStoreManager.kt)) serves as the central stockpile and dynamic commodity market for mundane goods across the realm.
 
-* **What Routes to Bulk Store:** Mundane arrows, cobblestone, dirt, common mob drops (rotten flesh, bones), ordinary crops, and un-enchanted standard materials.
-* **Market Sinks:** These items are automatically deposited into the server's central bulk stockpile, which feeds player-accessible supply crates at baseline market prices.
-* **Why this matters:** Players recovering from death don't have to pay escalating buyback fees for mundane dirt or arrows; those items can simply be restocked from the bulk store or re-gathered.
+### Death-Drop Routing: Buyback Ledger vs. Bulk Store
+When a player dies, dropped inventory items are automatically classified by [RecoveryItemClassifier.kt](file:///home/sandbox/smp-mod/src/main/kotlin/dev/rmoseley/smpmod/recovery/RecoveryItemClassifier.kt):
+* **UUID Buyback Ledger:** Unique, high-value, enchanted, damaged, or named gear (armor, weapons, tools, netherite, totems, elytra, heavy cores) routes directly to the player's personal buyback ledger.
+* **Bulk Store Reserve:** Standard, un-enchanted, undamaged stackable items (cobblestone, dirt, common mob drops, arrows, basic crops, raw copper/iron, coal, blaze rods, ender pearls) route directly into the server's bulk stockpile.
+* **Why this matters:** Players recovering from death do not pay escalating recovery fees for mundane dirt or arrows; those items can simply be restocked from the bulk store or re-gathered.
+
+### Dynamic Supply-and-Demand Pricing Curve
+The Bulk Store evaluates its current inventory against a target baseline stock (**1,000 units** per item):
+
+```
+Stock Level:   Empty (0) ────── Target Baseline (1,000) ────── Saturated (5,000+)
+Buy Price:       2.00x                 1.35x                         0.70x
+Payout:          0.80x                 0.50x                         0.25x
+```
+
+* **Dynamic Purchase Price (Server selling to Player):**
+  * When reserves are oversaturated with stock, purchase prices drop down to **0.70x** base price.
+  * In times of extreme scarcity or empty reserves, prices scale up to **2.00x** base price.
+* **Dynamic Liquidation Payout (Player selling to Server):**
+  * When stockpiles are flooded, liquidation payouts scale down to **0.25x** base payout to prevent market glutting.
+  * When server reserves are running low on critical supplies, liquidation payouts climb up to **0.80x** base payout to incentivize player harvesting.
+
+### Bulk Liquidation & Support Role Synergy
+* **Liquidating Excess Supplies:** Players can sell surplus mundane stackable goods directly into the server bulk store for instant digital coins via bulk liquidation.
+* **Support Role Bonus:** Players specializing in the **Support Role** possess an innate mercantile efficiency attribute (`ROLE_SUPPORT_EFFICIENCY`), granting up to a **+25% bonus coin payout** on all bulk liquidations.
+
+### Bulk Purchasing
+* Players can purchase bulk supplies out of the stockpile using their digital wallet balance, with Gatherer specialization discounts applied directly at checkout.
 
 ---
 
