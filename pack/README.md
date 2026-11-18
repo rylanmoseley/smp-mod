@@ -23,7 +23,9 @@ pack/
 │   ├── chunky.pw.toml        # Server world pre-generator
 │   ├── ferrite-core.pw.toml  # RAM and memory allocator optimization
 │   ├── jade.pw.toml          # Block/entity WAILA inspector HUD
-│   └── kotlin-for-forge.pw.toml        # Required Kotlin runtime for SMP Mod Suite
+│   ├── kotlin-for-forge.pw.toml        # Required Kotlin runtime for SMP Mod Suite
+│   ├── curios.pw.toml        # Curios API accessory slot framework
+│   └── rylans-items.pw.toml  # Rylan's Items artifact & ability expansion
 ├── config/                   # Configuration files shipped directly to players
 │   └── smpmod-common.toml    # Balanced gameplay tuning matrix
 └── README.md                 # Developer & maintenance documentation (this file)
