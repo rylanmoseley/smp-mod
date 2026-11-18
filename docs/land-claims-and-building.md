@@ -50,7 +50,7 @@ A player is recognized as a **Resident** of a contiguous settlement cluster if a
 
 | Player Status | Privileges & Behaviors |
 | :--- | :--- |
-| **Resident** (`isMember == true`) | • **Cadence Builder Flight:** Placing blocks grants a continuous 5-second flight grace window within town boundaries.<br>• **Territorial Defense Buffs:** Up to +40% hostile mob damage mitigation and accelerated out-of-combat health regeneration.<br>• **Town Shop Discount:** Up to -20% off building materials in the Building Shop.<br>• **Tourism Prosperity Buff:** Receives Speed I, Regen I, and +10% bonus Builder XP when tourists visit. |
+| **Resident** (`isMember == true`) | • **Cadence Builder Flight:** Placing blocks grants a continuous 5-second flight grace window within town boundaries.<br>• **Territorial Defense Buffs:** Up to +40% hostile mob damage mitigation and accelerated out-of-combat health regeneration.<br>• **Town Shop Discount:** Up to -20% off building materials in the [Building-Material Shop](./economy-and-commerce.md#2-building-material-shop--natural-harvest-unlocks).<br>• **Tourism Prosperity Buff:** Receives Speed I, Regen I, and +10% bonus Builder XP when tourists visit. |
 | **Nonresident / Tourist** (`isMember == false`) | • **Airspace Security:** Cannot use Builder Flight or leech town defense buffs.<br>• **Tourism Dividends:** Cumulative exploration time generates **+10 coins per minute** directly into the settlement's **Town Treasury**.<br>• **Guest Hospitality:** Peacefully exploring visitors receive Speed I and Saturation. |
 
 #### 2. Private Plots in a Shared Town Commonwealth
