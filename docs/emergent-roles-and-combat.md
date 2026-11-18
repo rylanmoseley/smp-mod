@@ -49,7 +49,7 @@ Combat XP is not farmed by standing next to a 1-hit zombie chute. It evaluates a
 * Evaluates palette diversity (mixing timber, masonry, and decor), rewarding creative effort.
 
 ### 3. Gatherer XP
-* Awarded strictly from harvesting naturally generated world blocks (`!player_placed`).
+* Awarded strictly from harvesting naturally generated world blocks.
 * Deep-cave ore veins and rare dangerous nodes award significantly higher multipliers.
 
 ### 4. Explorer XP
@@ -62,7 +62,7 @@ Combat XP is not farmed by standing next to a 1-hit zombie chute. It evaluates a
 | Combat Role | Paired XP Track | Battlefield Scaling & Unique Abilities | Synergistic Masterwork Affixes |
 | :--- | :--- | :--- | :--- |
 | **DPS** | **Combat XP** | • **Burst Execution:** Scales attack damage and critical multipliers.<br>• **Armor Penetration:** Punishes heavily armored dark-zone elites.<br>• **Vulnerability Windows:** Deals massive burst damage during boss stagger phases. | **Keen** (+10% Crit Damage)<br>**Precise** (+15% Hit Precision & Tempo XP) |
-| **Tank** | **Builder XP** | • **Mitigation:** Reduces incoming physical and explosive damage by up to $50\%$.<br>• **Cover & Shielding:** Deploys temporary barricade shields for teammates.<br>• **Threat Control:** Actively taunts and pulls `destroys_light_on_aggro` mobs off backline lights and vulnerable teammates. | **Titanic** (+10% Knockback Resist, +5% Armor)<br>**Sturdy** (+25% Durability) |
+| **Tank** | **Builder XP** | • **Mitigation:** Reduces incoming physical and explosive damage by up to $50\%$.<br>• **Cover & Shielding:** Deploys temporary barricade shields for teammates.<br>• **Threat Control:** Actively taunts and pulls light-snuffing mobs off backline lights and vulnerable teammates. | **Titanic** (+10% Knockback Resist, +5% Armor)<br>**Sturdy** (+25% Durability) |
 | **Support** | **Gatherer XP** | • **Team Sustain:** Radiates an out-of-combat rejuvenation aura for nearby allies.<br>• **Consumable Efficiency:** Multiplies potion durations and food saturation for the party.<br>• **Warded Light Flares:** Deploys radiant flares that **cannot be snuffed or extinguished** by hostile mob auras! | **Warded** (+8% Dark-Zone Mob Resistance)<br>**Permanent Warded Lanterns** (Crafted block) |
 | **Scout** | **Explorer XP** | • **Agility:** Boosts movement speed, sprint efficiency, and dodge recovery.<br>• **Trap & Threat Detection:** Highlights hidden dark-zone ambushes and trial spawners.<br>• **Aerial Traversal:** Maximum Elytra glide momentum efficiency and pillar climbing. | **Aerodynamic** (+10% Elytra Glide Efficiency)<br>**Balanced** (+0.2 Speed, -15% Whiff Window) |
 
@@ -98,7 +98,7 @@ cages with mobility agility.   mitigation cover.                  during grounde
 
 The **Dark-Zone Trials** (`combat/*`) advancement tree provides a tiered progression structure bridging individual combat mastery, dungeon delving, emergent role specialization, and cooperative raid execution.
 
-Advancements in this tree are registered through `CombatRaidAdvancements` and processed dynamically by `AdvancementRewardManager`. Earning an advancement distributes non-material digital coins directly to the player's account, awards playstyle role XP, and grants physical **Recovery Catalysts** (used to insure high-tier equipment against catastrophic dark-zone item loss). Master and Legendary achievements trigger custom visual effects and server-wide broadcast banners.
+Earning an advancement distributes non-material digital coins directly to the player's account, awards playstyle role XP, and grants physical **Recovery Catalysts** (used to insure high-tier equipment against catastrophic dark-zone item loss). Master and Legendary achievements trigger custom visual effects and server-wide broadcast banners.
 
 ### Progression Tree Overview
 
@@ -141,7 +141,7 @@ Advancements in this tree are registered through `CombatRaidAdvancements` and pr
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | `combat/root` | **Dark-Zone Trials** | Novice (`task`) | Netherite Sword | Enter the world and step into dark-zone combat | — | — | — | No |
 | `combat/first_kill_tempo` | **High-Tempo Skirmisher** | Novice (`task`) | Iron Sword | Defeat a hostile mob with fast Time-To-Kill (TTK) | +50 coins | +30 Combat XP | — | No |
-| `combat/snuffer_slayer` | **Beacon Protector** | Novice (`task`) | Soul Torch | Defeat an elite mob possessing the `destroys_light_on_aggro` trait | +100 coins | +50 Combat XP | — | No |
+| `combat/snuffer_slayer` | **Beacon Protector** | Novice (`task`) | Soul Torch | Defeat an elite mob possessing light-snuffing abilities | +100 coins | +50 Combat XP | — | No |
 | `combat/light_guardian` | **Extinguish the Shadows** | Journeyman (`goal`) | Lantern | Slay 5+ darkness-stalking mobs before they extinguish tactical lights | +200 coins | +80 Combat XP | — | No |
 | `combat/trial_survivor` | **Vault Delver** | Journeyman (`goal`) | Trial Key | Clear a deep trial chamber vault or spawner dungeon room | +200 coins | +80 Combat XP | — | No |
 | `combat/scout_crystal_neutralizer` | **Spire Infiltrator** | Journeyman (`goal`) | End Crystal | Scale obsidian heights and shatter an End Crystal tethered to the Dragon | +250 coins | +100 Combat XP<br>+40 Explorer XP | +1 Catalyst | No |
@@ -161,17 +161,17 @@ Advancements in this tree are registered through `CombatRaidAdvancements` and pr
 * **High-Tempo Skirmisher (`combat/first_kill_tempo`):**  
   Encourages active engagement over passive grinding chutes. Evaluates the player's initial combat encounter, rewarding swift Time-To-Kill and accuracy against hostile monsters.
 * **Beacon Protector (`combat/snuffer_slayer`):**  
-  Teaches the dangers of dark-zone light-destruction mechanics. Granted upon neutralizing an elite monster carrying the `destroys_light_on_aggro` AI trait before it permanently snuffs local torches or lanterns.
+  Teaches the dangers of dark-zone light-destruction mechanics. Granted upon neutralizing an elite monster carrying light-snuffing abilities before it snuffs local torches or lanterns.
 
 #### 2. Journeyman Tier: Depths & Infiltration
 * **Vault Delver (`combat/trial_survivor`):**  
-  Integrated directly with `StructureDelveManager`, recognizing players who clear spawner vault rooms across Trial Chambers, YUNG's Better Dungeons, and When Dungeons Arise complexes. Conquering these high-density chambers yields bonus XP and catalyst drop rolls.
+  Recognizes players who clear spawner vault rooms across Trial Chambers, YUNG's Better Dungeons, and When Dungeons Arise complexes. Conquering these high-density chambers yields bonus XP and catalyst drop rolls.
 * **Spire Infiltrator (`combat/scout_crystal_neutralizer`):**  
   Tailored for the **Scout** role. Granted when scaling pillar heights and destroying an End Crystal while it is actively beaming/healing the Ender Dragon, triggering a backlash shockwave that briefly staggers the boss.
 
 #### 3. Master Tier: Role Specialization & Boss Encounters
 * **Unyielding Aegis (`combat/tank_dive_intercept`):**  
-  Tailored for the **Tank** role. Awarded when a player actively blocks and absorbs an Ender Dragon aerial dive (`CHARGING_PLAYER` phase), deploying kinetic barriers that absorb the impact and open an extended vulnerability window for teammates.
+  Tailored for the **Tank** role. Awarded when a player actively blocks and absorbs an Ender Dragon aerial dive attack, deploying kinetic barriers that absorb the impact and open an extended vulnerability window for teammates.
 * **Executioner's Precision (`combat/dps_execute_strike`):**  
   Tailored for the **DPS** role. Granted when unloading heavy critical strike bursts during the dragon's grounded stagger or central bedrock perch punish windows, puncturing boss armor.
 * **Field Medic Radiance (`combat/support_rejuvenation`):**  
@@ -186,9 +186,9 @@ Advancements in this tree are registered through `CombatRaidAdvancements` and pr
 ### Reward Dispatch & Anti-Exploit Enforcement
 
 1. **One-Time Lifetime Claims:**  
-   Every advancement reward is recorded in the player's persistent `ModAttachmentTypes.PLAYER_MILESTONES` data component. Repeated advancement triggers or reset events will not award duplicate currency or catalysts.
+   Every advancement reward is recorded persistently to the player's character profile. Repeated advancement triggers or reset events will not award duplicate currency or catalysts.
 2. **Non-Material Economy Distribution:**  
-   Coin rewards flow directly into the player's digital balance managed by `EconomyManager.credit()`, avoiding material item bloat while fueling server trade.
+   Coin rewards flow directly into the player's off-inventory digital balance, avoiding material item bloat while fueling server trade.
 3. **Recovery Catalyst Influx:**  
    Higher-tier combat achievements inject physical **Recovery Catalysts** into player inventories, providing the vital insurance items required for high-risk dark-zone expeditions without devaluing death penalties.
 

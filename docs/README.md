@@ -79,4 +79,4 @@ Every system in the suite is built around three core pillars from the [Technical
 | **Inspect Claim Level** | Stand inside a claim and run `/claims cluster` to view the contiguous settlement tier and pooled buffs. |
 | **Activate Builder Flight** | Place blocks continuously within an owned or shared contiguous claim cluster (~5s grace window). |
 | **Caravan Speed Transit** | Group with 2+ players or lead pack animals along recognized roads and railways for Speed I/II. |
-| **Town Alarm Bell** | Ring a village or settlement Bell (`Blocks.BELL`) to broadcast an acoustic alert up to 96m and highlight hostiles. |
+| **Town Alarm Bell** | Ring a village or settlement bell to broadcast an acoustic alert up to 96 blocks and highlight hostiles. |
