@@ -5,8 +5,8 @@
 # Performs end-to-end server provisioning and updates:
 # 1. Clones/pulls the authoritative Git repository.
 # 2. Automatically installs NeoForge 1.21.1 Dedicated Server loader if missing.
-# 3. Synchronizes all companion mods (Tectonic, YUNG's Dungeons, OPAC, Voice Chat,
-#    Squaremap, Spark, Chunky, LuckPerms, etc.) via Packwiz bootstrap.
+# 3. Synchronizes all companion mods (Tectonic, YUNG's Suite, Curios, Rylan's Items,
+#    OPAC, Voice Chat, Squaremap, Spark, Chunky, LuckPerms, etc.) via Packwiz bootstrap.
 # 4. Downloads the latest smpmod-*.jar core mod binary from GitHub Releases.
 # 5. Synchronizes server configs, properties, and datapacks.
 # 6. Restarts the service with in-game countdown alerts if changes were made.
@@ -97,17 +97,15 @@ fi
 if [ -f "$REPO_DIR/pack/pack.toml" ]; then
     log "[Packwiz] Synchronizing companion mods (side: server)..."
     cd "$SERVER_DIR"
-    # Run packwiz-installer-bootstrap in server mode
-    java -jar "$BOOTSTRAP_JAR" \
-        --bootstrap-no-update \
-        --side server \
-        "file://${REPO_DIR}/pack/pack.toml" || {
-            log "[Packwiz] WARNING: Local pack.toml sync failed, trying raw GitHub URL..."
-            java -jar "$BOOTSTRAP_JAR" \
-                --bootstrap-no-update \
-                --side server \
-                "https://raw.githubusercontent.com/${GITHUB_REPO}/${REPO_BRANCH}/pack/pack.toml" || true
-        }
+    # Run packwiz-installer-bootstrap in headless server mode (-g disables GUI dialogs)
+    BOOTSTRAP_ARGS=("-g" "--side" "server")
+    if [ -f "$SERVER_DIR/packwiz-installer.jar" ]; then
+        BOOTSTRAP_ARGS+=("--bootstrap-no-update")
+    fi
+    java -jar "$BOOTSTRAP_JAR" "${BOOTSTRAP_ARGS[@]}" "file://${REPO_DIR}/pack/pack.toml" || {
+        log "[Packwiz] WARNING: Local pack.toml sync failed, trying raw GitHub URL..."
+        java -jar "$BOOTSTRAP_JAR" "${BOOTSTRAP_ARGS[@]}" "https://raw.githubusercontent.com/${GITHUB_REPO}/${REPO_BRANCH}/pack/pack.toml" || true
+    }
 fi
 
 # ------------------------------------------------------------------------------

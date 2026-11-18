@@ -52,16 +52,29 @@ cp -r ./server/config/* /path/to/server/config/
 ```
 
 ### Step 4: Install Required Companion Mods
-Place the following companion mod `.jar` files into the server's `mods/` directory:
+Place the companion mod `.jar` files into the server's `mods/` directory (or synchronize them automatically via Packwiz bootstrap):
 1. **`smpmod-0.1.0-alpha.jar`** (built from this repository: `./gradlew build`)
-2. **`kff-5.10.0.jar`** (Kotlin for Forge)
-3. **`tectonic-neoforge-1.21.1.jar`** (Tectonic mountain & underground river generation)
-4. **`open-parties-and-claims-neoforge-1.21.1.jar`** (OPAC claims)
-5. **`voicechat-neoforge-1.21.1.jar`** (Simple Voice Chat proximity voice server)
-6. **`spark-neoforge-1.21.1.jar`** (Performance profiler)
-7. **`chunky-neoforge-1.21.1.jar`** (Terrain pre-generator)
-8. **`ferritecore-neoforge-1.21.1.jar`** (Server RAM optimization)
-9. **`luckperms-neoforge-1.21.1.jar`** (Permissions manager)
+2. **`kotlinforforge-5.13.0-all.jar`** (Kotlin for Forge runtime)
+3. **`curios-neoforge-9.5.1+1.21.1.jar`** (Curios API accessory slot framework)
+4. **`rylansitems-0.0.1-prerelease1.jar`** (Rylan's Items artifact & ability expansion)
+5. **`tectonic-3.0.28-neoforge-21.1.jar`** (Tectonic mountain & underground river generation)
+6. **`lithostitched-1.8.1-neoforge-21.1.jar`** (Required worldgen dependency for Tectonic)
+7. **`open-parties-and-claims-neoforge-1.21.1-0.33.0.jar`** (OPAC claims)
+8. **`voicechat-neoforge-1.21.1-2.6.27.jar`** (Simple Voice Chat proximity voice server)
+9. **`spark-1.10.124-neoforge.jar`** (Performance profiler)
+10. **`Chunky-NeoForge-1.4.23.jar`** (Terrain pre-generator)
+11. **`ferritecore-7.0.3-neoforge.jar`** (Server RAM optimization)
+12. **`LuckPerms-NeoForge-5.4.140.jar`** (Permissions manager)
+13. **`squaremap-neoforge-mc1.21.1-1.3.2.jar`** (Web map engine)
+14. **YUNG's Dungeon & Structure Suite** (`YungsApi`, `YungsBetterDungeons`, `YungsBetterStrongholds`, `YungsBetterDesertTemples`, `YungsBetterNetherFortresses`)
+
+> [!TIP]
+> **Automated Companion Mod Download:**  
+> Instead of downloading each JAR manually, you can automatically provision all 18 companion mods directly from [pack/pack.toml](file:///home/sandbox/smp-mod/pack/pack.toml) using the headless Packwiz bootstrap engine:
+> ```bash
+> curl -sL -o packwiz-installer-bootstrap.jar "https://github.com/packwiz/packwiz-installer-bootstrap/releases/download/v0.0.3/packwiz-installer-bootstrap.jar"
+> java -jar packwiz-installer-bootstrap.jar -g --side server "file://$(realpath ../pack/pack.toml)"
+> ```
 
 ---
 
