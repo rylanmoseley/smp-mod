@@ -39,6 +39,37 @@ Unlike traditional land claim systems that either force rigid contiguous shapes 
   * **Metropolis:** 37+ contiguous chunks (Major regional capital)
 * **Why this matters:** Dropping a single 1x1 chunk outpost in the wilderness will not inherit the high-level defense buffs or flight privileges of your 37-chunk capital city. Every settlement must earn its development through local constructive investment.
 
+### Multi-Player Claims, Residency & Cooperative Towns
+
+Cooperative construction is a core pillar of the SMP Mod Suite. The system cleanly delineates how multi-player settlements form, who counts as a resident, and how private property coexists within a shared commonwealth:
+
+#### 1. Defining Town Residency (`isMember`)
+A player is recognized as a **Resident** of a contiguous settlement cluster if and only if:
+- They are the **claim owner** (`ownerUuid == player.uuid`), **OR**
+- They belong to the claim owner's **OPAC Party / Team** (`members.contains(player.uuid)`).
+
+| Player Status | Privileges & Behaviors |
+| :--- | :--- |
+| **Resident** (`isMember == true`) | • **Cadence Builder Flight:** Placing blocks grants a continuous 5-second flight grace window within town boundaries.<br>• **Territorial Defense Buffs:** Up to +40% hostile mob damage mitigation and accelerated out-of-combat health regeneration.<br>• **Town Shop Discount:** Up to -20% off building materials in the Building Shop.<br>• **Tourism Prosperity Buff:** Receives Speed I, Regen I, and +10% bonus Builder XP when tourists visit. |
+| **Nonresident / Tourist** (`isMember == false`) | • **Airspace Security:** Cannot use Builder Flight or leech town defense buffs.<br>• **Tourism Dividends:** Cumulative exploration time generates **+10 coins per minute** directly into the settlement's **Town Treasury**.<br>• **Guest Hospitality:** Peacefully exploring visitors receive Speed I and Saturation. |
+
+#### 2. Private Plots in a Shared Town Commonwealth
+A common question in cooperative SMPs is whether players can own separate portions of a larger town without losing individual ownership or merging into an uncontrolled collective:
+
+* **Unallied Players (No Shared Party):**  
+  Claims owned by completely unallied players **do not merge** into a single settlement cluster, even if their chunk borders touch. This is an intentional security design:
+  - **Treasury & Leadership Security:** The Town Treasury (`/town balance`, `/town withdraw`, `/town upgrades`) is controlled by the settlement founder. Merging unallied claims would create ambiguity over who controls municipal tax funds and civic upgrades.
+  - **Airspace & Anti-Griefing Protection:** Town residency unlocks temporary **Builder Flight**. An uninvited neighbor claiming next to your city would instantly gain flight over your builds.
+  - **Tourism Mechanics:** Unallied neighbors would bypass the visitor system, preventing towns from earning tourism dividends.
+
+* **Cooperative Town Setup (Shared Party, Private Plots):**  
+  Players can easily build a multi-owner town where everyone owns their own plot while counting toward the larger settlement:
+  1. **Join the Same OPAC Party:** All residents join the town's OPAC Party. This establishes them as recognized co-residents of the town cluster.
+  2. **Individual Chunk Allocations:** Each player uses their *own* claim budget (scaling with their individual Builder Level: $9 + \text{Builder Level} \times 3$) to claim their own chunks adjacent to each other.
+  3. **Private Plot Permissions via OPAC:** Within OPAC, claim owners can configure granular permissions (access ranks, container lockouts, interaction rules). Players can protect their private homes and storage from teammates while remaining part of the larger commonwealth.
+  4. **Individual Builder XP Isolation:** Placing blocks awards Builder XP strictly to the player who actually placed them, preventing passive AFK leeching.
+  5. **Shared Settlement Scaling:** Because all chunks are contiguous and share the party network, they unite into a single contiguous cluster, accelerating the town toward **Town (19+ chunks)** and **Metropolis (37+ chunks)** tiers to unlock permanent civic upgrades for all residents.
+
 ---
 
 ## 2. Variety-Weighted Construction Scoring
