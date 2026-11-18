@@ -136,7 +136,7 @@ Place Block in Contiguous Claim ➔ Grants ~5-Second Flight Grace Window
 
 ## 6. Claim-Safe Anti-Griefing Guardrails
 
-Wilderness and dungeon monsters possessing the `destroys_light_on_aggro` trait actively destroy torches, lanterns, and campfires. However, inside your claimed settlements:
+Wilderness and dungeon monsters possessing light-snuffing abilities actively seek out and destroy fragile torches, lanterns, and campfires. However, inside your claimed settlements:
 
 * **No Block Damage:** Hostile mobs **cannot break blocks** inside contiguous claims.
 * **Temporary Snuff Aura:** Instead of destroying Builder lighting, aggroed mobs apply a temporary **20–30 second light shroud aura** that suppresses light output without damaging infrastructure. Once the aura expires or the mob is slain, illumination naturally restores.
@@ -239,7 +239,7 @@ graph TD
 
 3. **Master Mason (`palette_diversity`)**:
    - Combats monoblock spamming by requiring net construction of 5 or more distinct structural block categories (e.g., polished stone, timber logs, stone bricks, glass panes, terracotta trim).
-   - Synergizes with the logarithmic variety scoring algorithm in `VarietyScorer`.
+   - Synergizes with the logarithmic variety scoring algorithm.
 
 4. **Aerial Architect (`builder_flight_cadence`)**:
    - Celebrates mastery of the cadence-based builder flight mechanic.
@@ -261,7 +261,7 @@ graph TD
    - Celebrated with a server-wide announcement, +1,000 coins, +350 Builder XP, and **3 Recovery Catalysts**.
 
 ### Lifetime Claim Guardrails & Anti-Exploit Mechanics
-* **One-Time Payout Protection:** Advancements are keyed to the player's persistent data attachment (`PLAYER_MILESTONES`). Unclaiming and reclaiming chunks or oscillating block placements cannot re-trigger rewards.
+* **One-Time Payout Protection:** Advancements are keyed persistently to the player's character profile. Unclaiming and reclaiming chunks or oscillating block placements cannot re-trigger rewards.
 * **Direct Inventory or Drop Fallback:** Tangible rewards like Recovery Catalysts are placed directly into the player's inventory; if full, they drop safely at the player's feet.
 * **Server Broadcast Transparency:** Master and Legendary milestones announce player achievements to the entire server, celebrating cooperative construction achievements.
 

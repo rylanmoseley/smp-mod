@@ -84,14 +84,11 @@ Tool stats update upon every verified game action:
    - **Mobs Slain:** Incremented whenever the weapon delivers the fatal blow to a non-player living entity.
    - **Player Kills:** Incremented whenever the weapon kills another player in PvP.
 3. **Fishing Implements (`Fishing Rods`):**
-   - **Fish Caught:** Incremented whenever a player reels in fish, treasure, or junk via `ItemFishedEvent`.
+   - **Fish Caught:** Incremented whenever a player reels in fish, treasure, or junk.
 
-### Native Data Components (No NBT String Bloat)
-In modern Minecraft 1.21.1 / NeoForge, tool stats are stored in the type-safe data component:
-```kotlin
-ModDataComponents.TOOL_STATS // ToolStatsData(blocksMined, mobsSlain, playerKills, fishCaught)
-```
-- **Tooltip Rendering:** Injected cleanly during client-side tooltip construction (`onItemTooltip`), ensuring zero NBT string desynchronization, no item duplication exploits, and instant localized rendering.
+### Native Data Components (Zero Save Bloat)
+In modern Minecraft 1.21.1 / NeoForge, tool statistics are stored directly in native item data components rather than legacy string tags:
+- **Instant Tooltip Rendering:** Rendered directly on item tooltips with zero server tick lag, zero desynchronization risk, and no duplication exploits.
 - **Styling:** Matches Vanilla Tweaks aesthetic with a gold separator (`§6--- Tool Statistics ---`) and aqua stat lines (`§bBlocks Mined: §f14,250`).
 
 ---
@@ -130,7 +127,7 @@ To reward players who sleep in safe settlements rather than lone wilderness beds
 
 ## 4. Discord Webhook Dispatcher
 
-The mod includes an asynchronous, non-blocking Discord Webhook Dispatcher built using Java 21's native `java.net.http.HttpClient`. It requires no external libraries, bot tokens, or complex socket servers—simply paste an incoming Discord Webhook URL into the server config.
+The mod includes an asynchronous, non-blocking Discord Webhook Dispatcher built natively on Java 21 without external libraries, bot tokens, or complex socket servers—simply paste an incoming Discord Webhook URL into the server config.
 
 ```
    ┌──────────────────────────────────────────────────────────┐

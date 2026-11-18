@@ -52,7 +52,7 @@ Rather than printing money through passive AFK mob grinders or automated farms, 
 
 ## 2. Building-Material Shop & Natural Harvest Unlocks
 
-To eliminate the mindless grind of quarrying tens of thousands of basic structural blocks for massive towns without bypassing survival progression, the server provides a centralized **Building-Material Shop** managed by `ShopUnlockManager`.
+To eliminate the mindless grind of quarrying tens of thousands of basic structural blocks for massive towns without bypassing survival progression, the server provides a centralized **Building-Material Shop**.
 
 ### Per-Block Natural Harvest Unlocks
 * **Locked by Default:** All non-precious structural blocks start in a **Locked** state.
@@ -73,7 +73,7 @@ As a player continues to naturally harvest an unlocked material, their per-block
 Discounts across complementary systems stack cumulatively up to a hard **50% maximum discount ceiling**:
 1. **Natural Harvest Mastery Tier:** Up to **-25%** based on lifetime wild harvest count.
 2. **Contiguous Town Settlement Tier:** Up to **-20%** for active residents of developed settlements (Outpost: 0%, Hamlet: -5%, Settlement: -10%, Town: -15%, Metropolis: -20%).
-3. **Support Role Efficiency Affinity:** Up to **-15%** scaling with the player's Support role attribute (`ROLE_SUPPORT_EFFICIENCY`).
+3. **Support Role Efficiency Affinity:** Up to **-15%** scaling with the player's Support role mercantile efficiency passive.
 4. **Gatherer Specialization XP:** Up to **-25%** proportional to the continuous Gatherer playstyle XP ratio.
 
 $$\text{Final Unit Price} = \max\left(1, \text{Base Price} \times \left(1.0 - \min\left(0.50, \sum \text{Discounts}\right)\right)\right)$$
@@ -85,32 +85,32 @@ $$\text{Final Unit Price} = \max\left(1, \text{Base Price} \times \left(1.0 - \m
   * *Timbers & Planks:* Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Mangrove, Cherry, Bamboo, Crimson, Warped (both Planks and Logs).
   * *Architectural & Glass:* Terracotta (White, Orange, Light Gray, Brown, Red, Natural), Glass, Tinted Glass.
   * *Dimension & Monument Stones:* Blackstone (Polished/Bricks), Basalt/Smooth Basalt, Quartz/Smooth Quartz, Prismarine/Bricks/Dark Prismarine, End Stone/Bricks, Purpur Blocks/Pillars.
-* **Strictly Excluded Items (`isPreciousOrExcluded`):**
-  * All precious resource ores (`ore`, `raw_`) including diamonds, netherite, ancient debris, emeralds, and gold/iron blocks.
+* **Strictly Excluded Items:**
+  * All precious resource ores including diamonds, netherite, ancient debris, emeralds, and gold/iron blocks.
   * Spawners, beacons, conduits, dragon eggs, bedrock, end portal frames, and barrier blocks.
   * High-tier tools, weapons, armor, and rare catalysts. These can only be acquired through survival exploration, caving, combat, or P2P commerce.
 
 ---
 
-## 3. Anti-Laundering Guardrails (`player_placed`)
+## 3. Anti-Laundering & Natural Harvest Verification
 
 To prevent players from buying blocks from the shop or placing and re-mining Silk-Touched blocks to artificially exploit harvest thresholds:
 
-* The server tracks a lightweight `player_placed` metadata flag on blocks placed by any player.
-* Breaking a block flagged as `player_placed`:
+* The server tracks whether blocks were placed by players or generated naturally in the world.
+* Breaking player-placed or recycled blocks:
   * **Never counts** toward natural-harvest shop unlock thresholds.
   * **Never awards** Gatherer Playstyle XP.
   * **Never triggers** repeatable harvest advancement payouts.
-* Only naturally generated world blocks (`!player_placed`) advance economic and playstyle progression.
+* Only genuine, wild world blocks advance economic and playstyle progression.
 
 ---
 
 ## 4. Server Bulk Store: Routing, Dynamic Market & Liquidation
 
-The **Server Bulk Store** ([BulkStoreManager.kt](file:///home/sandbox/smp-mod/src/main/kotlin/dev/rmoseley/smpmod/economy/BulkStoreManager.kt)) serves as the central stockpile and dynamic commodity market for mundane goods across the realm.
+The **Server Bulk Store** serves as the central stockpile and dynamic commodity market for mundane goods across the realm.
 
 ### Death-Drop Routing: Buyback Ledger vs. Bulk Store
-When a player dies, dropped inventory items are automatically classified by [RecoveryItemClassifier.kt](file:///home/sandbox/smp-mod/src/main/kotlin/dev/rmoseley/smpmod/recovery/RecoveryItemClassifier.kt):
+When a player dies, dropped inventory items are automatically classified:
 * **UUID Buyback Ledger:** Unique, high-value, enchanted, damaged, or named gear (armor, weapons, tools, netherite, totems, elytra, heavy cores) routes directly to the player's personal buyback ledger.
 * **Bulk Store Reserve:** Standard, un-enchanted, undamaged stackable items (cobblestone, dirt, common mob drops, arrows, basic crops, raw copper/iron, coal, blaze rods, ender pearls) route directly into the server's bulk stockpile.
 * **Why this matters:** Players recovering from death do not pay escalating recovery fees for mundane dirt or arrows; those items can simply be restocked from the bulk store or re-gathered.
@@ -133,7 +133,7 @@ Payout:          0.80x                 0.50x                         0.25x
 
 ### Bulk Liquidation & Support Role Synergy
 * **Liquidating Excess Supplies:** Players can sell surplus mundane stackable goods directly into the server bulk store for instant digital coins via bulk liquidation.
-* **Support Role Bonus:** Players specializing in the **Support Role** possess an innate mercantile efficiency attribute (`ROLE_SUPPORT_EFFICIENCY`), granting up to a **+25% bonus coin payout** on all bulk liquidations.
+* **Support Role Bonus:** Players specializing in the **Support Role** possess an innate mercantile efficiency passive, granting up to a **+25% bonus coin payout** on all bulk liquidations.
 
 ### Bulk Purchasing
 * Players can purchase bulk supplies out of the stockpile using their digital wallet balance, with Gatherer specialization discounts applied directly at checkout.
@@ -157,7 +157,7 @@ Rather than completely deactivating villager trading or tolerating dehumanizing 
 1. **Natural Village Spawning & Reproduction Suppression:**
    * Villagers only spawn in naturally generated world villages.
    * Villagers **do not reproduce**: breeding AI, love food consumption, and baby entity generation are strictly suppressed realm-wide.
-2. **Explorer Relocation (`EncapsulatedVillagerItem`):**
+2. **Explorer Relocation (Encapsulated Villagers):**
    * Seasoned Explorers (**Scouts** or players with **100+ Explorer XP**) can sneak-right-click an adult villager to encapsulate them into a tradable specimen egg.
    * **Intact Trades & Levels:** The encapsulated egg preserves the villager's exact profession, master level, experience, and custom trade recipes.
    * **Commerce:** Explorers can sell these specimens to town builders on the player-to-player market or deploy them into their own settlements by right-clicking the ground.
@@ -171,7 +171,7 @@ Rather than completely deactivating villager trading or tolerating dehumanizing 
      * Restocks occur smoothly according to their natural daily schedule.
      * Captivity surcharges are cleared, and happy villager particles appear upon roaming freely.
 4. **Permanent Villager Slayer Surcharge & Bad Luck Curse:**
-   * Slaying an innocent villager permanently increments the player's lifetime `villagerKills` record.
+   * Slaying an innocent villager permanently increments the player's lifetime record of slain villagers.
    * **Realm-Wide Price Hike:** Merchants throughout the entire realm despise villager slayers. Every trade permanently costs an extra **+5 to +30 emeralds** (scaling with kill count).
    * **Curse of Unluck:** Villager slayers are afflicted with persistent **Unluck** and Bad Omen debuffs, reducing their rare loot chances in deep caves and dungeons.
 
@@ -196,11 +196,11 @@ To complement natural gathering and prevent monotonous resource grinding, the se
 | `gather_timber` | **Gatherer / Harvesting** | Naturally harvest 64 raw log blocks. | **120 coins** + **60 Gatherer XP** |
 | `gather_deep_minerals` | **Gatherer / Harvesting** | Naturally harvest 32 deepslate ore blocks. | **180 coins** + **80 Gatherer XP** |
 | `combat_cull` | **Combat / Hunting** | Slay 12 hostile monsters in deep caverns. | **200 coins** + **90 Combat XP** |
-| `combat_snuffers` | **Combat / Hunting** | Slay 3 `destroys_light` elite mobs. | **300 coins** + **150 Combat XP** |
+| `combat_snuffers` | **Combat / Hunting** | Slay 3 light-snuffing elite mobs. | **300 coins** + **150 Combat XP** |
 
 ### Contract Guidelines
 1. **Concurrency Limit:** Players may hold a maximum of **2 active contracts** simultaneously.
-2. **Anti-Griefing Verification:** Harvest bounties only count natural blocks verified by the anti-laundering tracker; player-placed or Silk-Touched blocks are ignored.
+2. **Anti-Griefing Verification:** Harvest bounties only count natural blocks verified by the anti-laundering tracker; player-placed or recycled blocks are ignored.
 3. **Automatic Progress Tracking:** Progress updates seamlessly in the background as you explore, harvest, and fight.
 
 ### Bounty Commands
@@ -216,7 +216,7 @@ To complement natural gathering and prevent monotonous resource grinding, the se
 
 The **Frontier Commerce** advancement branch rewards players for active economic integration, trading, municipal liquidation, contract completion, civic philanthropy, and personal capital accumulation. 
 
-Unlike conventional achievements, completing tiered economic milestones dispatches direct rewards via the `AdvancementRewardManager`:
+Unlike conventional achievements, completing tiered economic milestones dispatches direct rewards:
 * **Non-material digital currency** injected directly into player balances.
 * **Playstyle Role XP** (Gatherer and Builder proficiencies).
 * **Tangible Recovery Catalysts** ensuring essential gear preservation on death.
@@ -256,8 +256,8 @@ root (Frontier Commerce)
 | `economy/civic_philanthropist` | **Grand Civic Benefactor** | **Master** (Challenge) | Endow communal infrastructure by investing 1,500+ cumulative coins into town treasuries. | **+450 coins** | **+180 Builder XP** | **2x Recovery Catalysts** | **Yes** |
 | `economy/wealth_tycoon` | **Sovereign Merchant** | **Legendary** (Challenge) | Amass an off-inventory fortune of 5,000+ digital currency coins in your personal wallet. | **+1,000 coins** | **+250 Gatherer XP** | **3x Recovery Catalysts** | **Yes** |
 
-### Anti-Exploit & One-Time Claim Guarantees
-* **Lifetime De-duplication:** All advancement rewards are recorded persistently in player data attachments (`claimedMilestones`). Re-triggering or resetting criteria will not re-award coins, playstyle XP, or catalysts.
-* **Anti-Laundering Verification:** Harvest-related advancements strictly require blocks verified as naturally generated (`!player_placed`).
-* **Atomic Balances:** Coin payouts leverage lock-striped concurrent balance updates and are recorded to the immutable `EconomyAuditLedger`.
+### Anti-Exploit & Progression Guarantees
+* **Lifetime De-duplication:** All advancement rewards are recorded persistently on your character. Re-triggering or resetting criteria will not re-award coins, playstyle XP, or catalysts.
+* **Natural Harvest Verification:** Harvest-related advancements strictly require blocks verified as naturally generated.
+* **Atomic Balances:** Coin payouts are processed atomically and recorded to the server audit ledger.
 
