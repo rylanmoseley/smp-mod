@@ -2,7 +2,7 @@ hash-format = "sha256"
 
 [[files]]
 file = "README.md"
-hash = "5b35081b0951e4ee4c07f018575b2f1d61765612dc94316decd77d389d1e27d0"
+hash = "557209e0cee2189338e7b5f6d0925dbb6fcae46ae47ac1660a0717afab4d011f"
 
 [[files]]
 file = "config/smpmod-common.toml"
@@ -11,6 +11,11 @@ hash = "97cee7a76e42b17165e2e39a7689bd3d90e4952408ef002cd2453c85a9b6af84"
 [[files]]
 file = "mods/chunky.pw.toml"
 hash = "1d5cc2b6dcfd1fc3adba4566b1c29b57ff1175316678c1f22e63cbc3e28a5ba0"
+metafile = true
+
+[[files]]
+file = "mods/curios.pw.toml"
+hash = "36debf7653e95a855b4fedacc19027cf2e01960fc0b6d55ef2ffbffbcb455690"
 metafile = true
 
 [[files]]
@@ -41,6 +46,11 @@ metafile = true
 [[files]]
 file = "mods/open-parties-and-claims.pw.toml"
 hash = "299ed58980f5c02afbaabcc52d5e573e8b8ab0c2c30fd688d6d7e86e7ac6bf6d"
+metafile = true
+
+[[files]]
+file = "mods/rylans-items.pw.toml"
+hash = "ca65e4eb7fe019a66bd34d5f224c837006f72dc68c3370bab5192d93aa71a42e"
 metafile = true
 
 [[files]]

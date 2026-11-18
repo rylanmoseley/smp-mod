@@ -1,0 +1,8 @@
+name = "Rylan's Items"
+filename = "rylansitems-0.0.1-prerelease1.jar"
+side = "both"
+
+[download]
+url = "https://rylanmoseley.github.io/rylans-items/downloads/rylansitems-0.0.1-prerelease1.jar"
+hash-format = "sha256"
+hash = "6aa0bf364cad06647078babd513d74aaa18d5775462623e67114af501c063aa3"
