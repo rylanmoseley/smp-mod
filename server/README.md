@@ -20,6 +20,9 @@ The SMP Mod Suite runs on **NeoForge 1.21.1** with **Tectonic** terrain generati
 > [!IMPORTANT]
 > Always use **Java 21 (LTS)**. Minecraft 1.21.1 and NeoForge require Java 21. Do not use Java 17 or Java 8.
 
+> [!NOTE]
+> **Linux-Only Environment:** This dedicated server suite, automation toolchain, and systemd service scripts directly support **Linux environments** (Debian, Ubuntu, Proxmox VE, Alpine, RHEL/Rocky). Windows batch files (`.bat` / `.cmd`) are not supported.
+
 ---
 
 ## 2. Server Installation & Initial Setup
@@ -33,7 +36,7 @@ The SMP Mod Suite runs on **NeoForge 1.21.1** with **Tectonic** terrain generati
    ```bash
    java -jar neoforge-21.1.234-installer.jar --installServer
    ```
-3. Verify that the `libraries/` directory and `run.sh` / `run.bat` scripts are generated.
+3. Verify that the `libraries/` directory and `run.sh` script are generated.
 
 ### Step 2: Accept the Minecraft EULA
 Edit `eula.txt` and set:
@@ -161,7 +164,6 @@ The files in this `./server/` directory provide out-of-the-box configurations:
 
 - [server.properties](file:///home/sandbox/smp-mod/server/server.properties): High-performance server settings (optimized view/simulation distance, network compression, whitelist).
 - [run.sh](file:///home/sandbox/smp-mod/server/run.sh): Production Linux launch script with Java 21 G1GC flags and auto-restart loop.
-- [run.bat](file:///home/sandbox/smp-mod/server/run.bat): Windows production launch script.
 - [eula.txt](file:///home/sandbox/smp-mod/server/eula.txt): EULA confirmation template.
 - [config/smpmod-common.toml](file:///home/sandbox/smp-mod/server/config/smpmod-common.toml): Production tuning matrix for economy, claims, sleep, roles, and Discord webhook.
 - [permissions/luckperms-smp.txt](file:///home/sandbox/smp-mod/server/permissions/luckperms-smp.txt): Ready-to-import LuckPerms group permissions hierarchy.

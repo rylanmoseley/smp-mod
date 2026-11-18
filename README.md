@@ -110,7 +110,7 @@ Run standard Gradle tasks via the wrapper:
 ## Server Deployment & Modpack Distribution
 
 - **Modrinth Project & Releases:** The standalone NeoForge mod is published on Modrinth under slug **[`smpmod-rdiamondcreeper`](https://modrinth.com/mod/smpmod-rdiamondcreeper)**. Automated releases across production (`release`) and testing channels (`beta` / `alpha`) are orchestrated via [`.github/workflows/release.yml`](./.github/workflows/release.yml).
-- **Dedicated Server Operations:** Full production guides, tuned `server.properties`, Java 21 G1GC launch scripts (`run.sh` / `run.bat`), Chunky pre-generation runbooks, and LuckPerms permission trees are documented in **[`./server/`](./server/README.md)**.
+- **Dedicated Server Operations:** Full production guides, tuned `server.properties`, Java 21 G1GC Linux launch script (`run.sh`), Chunky pre-generation runbooks, and LuckPerms permission trees are documented in **[`./server/`](./server/README.md)**.
 - **Proxmox VE Auto-Sync:** Automated deployment scripts, systemd units, and turnkey sync tools for Proxmox virtual machines are documented in **[`./server/proxmox/`](./server/proxmox/README.md)**.
 - **Client Modpack (Packwiz & Modrinth):** Client distribution is managed in **[`./pack/`](./pack/README.md)** using [Packwiz](https://packwiz.github.io/). Export to Modrinth (`.mrpack`) or CurseForge (`.zip`) with one command, or let the GitHub Actions CI automatically attach bundles to releases.
 

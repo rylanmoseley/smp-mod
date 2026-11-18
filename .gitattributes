@@ -1,7 +1,5 @@
-# Ensure consistent line endings across platforms
+# Ensure consistent line endings across platforms (Linux / LF only)
 * text=auto eol=lf
-*.bat text eol=crlf
-*.cmd text eol=crlf
 *.jar binary
 *.png binary
 
