@@ -41,9 +41,9 @@ Upon death, your dropped inventory is automatically sorted into two separate rec
 ## 2. Escalating Fees and Wall-Clock Decay
 
 ### Escalating Cost per Death
-Every tracked item carries a cumulative `death_count`. The base recovery fee scales upward with each death:
+Every tracked item carries a cumulative death counter in its lore. The base recovery fee scales upward with each death:
 
-$$\text{Current Fee} = \text{Base Value} \times \left(1.0 + \text{death\_count} \times \text{escalation\_step}\right)$$
+$$\text{Current Fee} = \text{Base Value} \times \left(1.0 + \text{Death Count} \times \text{Escalation Step}\right)$$
 
 * *Default Step:* $+25\%$ per death on that item.
 * An enchanted diamond sword died with once might cost **125** currency. If you die with it 4 times, the fee escalates to **200** currency.
@@ -86,7 +86,7 @@ In multiplayer, items are sometimes looted or stolen without a formal transactio
 1. **Recovery Routing on Thief Death:**  
    If Player B steals Player A's sword without a formal P2P sale and Player B subsequently dies, the sword **routes back to Player A's buyback ledger**, not the thief's!
 2. **Fee Griefing Immunity:**  
-   The item's `death_count` multiplier **only increments when the registered owner is the one who died**. A thief cannot grab your weapon and jump into lava repeatedly to artificially inflate your recovery costs.
+   The item's death counter multiplier **only increments when the registered owner is the one who died**. A thief cannot grab your weapon and jump into lava repeatedly to artificially inflate your recovery costs.
 
 ---
 
@@ -127,7 +127,7 @@ Unique weapons, armor, and tools carry special **Masterwork Affixes** rolled dur
 | **Precise** | `§d` Pink | Weapons | **+15% Combat Hit Precision** & bonus Tempo Playstyle XP. |
 
 ### Sourcing & Mastery Scaling
-* **Crafting Quality:** Base 25% chance when crafting buyback-candidate gear, scaling up to **75%** for dedicated Builder & Gatherer specialists (`tankRatio + supportRatio`).
+* **Crafting Quality:** Base 25% chance when crafting buyback-candidate gear, scaling up to **75%** for dedicated Builder & Support specialists.
 * **Dungeon Tomes & Chests:** Deep cavern vaults and trial chambers carry a **60% base chance** to generate with masterwork affixes.
 * **Lore Integration:** Masterwork affixes display directly on item tooltips in custom gold lettering alongside the maker's mark and historical ownership ledger.
 
@@ -146,10 +146,10 @@ Unique weapons, armor, and tools carry special **Masterwork Affixes** rolled dur
 
 The **Artificing & Provenance** advancement track celebrates the dedication of master craftsmen, dungeon excavators, cautious survivors, and antique gear collectors. Advancements reward players for creating enduring gear identities, utilizing support alchemy, participating in fair municipal buybacks, and forging legendary masterwork arsenals.
 
-Completing tiered artificing milestones distributes automated rewards through `AdvancementRewardManager`:
-* **Digital Currency Payouts:** Direct deposits into player bank accounts for commercial and craft investment.
+Completing tiered artificing milestones distributes automated rewards:
+* **Digital Currency Payouts:** Direct deposits into player accounts for commercial and craft investment.
 * **Playstyle Role XP:** Builder and Gatherer XP allocations that elevate crafting quality and masterwork roll probabilities.
-* **Tangible Recovery Catalysts:** Physical alchemical items (`smpmod:recovery_catalyst`) used to mitigate buyback penalty escalations.
+* **Tangible Recovery Catalysts:** Physical alchemical items used to mitigate buyback penalty escalations.
 * **Server-Wide Broadcasts:** Realm-wide notifications honoring Legendary crafting feats.
 
 ### Artificing Progression Tree
@@ -187,11 +187,11 @@ root (Artificing & Provenance)
 | `artificing/paragon_artificer` | **Paragon of the Forge** | **Legendary** (Challenge) | Forge and equip a complete four-piece set of masterwork equipment with pristine provenance. | **+1,000 coins** | **+300 Builder XP** | **3x Recovery Catalysts** | **Yes** |
 
 ### Deep Dungeon Integration & Sourcing
-* **Vault Delves & Catalysts:** Conquering spawner rooms and vault chambers in complex structures (YUNG's Better Dungeons, When Dungeons Arise, Trial Chambers) via `StructureDelveManager` provides a **60% drop chance** for Recovery Catalysts.
+* **Vault Delves & Catalysts:** Conquering spawner rooms and vault chambers in complex structures (YUNG's Better Dungeons, When Dungeons Arise, Trial Chambers) provides a **60% drop chance** for Recovery Catalysts.
 * **Dungeon Masterworks:** Chest loot discovered inside complex dungeon structures rolls with a **60%+ masterwork affix chance**, enabling explorers to secure high-tier `masterwork_forge` completions without prior high-level crafting masteries.
 
 ### Anti-Exploit & One-Time Claim Guarantees
-* **Attachment Ledger Tracking:** Player milestone completions are saved persistently within `ModAttachmentTypes.PLAYER_MILESTONES`. Repeating crafting cycles, discarding and re-acquiring items, or repeated buyback commands cannot duplicate rewards.
+* **Lifetime Milestone Tracking:** Player milestone completions are saved persistently to your character profile. Repeating crafting cycles, discarding and re-acquiring items, or repeated buyback commands cannot duplicate rewards.
 * **Authentic Handover Verification:** The `provenance_heirloom` advancement validates distinct registered owner transfers recorded through formal P2P transactions (`/economy transfer-item`) or public auctions, preventing circular self-transfers.
-* **Safe Zone Subsidy Validation:** `safe_buyback` requires actual terminal reclamation inside recognized contiguous town claims (`SafeRecoveryManager`), rewarding players who plan safe fallback bases.
+* **Safe Zone Subsidy Validation:** `safe_buyback` requires actual terminal reclamation inside recognized contiguous town claims, rewarding players who plan safe fallback bases.
 

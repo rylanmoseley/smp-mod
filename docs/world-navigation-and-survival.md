@@ -78,9 +78,9 @@ Lighting is no longer just a binary spawn check; it fundamentally alters hostile
 
 ---
 
-## 5. The `destroys_light_on_aggro` Trait
+## 5. Tactical Light-Snuffing Mob Mechanics
 
-Select hostile mobs spawn with an explicit trait: `destroys_light_on_aggro` (rare in wilderness caves, frequent inside dungeons and deep trial chambers).
+Select hostile mobs spawn with a tactical light-snuffing trait (rare in wilderness caves, frequent inside dungeons and deep trial chambers).
 
 ```
 Hostile Mob Aggroes onto Player
@@ -112,7 +112,7 @@ With automated villager breeding and trading halls disabled, vanilla villages se
 
 ## 7. Permanent Warded Lanterns
 
-While standard torches and lanterns can be snuffed or broken by dark-zone hostiles, players can craft permanent **Warded Lanterns** (`smpmod:warded_lantern`):
+While standard torches and lanterns can be snuffed or broken by dark-zone hostiles, players can craft permanent **Warded Lanterns**:
 
 ```
  Crafting Recipe:
@@ -122,7 +122,7 @@ While standard torches and lanterns can be snuffed or broken by dark-zone hostil
 ```
 
 * **Max Illumination:** Emits constant light level **15**.
-* **Total Snuff & Destruction Immunity:** Hostile mobs possessing the `destroys_light_on_aggro` trait cannot target, break, or snuff Warded Lanterns in the wilderness or inside claims.
+* **Total Snuff & Destruction Immunity:** Hostile mobs with light-snuffing abilities cannot target, break, or snuff Warded Lanterns in the wilderness or inside claims.
 * **Infrastructure Security:** Essential for fortifying frontier outposts, underground transit tunnels, and deep cavern mining hubs.
 
 ---
@@ -200,9 +200,9 @@ To eliminate repetitive vanilla box dungeons and elevate subterranean exploratio
 
 ## 11. Advancements & Rewards Progression: Wilds & Expeditions Tree
 
-The SMP Mod Suite introduces a deep, tiered progression tree for world exploration, transit, and survival navigation managed by [WorldExplorationAdvancements.kt](file:///home/sandbox/smp-mod/src/main/kotlin/dev/rmoseley/smpmod/advancements/WorldExplorationAdvancements.kt) and dispatched via [AdvancementRewardManager.kt](file:///home/sandbox/smp-mod/src/main/kotlin/dev/rmoseley/smpmod/advancements/AdvancementRewardManager.kt).
+The SMP Mod Suite introduces a deep, tiered progression tree for world exploration, transit, and survival navigation.
 
-Each advancement represents a meaningful milestone in expanding server frontiers—from initial biome scouting and deep cavern descent to Nether caravans, paved highway logistics, and aerodynamic glider deployment. Rewards provide non-material digital currency, Playstyle Role XP, and tangible **Recovery Catalysts** stored across persistent player attachments.
+Each advancement represents a meaningful milestone in expanding server frontiers—from initial biome scouting and deep cavern descent to Nether caravans, paved highway logistics, and aerodynamic glider deployment. Rewards provide non-material digital currency, Playstyle Role XP, and tangible **Recovery Catalysts**.
 
 ### Progression Tree Architecture
 
@@ -255,7 +255,7 @@ Peak of the World               │
 | `exploration/deep_caverns` | **Abyss Descender** | Novice | Task | Descend below elevation $Y \le 0$ into deepslate caverns | **+75 Coins** | **+40 Explorer XP** | — | No |
 | `exploration/subterranean_voyager` | **Subterranean Mariner** | Journeyman | Goal | Navigate a boat along a subterranean river below elevation $Y < 0$ in Tectonic cavern systems | **+200 Coins** | **+75 Explorer XP** | — | No |
 | `exploration/sanctuary_ringer` | **Sanctuary Watchman** | Journeyman | Task | Ring a landmark sanctuary bell at night to scan darkness and alert the settlement | **+150 Coins** | **+60 Explorer XP** | — | No |
-| `exploration/dungeon_delver` | **Deep Dungeon Delver** | Journeyman | Goal | Infiltrate a tagged complex dungeon (`#smpmod:complex_dungeons`) or trial chamber | **+200 Coins** | **+80 Explorer XP** | **1x Recovery Catalyst** | No |
+| `exploration/dungeon_delver` | **Deep Dungeon Delver** | Journeyman | Goal | Infiltrate a recognized complex dungeon or trial chamber | **+200 Coins** | **+80 Explorer XP** | **1x Recovery Catalyst** | No |
 | `exploration/nether_convoy` | **Thermal Convoy** | Journeyman | Goal | Traverse the Nether in an active caravan ($Y < 128$) without roof glitching | **+150 Coins** | **+75 Explorer XP** | — | No |
 | `exploration/highway_caravan` | **Highway Caravan Master** | Journeyman | Goal | Lead pack animals or active caravan on recognized roads or rail corridors | **+150 Coins** | **+60 Explorer XP** | — | No |
 | `exploration/ancient_archeologist` | **Relics of the Deep** | Master | Challenge | Excavate ancient suspicious gravel/sand or unlock an ominous trial vault in ruins | **+350 Coins** | **+140 Explorer XP** | **1x Recovery Catalyst** | No |
@@ -268,13 +268,13 @@ Peak of the World               │
 ### System Integration & Reward Mechanics
 
 1. **Anti-Duplication & Lifetime Persistence:**
-   - Every advancement claim is validated against `PLAYER_MILESTONES` (`claimedMilestones` set). Once claimed, rewards cannot be duplicated or farmed.
+   - Every advancement claim is validated persistently against player milestone history. Once claimed, rewards cannot be duplicated or farmed.
 2. **Economic Liquidity Injection:**
-   - Currency is credited directly to the player's non-material bank balance via `EconomyManager.credit(player, payout, TransactionType.MILESTONE_STARTER)`.
+   - Currency is credited directly to the player's off-inventory bank balance.
 3. **Continuous Playstyle Role XP:**
    - Explorer Playstyle XP directly elevates a player's Scout capabilities, increasing sensory radar range, speed boosts in mapped biomes, and momentum glider glide efficiency.
 4. **Tangible Recovery Catalysts:**
-   - High-tier achievements award physical **Recovery Catalysts** (`smpmod:recovery_catalyst`). These rare artifacts are essential for crafting and securing item buybacks at Town Buyback Terminals, subsidizing equipment recovery after death in hostile zones.
+   - High-tier achievements award physical **Recovery Catalysts**. These rare artifacts are essential for crafting and securing item buybacks at Town Buyback Terminals, subsidizing equipment recovery after death in hostile zones.
 5. **Server-Wide Prestige Announcements:**
    - Master and Legendary accomplishments (`Master of the Winds` and `Horizon Pioneer`) broadcast gold-accented server-wide announcements to celebrate pioneer achievements across the community.
 
@@ -314,8 +314,8 @@ To provide a vast, dramatic, and exploration-worthy canvas for the SMP Mod Suite
 
 ### Alpine Mountain Pass Caravans ($Y \ge 140$)
 * **Pass Hazards:** Tectonic mountain passes feature intense blizzard hazards, freezing powder snow drifts, and cold attrition that threaten pack animals and solo travelers.
-* **Caravan Road Endurance:** When leading an organized caravan (multi-player convoy, leashed pack horses/donkeys/llamas, or camels) along recognized paved highway blocks (`BiomeMobilityManager.isStandingOnRoad`) or rail corridors through mountain passes:
-  * Travelers and mounts receive **complete freezing immunity** (`ticksFrozen = 0`).
+* **Caravan Road Endurance:** When leading an organized caravan (multi-player convoy, leashed pack horses/donkeys/llamas, or camels) along recognized paved highway blocks or rail corridors through mountain passes:
+  * Travelers and mounts receive **complete freezing immunity**.
   * Pack animals and mounts are protected against freezing damage in powder snow drifts along the paved corridor.
   * Players maintain their caravan Speed and reduced hunger exhaustion benefits, ensuring crucial overland trade routes through alpine passes remain viable year-round.
 

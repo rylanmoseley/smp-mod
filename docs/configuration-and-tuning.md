@@ -6,7 +6,7 @@ For server administrators and modpack creators, the SMP Mod Suite provides a cen
 config/smpmod-common.toml
 ```
 
-All values in this file map directly to the tuning constants defined in **Section 7 of the Technical Architecture Specification (v2.0)**. Changes can be applied live or upon server restart.
+All values in this file map directly to the core survival systems, economic thresholds, and gameplay balance variables. Changes can be applied live or upon server restart.
 
 ---
 
