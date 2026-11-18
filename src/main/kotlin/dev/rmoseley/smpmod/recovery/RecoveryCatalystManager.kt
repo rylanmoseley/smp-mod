@@ -122,6 +122,7 @@ object RecoveryCatalystManager {
 
         // Update entry deathCount
         entry.deathCount = newCount
+        BuybackLedgerManager.markDirty()
 
         // Update item component
         val itemStack = entry.itemStack
