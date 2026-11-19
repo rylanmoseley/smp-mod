@@ -36,8 +36,11 @@ Connect to your Proxmox VM console or SSH as `root`:
 # Update base system
 apt update && apt upgrade -y
 
-# Install Java 21 Temurin & operational utilities
-apt install -y curl wget git jq unzip rsync mcrcon
+# Install operational utilities
+apt install -y curl wget git jq unzip rsync
+
+# Install mcrcon binary (CLI RCON client for graceful shutdown)
+curl -sL "https://github.com/Tiiffi/mcrcon/releases/download/v0.7.2/mcrcon-0.7.2-linux-x86-64.tar.gz" | tar -xz -C /usr/local/bin mcrcon && ln -sf /usr/local/bin/mcrcon /usr/bin/mcrcon
 
 # Install Eclipse Temurin JDK 21 (if not in distro repositories)
 wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor -o /etc/apt/keyrings/adoptium.gpg
