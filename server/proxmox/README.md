@@ -37,7 +37,7 @@ Connect to your Proxmox VM console or SSH as `root`:
 apt update && apt upgrade -y
 
 # Install operational utilities
-apt install -y curl wget git jq unzip rsync gnupg
+apt install -y curl wget git jq unzip rsync gnupg sudo
 
 # Install mcrcon binary (CLI RCON client for graceful shutdown)
 curl -sL "https://github.com/Tiiffi/mcrcon/releases/download/v0.7.2/mcrcon-0.7.2-linux-x86-64.tar.gz" | tar -xz -C /usr/local/bin mcrcon && ln -sf /usr/local/bin/mcrcon /usr/bin/mcrcon
