@@ -192,7 +192,7 @@ Below is the recommended companion administration stack for Minecraft 1.21.1 Neo
 │ Block Logging & Rollbacks     │ Ledger or CoreProtect NeoForge           │
 │ Performance & Profiling       │ Spark                                    │
 │ World Pre-generation          │ Chunky                                   │
-│ Live 3D / 2D Web Map          │ BlueMap or Squaremap                     │
+│ Live 3D Web Map               │ BlueMap (with OpenPaC Claims)            │
 │ Two-Way Discord Chat Bridge   │ DiscordSRV / Simple Voice Chat           │
 └───────────────────────────────┴──────────────────────────────────────────┘
 ```
@@ -222,11 +222,9 @@ Below is the recommended companion administration stack for Minecraft 1.21.1 Neo
   ```
   Running Chunky during initial server setup ensures silky-smooth 20.0 TPS gameplay when players begin exploring.
 
-### 5. Real-Time Web Map: **BlueMap** or **Squaremap**
-- **Why:** Provides an interactive browser map where players can admire mountain ranges, road networks, and developing settlements.
-- **OPAC Claim Integration:** Automatically renders colored polygons for claimed territories, showing town names and leaders directly on the web map.
-- **BlueMap:** Best for immersive 3D viewing with dynamic lighting.
-- **Squaremap:** Best for lightweight, ultra-fast 2D leaflet viewing with minimal server overhead.
+### 5. Real-Time Web Map: **BlueMap**
+- **Why:** Provides an interactive 3D browser map where players can admire mountain ranges, road networks, and developing settlements with dynamic lighting and camera controls.
+- **OPAC Claim Integration:** Automatically renders colored polygons for claimed territories, showing town names and leaders directly on the 3D map.
 
 ### 6. Two-Way Discord Bridge: **DiscordSRV**
 - **Why:** While the SMP Mod Suite includes a native one-way webhook dispatcher for major milestones, DiscordSRV provides a continuous two-way bridge syncing in-game chat with Discord channels.
