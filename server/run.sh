@@ -4,6 +4,10 @@
 # Platform: Linux / NeoForge 1.21.1 (Java 21)
 # ==============================================================================
 
+# Ensure script executes in its own directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR" || exit 1
+
 # Memory allocation (Adjust according to available host RAM)
 INIT_RAM="4G"
 MAX_RAM="8G"
