@@ -65,8 +65,9 @@ Place the companion mod `.jar` files into the server's `mods/` directory (or syn
 10. **`Chunky-NeoForge-1.4.23.jar`** (Terrain pre-generator)
 11. **`ferritecore-7.0.3-neoforge.jar`** (Server RAM optimization)
 12. **`LuckPerms-NeoForge-5.4.140.jar`** (Permissions manager)
-13. **`squaremap-neoforge-mc1.21.1-1.3.2.jar`** (Web map engine)
-14. **YUNG's Dungeon & Structure Suite** (`YungsApi`, `YungsBetterDungeons`, `YungsBetterStrongholds`, `YungsBetterDesertTemples`, `YungsBetterNetherFortresses`)
+13. **`bluemap-5.7-neoforge.jar`** (3D live web map renderer)
+14. **`server-opac-bluemap-integration-1.2.1.jar`** (Open Parties and Claims live integration for BlueMap)
+15. **YUNG's Dungeon & Structure Suite** (`YungsApi`, `YungsBetterDungeons`, `YungsBetterStrongholds`, `YungsBetterDesertTemples`, `YungsBetterNetherFortresses`)
 
 > [!TIP]
 > **Automated Companion Mod Download:**  

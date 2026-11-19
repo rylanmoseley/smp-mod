@@ -9,6 +9,11 @@ file = "config/smpmod-common.toml"
 hash = "97cee7a76e42b17165e2e39a7689bd3d90e4952408ef002cd2453c85a9b6af84"
 
 [[files]]
+file = "mods/bluemap.pw.toml"
+hash = "f33a4720ef4f315b6d1f778039e9f7bdb8f5ef1b58a57d565c30fd1d8adee207"
+metafile = true
+
+[[files]]
 file = "mods/chunky.pw.toml"
 hash = "1d5cc2b6dcfd1fc3adba4566b1c29b57ff1175316678c1f22e63cbc3e28a5ba0"
 metafile = true
@@ -49,6 +54,11 @@ hash = "299ed58980f5c02afbaabcc52d5e573e8b8ab0c2c30fd688d6d7e86e7ac6bf6d"
 metafile = true
 
 [[files]]
+file = "mods/openpac-bluemap-refreshed.pw.toml"
+hash = "625920dea8ca3e4471cf6e2cd5b1afac984dd01fde393ec10d3fdf48e9cd8e3d"
+metafile = true
+
+[[files]]
 file = "mods/rylans-items.pw.toml"
 hash = "ca65e4eb7fe019a66bd34d5f224c837006f72dc68c3370bab5192d93aa71a42e"
 metafile = true
@@ -61,11 +71,6 @@ metafile = true
 [[files]]
 file = "mods/spark.pw.toml"
 hash = "593fa7b30ab016aa45be07bd6bef3a9f160ed0f24689850d60bf84995d69b843"
-metafile = true
-
-[[files]]
-file = "mods/squaremap.pw.toml"
-hash = "2025a366af748e77e7df6fea1d736a8bdf05dc97503eb64bf13964f7bc2136b2"
 metafile = true
 
 [[files]]
