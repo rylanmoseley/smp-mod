@@ -158,6 +158,7 @@ sync_file() {
 
 log "[Config] Syncing server configuration profiles..."
 sync_file "$REPO_DIR/server/config/smpmod-common.toml" "$SERVER_DIR/config/smpmod-common.toml"
+sync_file "$REPO_DIR/server/config/bluemap/core.conf" "$SERVER_DIR/config/bluemap/core.conf"
 sync_file "$REPO_DIR/server/server.properties" "$SERVER_DIR/server.properties"
 sync_file "$REPO_DIR/server/permissions/luckperms-smp.txt" "$SERVER_DIR/permissions/luckperms-smp.txt"
 sync_file "$REPO_DIR/server/run.sh" "$SERVER_DIR/run.sh"
@@ -167,8 +168,11 @@ if [ -f "$SERVER_DIR/run.sh" ]; then
     chmod +x "$SERVER_DIR/run.sh"
 fi
 
-# Ensure EULA is accepted
+# Ensure EULA and BlueMap downloads are accepted
 echo "eula=true" > "$SERVER_DIR/eula.txt"
+if [ -f "$SERVER_DIR/config/bluemap/core.conf" ]; then
+    sed -i 's/^accept-download: .*/accept-download: true/' "$SERVER_DIR/config/bluemap/core.conf"
+fi
 
 # ------------------------------------------------------------------------------
 # 6. Synchronize World Datapacks
