@@ -74,7 +74,7 @@ chown -R minecraft:minecraft /var/log/minecraft
 The included [sync-server.sh](file:///home/sandbox/smp-mod/server/proxmox/sync-server.sh) script is a **complete end-to-end provisioner**:
 
 1. **NeoForge 1.21.1 Engine:** Automatically checks if `unix_args.txt` and NeoForge libraries exist; if not, downloads `neoforge-21.1.234-installer.jar` and runs headless server installation.
-2. **Companion Mods:** Runs the Packwiz bootstrap engine against `pack/pack.toml` to automatically download all 18 server companion mods (Tectonic, YUNG's Suite, Curios API, Rylan's Items, OPAC claims, Simple Voice Chat, Squaremap, Spark, Chunky, FerriteCore, LuckPerms).
+2. **Companion Mods:** Runs the Packwiz bootstrap engine against `pack/pack.toml` to automatically download all 19 server companion mods (Tectonic, YUNG's Suite, Curios API, Rylan's Items, OPAC claims, Simple Voice Chat, BlueMap & OpenPaC BlueMap integration, Spark, Chunky, FerriteCore, LuckPerms).
 3. **Core Mod Binary:** Checks GitHub Releases via GitHub API and downloads the latest `smpmod-*.jar`.
 4. **Datapacks:** Synchronizes any community or custom datapacks in `server/datapacks/` into `/opt/minecraft/server/world/datapacks/`.
 5. **Configs & Permissions:** Synchronizes `smpmod-common.toml`, `server.properties`, and `luckperms-smp.txt`, accepts the EULA, and ensures scripts are executable.

@@ -6,7 +6,7 @@
 # 1. Clones/pulls the authoritative Git repository.
 # 2. Automatically installs NeoForge 1.21.1 Dedicated Server loader if missing.
 # 3. Synchronizes all companion mods (Tectonic, YUNG's Suite, Curios, Rylan's Items,
-#    OPAC, Voice Chat, Squaremap, Spark, Chunky, LuckPerms, etc.) via Packwiz bootstrap.
+#    OPAC, Voice Chat, BlueMap, Spark, Chunky, LuckPerms, etc.) via Packwiz bootstrap.
 # 4. Downloads the latest smpmod-*.jar core mod binary from GitHub Releases.
 # 5. Synchronizes server configs, properties, and datapacks.
 # 6. Restarts the service with in-game countdown alerts if changes were made.
