@@ -53,7 +53,7 @@ cp -r ./server/config/* /path/to/server/config/
 
 ### Step 4: Install Required Companion Mods
 Place the companion mod `.jar` files into the server's `mods/` directory (or synchronize them automatically via Packwiz bootstrap):
-1. **`smpmod-0.1.0-alpha.jar`** (built from this repository: `./gradlew build`)
+1. **`smpmod-0.0.1-prerelease1.jar`** (built from this repository: `./gradlew build`)
 2. **`kotlinforforge-5.13.0-all.jar`** (Kotlin for Forge runtime)
 3. **`curios-neoforge-9.5.1+1.21.1.jar`** (Curios API accessory slot framework)
 4. **`rylansitems-0.0.1-prerelease1.jar`** (Rylan's Items artifact & ability expansion)
