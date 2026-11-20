@@ -114,21 +114,25 @@ fi
 MODS_DIR="$SERVER_DIR/mods"
 mkdir -p "$MODS_DIR"
 
-if command -v curl >/dev/null 2>&1 && command -v jq >/dev/null 2>&1; then
+if command -v curl >/dev/null 2>&1; then
     log "[Mod] Checking GitHub Releases for latest smpmod jar..."
-    LATEST_RELEASE=$(curl -s "https://api.github.com/repos/${GITHUB_REPO}/releases/latest" || true)
+    # Query /releases (includes pre-releases) instead of /releases/latest (excludes pre-releases)
+    RELEASES_DATA=$(curl -sL -H "User-Agent: sync-server" "https://api.github.com/repos/${GITHUB_REPO}/releases" || true)
+    JAR_URL=$(echo "$RELEASES_DATA" | grep -o 'https://[^"]*smpmod-[^"]*\.jar' | grep -v 'sources' | head -n 1 || true)
 
-    if echo "$LATEST_RELEASE" | grep -q "browser_download_url"; then
-        JAR_URL=$(echo "$LATEST_RELEASE" | jq -r '.assets[] | select(.name | endswith(".jar") and (contains("smpmod-") and (contains("sources") | not))) | .browser_download_url' | head -n 1)
-        JAR_NAME=$(echo "$LATEST_RELEASE" | jq -r '.assets[] | select(.name | endswith(".jar") and (contains("smpmod-") and (contains("sources") | not))) | .name' | head -n 1)
-
-        if [ -n "$JAR_NAME" ] && [ -n "$JAR_URL" ] && [ ! -f "$MODS_DIR/$JAR_NAME" ]; then
+    if [ -n "$JAR_URL" ]; then
+        JAR_NAME=$(basename "$JAR_URL")
+        if [ ! -f "$MODS_DIR/$JAR_NAME" ]; then
             log "[Mod] Downloading updated core mod: $JAR_NAME..."
             find "$MODS_DIR" -name "smpmod-*.jar" -type f -delete
             curl -sL -o "$MODS_DIR/$JAR_NAME" "$JAR_URL"
-            log "[Mod] Successfully updated $JAR_NAME."
+            log "[Mod] Successfully installed $JAR_NAME."
             UPDATES_APPLIED=1
+        else
+            log "[Mod] Core mod $JAR_NAME is already up-to-date."
         fi
+    else
+        log "[Mod] Warning: Could not locate smpmod-*.jar in GitHub releases."
     fi
 fi
 
