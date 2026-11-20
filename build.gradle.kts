@@ -69,6 +69,11 @@ repositories {
         setUrl("https://cursemaven.com")
         content { includeGroup("curse.maven") }
     }
+    maven {
+        name = "Illusive Maven"
+        setUrl("https://maven.theillusivec4.top/")
+        content { includeGroup("top.theillusivec4.curios") }
+    }
 }
 
 neoForge {
@@ -133,6 +138,9 @@ dependencies {
 
     // Open Parties and Claims (OPAC) dependency
     compileOnly("xaero.pac:open-parties-and-claims-neoforge-1.21.1:0.33.0")
+
+    // Curios API dependency
+    compileOnly("top.theillusivec4.curios:curios-neoforge:9.5.0+1.21.1:api")
 }
 
 tasks.withType<ProcessResources>().configureEach {
