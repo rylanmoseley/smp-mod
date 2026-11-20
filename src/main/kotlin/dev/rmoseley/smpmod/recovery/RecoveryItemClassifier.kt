@@ -101,6 +101,9 @@ object RecoveryItemClassifier {
         // 5. Recovery / Repair catalysts
         if (RecoveryCatalystManager.isCatalyst(stack)) return true
 
+        // 6. Curio accessory items
+        if (CuriosIntegration.isCurioItem(stack)) return true
+
         return false
     }
 

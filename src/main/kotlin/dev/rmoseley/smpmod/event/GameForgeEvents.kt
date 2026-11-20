@@ -179,7 +179,20 @@ object GameForgeEvents {
         var buybackCount = 0
         var bulkStoreCount = 0
 
-        // Intercept inventory items to route between UUID Buyback and Bulk Store
+        // 1. Intercept equipped Curios items (accessories, charms, trinkets)
+        dev.rmoseley.smpmod.recovery.CuriosIntegration.processPlayerDeathCurios(
+            player,
+            onBuyback = {
+                BuybackLedgerManager.recordDeathDrop(player, it)
+                buybackCount++
+            },
+            onBulk = {
+                BulkStoreManager.deposit(it)
+                bulkStoreCount += it.count
+            }
+        )
+
+        // 2. Intercept main inventory items to route between UUID Buyback and Bulk Store
         for (i in 0 until player.inventory.containerSize) {
             val stack = player.inventory.getItem(i)
             if (stack.isEmpty) continue
@@ -205,7 +218,7 @@ object GameForgeEvents {
                 Component.literal("§6[Recovery] §eDeath Drops Secured: §b$buybackCount gear item(s) §ein Buyback Ledger, §a$bulkStoreCount §emundane stackable(s) routed to Bulk Store.")
             )
             player.sendSystemMessage(
-                Component.literal("§7Use §6/buyback list §7inside claimed settlements to safely reclaim your gear!")
+                Component.literal("§7Use §6/buyback §7inside claimed settlements to safely reclaim your gear!")
             )
         }
     }
@@ -441,6 +454,35 @@ object GameForgeEvents {
     @SubscribeEvent
     fun onLivingDrops(event: LivingDropsEvent) {
         val entity = event.entity
+
+        // 0. Player death drops: Secure into Buyback Ledger or Bulk Store
+        if (entity is ServerPlayer) {
+            val iterator = event.drops.iterator()
+            var recovered = 0
+            while (iterator.hasNext()) {
+                val itemEntity = iterator.next()
+                val stack = itemEntity.item
+                if (stack.isEmpty) continue
+
+                val destination = RecoveryItemClassifier.classify(stack)
+                when (destination) {
+                    RecoveryItemClassifier.RoutingDestination.BULK_STORE -> {
+                        BulkStoreManager.deposit(stack.copy())
+                        iterator.remove()
+                        recovered++
+                    }
+                    else -> {
+                        BuybackLedgerManager.recordDeathDrop(entity, stack.copy())
+                        iterator.remove()
+                        recovered++
+                    }
+                }
+            }
+            if (recovered > 0) {
+                dev.rmoseley.smpmod.SmpMod.LOGGER.info("Secured $recovered dropped item(s) from death of ${entity.gameProfile.name} into Buyback Ledger.")
+            }
+            return
+        }
 
         // 1. Anti-AFK: Suppress iron golem drops from automated iron farms
         if (entity is IronGolem) {

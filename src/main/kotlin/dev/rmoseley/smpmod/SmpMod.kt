@@ -54,6 +54,7 @@ class SmpMod(modContainer: ModContainer) {
 
     private fun onCommonSetup(event: FMLCommonSetupEvent) {
         dev.rmoseley.smpmod.advancements.ModAdvancements.init()
+        dev.rmoseley.smpmod.recovery.CuriosIntegration.init()
         LOGGER.info("SMP Mod Suite common setup complete.")
     }
 
