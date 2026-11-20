@@ -41,7 +41,7 @@ object RoleCalculator {
         val totalXp: Double
     ) {
         fun isSpecialist(role: Role): Boolean {
-            val threshold = SmpConfig.COMMON.specialistThresholdRatio.get()
+            val threshold = if (SmpConfig.SPEC.isLoaded) SmpConfig.COMMON.specialistThresholdRatio.get() else 0.40
             return when (role) {
                 Role.DPS -> dpsRatio >= threshold
                 Role.TANK -> tankRatio >= threshold
@@ -145,7 +145,7 @@ object RoleCalculator {
             Role.SCOUT to scoutRatio
         ).sortedByDescending { it.second }
 
-        val threshold = SmpConfig.COMMON.specialistThresholdRatio.get()
+        val threshold = if (SmpConfig.SPEC.isLoaded) SmpConfig.COMMON.specialistThresholdRatio.get() else 0.40
         val topRole = roleRatios[0]
         val secondRole = roleRatios[1]
 

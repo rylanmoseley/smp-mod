@@ -25,15 +25,13 @@ import thedarkcolour.kotlinforforge.neoforge.forge.MOD_BUS
  * emergent role derivation, and construction-driven progression.
  */
 @Mod(SmpMod.MOD_ID)
-object SmpMod {
-    const val MOD_ID: String = "smpmod"
-    val LOGGER: Logger = LogManager.getLogger(MOD_ID)
-
+class SmpMod(modContainer: ModContainer) {
     init {
         LOGGER.info("Initializing SMP Mod Suite ($MOD_ID)...")
 
-        // Register configuration
-        // In NeoForge, modContainer is accessible or registered via container
+        // Register configuration specification with NeoForge
+        modContainer.registerConfig(ModConfig.Type.COMMON, SmpConfig.SPEC)
+
         MOD_BUS.addListener(::onCommonSetup)
         MOD_BUS.addListener(::onClientSetup)
 
@@ -61,5 +59,10 @@ object SmpMod {
 
     private fun onClientSetup(event: FMLClientSetupEvent) {
         LOGGER.info("SMP Mod Suite client setup complete.")
+    }
+
+    companion object {
+        const val MOD_ID: String = "smpmod"
+        val LOGGER: Logger = LogManager.getLogger(MOD_ID)
     }
 }
