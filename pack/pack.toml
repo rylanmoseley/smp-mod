@@ -1,6 +1,6 @@
 name = "SMP Survival Suite"
 author = "Rylan Moseley"
-version = "0.0.1-prerelease3"
+version = "0.0.1-prerelease4"
 pack-format = "packwiz:1.1.0"
 
 [index]
