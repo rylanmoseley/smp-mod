@@ -227,6 +227,8 @@ object GameForgeEvents {
         RecoveryCommands.register(event.dispatcher)
         dev.rmoseley.smpmod.claims.TownCommands.register(event.dispatcher)
         dev.rmoseley.smpmod.economy.BountyCommands.register(event.dispatcher)
+        dev.rmoseley.smpmod.economy.WealthCommands.register(event.dispatcher)
+        dev.rmoseley.smpmod.roles.RoleCommands.register(event.dispatcher)
         dev.rmoseley.smpmod.server.LeaderboardCommands.register(event.dispatcher)
     }
 
