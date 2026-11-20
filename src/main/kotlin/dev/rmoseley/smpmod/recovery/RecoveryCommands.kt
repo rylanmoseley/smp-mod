@@ -20,6 +20,30 @@ object RecoveryCommands {
     fun register(dispatcher: CommandDispatcher<CommandSourceStack>) {
         // --- /buyback commands ---
         val buybackRoot = Commands.literal("buyback")
+            .executes { ctx ->
+                val player = ctx.source.player ?: run {
+                    ctx.source.sendFailure(Component.literal("Only players can open the buyback menu."))
+                    return@executes 0
+                }
+                BuybackMenu.open(player)
+                1
+            }
+            .then(Commands.literal("gui").executes { ctx ->
+                val player = ctx.source.player ?: run {
+                    ctx.source.sendFailure(Component.literal("Only players can open the buyback menu."))
+                    return@executes 0
+                }
+                BuybackMenu.open(player)
+                1
+            })
+            .then(Commands.literal("menu").executes { ctx ->
+                val player = ctx.source.player ?: run {
+                    ctx.source.sendFailure(Component.literal("Only players can open the buyback menu."))
+                    return@executes 0
+                }
+                BuybackMenu.open(player)
+                1
+            })
             .then(Commands.literal("list").executes { ctx -> listPlayerBuybacks(ctx.source) })
             .then(Commands.literal("public").executes { ctx -> listPublicBuybacks(ctx.source) })
             .then(
@@ -45,6 +69,30 @@ object RecoveryCommands {
 
         // Alias: /recovery
         val recoveryRoot = Commands.literal("recovery")
+            .executes { ctx ->
+                val player = ctx.source.player ?: run {
+                    ctx.source.sendFailure(Component.literal("Only players can open the recovery menu."))
+                    return@executes 0
+                }
+                BuybackMenu.open(player)
+                1
+            }
+            .then(Commands.literal("gui").executes { ctx ->
+                val player = ctx.source.player ?: run {
+                    ctx.source.sendFailure(Component.literal("Only players can open the recovery menu."))
+                    return@executes 0
+                }
+                BuybackMenu.open(player)
+                1
+            })
+            .then(Commands.literal("menu").executes { ctx ->
+                val player = ctx.source.player ?: run {
+                    ctx.source.sendFailure(Component.literal("Only players can open the recovery menu."))
+                    return@executes 0
+                }
+                BuybackMenu.open(player)
+                1
+            })
             .then(Commands.literal("list").executes { ctx -> listPlayerBuybacks(ctx.source) })
             .then(Commands.literal("public").executes { ctx -> listPublicBuybacks(ctx.source) })
             .then(
