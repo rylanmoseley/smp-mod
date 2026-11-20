@@ -1,12 +1,12 @@
 name = "SMP Survival Suite"
 author = "Rylan Moseley"
-version = "0.0.1-prerelease1"
+version = "0.0.1-prerelease2"
 pack-format = "packwiz:1.1.0"
 
 [index]
 file = "index.toml"
 hash-format = "sha256"
-hash = "3ac5f09e46d138d6f18a20055189660936e4ac01bc5e7a262ba5be5ae685dbd6"
+hash = "bfb74b1c954bf713ab67df4266a67a3c488e5c82eb304da3e6be78ef88c418c5"
 
 [versions]
 minecraft = "1.21.1"

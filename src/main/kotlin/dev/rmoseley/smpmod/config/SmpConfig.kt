@@ -16,6 +16,13 @@ object SmpConfig {
         SPEC = builder.build()
     }
 
+    /**
+     * Safely retrieves a configuration value, returning its default if the config spec has not yet loaded.
+     */
+    fun <T> ModConfigSpec.ConfigValue<T>.getSafe(): T {
+        return if (SPEC.isLoaded) this.get() else this.default
+    }
+
     class Common(builder: ModConfigSpec.Builder) {
         // --- 1. Economy & Commerce ---
         val starterAdvancementPayout: ModConfigSpec.IntValue
